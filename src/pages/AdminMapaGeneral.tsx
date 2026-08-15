@@ -1,3 +1,4 @@
+﻿import { AdminLiveMapSummary } from "../components/AdminLiveMapSummary";
 import { Link } from "react-router-dom";
 
 export function AdminMapaGeneral() {
@@ -81,6 +82,7 @@ export function AdminMapaGeneral() {
         </div>
       </div>
 
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6"><AdminLiveMapSummary /></div>
       {/* Main Grid: Map + Executive Control */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
@@ -293,4 +295,5 @@ export function AdminMapaGeneral() {
     </div>
   );
 }
+
 
