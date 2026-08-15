@@ -1,30 +1,39 @@
-import React, { useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSession } from "../context/SessionContext";
 
 export function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  const { signIn, isConfigured, isAuthenticated, primaryRole } = useSession();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (!isAuthenticated || !primaryRole) return;
+    const destinations: Record<string, string> = {
+      admin_general: "/admin", propietario: "/propietario/mis-propiedades",
+      arquitecto: "/arquitecto/mis-proyectos", contratista: "/contratista/obras-activas",
+      revision_tecnica: "/revision-tecnica", control_obras: "/control-obras",
+      legal: "/legal", electrica: "/electrica", hidrosanitaria: "/hidrosanitaria",
+      paisajismo: "/paisajismo", mensura: "/mensura", seguridad: "/seguridad",
+    };
+    navigate(destinations[primaryRole] ?? "/propietario/mis-propiedades", { replace: true });
+  }, [isAuthenticated, primaryRole, navigate]);
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Mock role detection based on email prefix for the prototype
-    const user = email.split('@')[0].toLowerCase().trim();
-    
-    switch (user) {
-      case 'propietario': navigate('/propietario'); break;
-      case 'arquitecto': navigate('/arquitecto'); break;
-      case 'contratista': navigate('/contratista'); break;
-      case 'legal': navigate('/legal'); break;
-      case 'arquitectura': navigate('/revision-tecnica'); break;
-      case 'obras': navigate('/control-obras'); break;
-      case 'electrica': navigate('/electrica'); break;
-      case 'hidrosanitaria': navigate('/hidrosanitaria'); break;
-      case 'paisajismo': navigate('/paisajismo'); break;
-      case 'admin': navigate('/admin'); break;
-      default: navigate('/propietario'); // Fallback to owner dashboard
+    setErrorMessage("");
+    if (!isConfigured) {
+      setErrorMessage("La conexión con Costasur todavía no está configurada en este entorno.");
+      return;
     }
+    setIsSubmitting(true);
+    const { error } = await signIn(email.trim(), password);
+    setIsSubmitting(false);
+    if (error) setErrorMessage(error.message || "No fue posible iniciar sesión.");
   };
 
   return (
@@ -75,6 +84,9 @@ export function Login() {
 
             {/* Login Form */}
             <form onSubmit={handleLogin} className="space-y-6">
+              {errorMessage && (
+                <div className="rounded-2xl border border-error/30 bg-error/10 px-4 py-3 text-sm text-error">{errorMessage}</div>
+              )}
               <div>
                 <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">
                   Usuario / Correo Electrónico
@@ -105,7 +117,7 @@ export function Login() {
 
               <button 
                 type="submit"
-                className="w-full py-4 px-6 rounded-full bg-[#003B70] text-white font-bold hover:bg-[#002B50] transition-all shadow-md mt-4 flex items-center justify-center gap-2"
+                disabled={isSubmitting} className="w-full py-4 px-6 rounded-full bg-[#003B70] text-white font-bold hover:bg-[#002B50] transition-all shadow-md mt-4 flex items-center justify-center gap-2"
               >
                 Iniciar Sesión
                 <span className="material-symbols-outlined text-[20px]">login</span>
@@ -154,3 +166,4 @@ export function Login() {
     </div>
   );
 }
+

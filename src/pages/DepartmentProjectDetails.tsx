@@ -1,9 +1,9 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 interface DepartmentProjectDetailsProps {
-  department: "Legal" | "Eléctrica" | "Hidrosanitaria" | "Paisajismo";
-  deptKey: "legal" | "electrica" | "hidrosanitaria" | "paisajismo";
+  department: "Legal" | "Eléctrica" | "Hidrosanitaria" | "Paisajismo" | "Mensura" | "Seguridad";
+  deptKey: "legal" | "electrica" | "hidrosanitaria" | "paisajismo" | "mensura" | "seguridad";
 }
 
 export function DepartmentProjectDetails({ department, deptKey }: DepartmentProjectDetailsProps) {
@@ -281,3 +281,4 @@ export function DepartmentProjectDetails({ department, deptKey }: DepartmentProj
     </div>
   );
 }
+

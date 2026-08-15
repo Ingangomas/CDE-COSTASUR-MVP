@@ -1,6 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+﻿import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
+import { RequireAuth } from "./components/RequireAuth";
 import { Login } from "./pages/Login";
+import { DocumentViewerPage } from "./pages/DocumentViewerPage";
 import { OwnerDashboard } from "./pages/OwnerDashboard";
 import { ProjectDetails } from "./pages/ProjectDetails";
 import { ArchitectPortal } from "./pages/ArchitectPortal";
@@ -25,10 +27,12 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         
+        <Route element={<RequireAuth />}>
         <Route path="/propietario" element={<Layout role="propietario" />}>
           <Route index element={<OwnerDashboard />} />
           <Route path="mis-propiedades" element={<OwnerDashboard />} />
           <Route path="mis-propiedades/:id" element={<ProjectDetails />} />
+          <Route path="mis-propiedades/:id/documentos/:documentId" element={<DocumentViewerPage />} />
         </Route>
         
         <Route path="/arquitecto" element={<Layout role="arquitecto" />}>
@@ -83,6 +87,19 @@ export default function App() {
           <Route path="proyectos/:id" element={<DepartmentProjectDetails department="Paisajismo" deptKey="paisajismo" />} />
         </Route>
 
+        <Route path="/mensura" element={<Layout role="mensura" />}>
+          <Route index element={<DashboardAnalytics role="mensura" />} />
+          <Route path="revision" element={<DepartmentDashboard department="Mensura" icon="straighten" type="revisión topográfica y deslindes" deptKey="mensura" />} />
+          <Route path="proyectos" element={<DepartmentProyectos department="Mensura" deptKey="mensura" />} />
+          <Route path="proyectos/:id" element={<DepartmentProjectDetails department="Mensura" deptKey="mensura" />} />
+        </Route>
+
+        <Route path="/seguridad" element={<Layout role="seguridad" />}>
+          <Route index element={<DashboardAnalytics role="seguridad" />} />
+          <Route path="revision" element={<DepartmentDashboard department="Seguridad y Guardianes" icon="security" type="control de accesos y seguridad de obra" deptKey="seguridad" />} />
+          <Route path="proyectos" element={<DepartmentProyectos department="Seguridad" deptKey="seguridad" />} />
+          <Route path="proyectos/:id" element={<DepartmentProjectDetails department="Seguridad" deptKey="seguridad" />} />
+        </Route>
         <Route path="/admin" element={<Layout role="admin" />}>
           <Route index element={<DashboardAnalytics role="admin" />} />
           <Route path="mapa" element={<AdminMapaGeneral />} />
@@ -90,8 +107,15 @@ export default function App() {
           <Route path="departamentos" element={<AdminDepartamentos />} />
           <Route path="proyectos/:id" element={<ControlDeObrasProjectDetails />} /> 
         </Route>
+        </Route>
       </Routes>
     </Router>
   );
 }
+
+
+
+
+
+
 

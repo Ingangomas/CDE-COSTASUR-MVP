@@ -1,143 +1,45 @@
-import { useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { formatDate, getAdminProjects } from "../lib/cde-data";
+import type { ProjectRecord } from "../lib/cde-types";
+
+const statuses = ["Todos", "En revisión", "Obra activa", "Pendiente inspección", "Finalizada"];
+const statusLabel = (value: string) => ({ en_revision: "En revisión", obra_activa: "Obra activa", pendiente_inspeccion: "Pendiente inspección", finalizada: "Finalizada", aprobado: "Aprobada", paralizada: "Paralizada", critica: "Crítica" }[value] ?? value.replaceAll("_", " "));
 
 export function AdminProyectos() {
-  const [filtroEstado, setFiltroEstado] = useState<string>("Todos");
+  const [filtroEstado, setFiltroEstado] = useState("Todos");
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("search") || "";
+  const [projects, setProjects] = useState<ProjectRecord[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const proyectos = [
-    {
-      id: "1",
-      nombre: "Villa Punta Águila #15",
-      ubicacion: "Costasur",
-      arquitecto: "Studio A",
-      fase: "Revisión Arquitectura",
-      estado: "En Revisión",
-      fechaSometimiento: "10 Ago 2026",
-      imagen: "https://lh3.googleusercontent.com/aida-public/AB6AXuDuFYMxX4l2AYjQh0ZLvhR-q67Q4XEepb3zGqd2LeDZUvs-BrveruRScUEh58i_vXNm4jcPuE3-Dmboe4NnULR_aFErYQHFa0ejDqvWtznOUrYKi1UUjKUD-IDG-qjrtUlHp9HP4Z_Kk1AdHRoyausxeQlFLcs2dS4Qht3kMfGxHOwULF4W_qN3ctDyKMuovROLMIaZHs4oR0UCRKR6RTWQF9pvKmBZOxjUJyjrWZro1fD6wfeK_4l0",
-    },
-    {
-      id: "2",
-      nombre: "Solar Los Lagos #4",
-      ubicacion: "Lote 1,200 m²",
-      arquitecto: "Arquitectura & Diseño SRL",
-      fase: "Construcción",
-      estado: "Obra Activa",
-      fechaSometimiento: "01 Ago 2026",
-      imagen: "https://lh3.googleusercontent.com/aida-public/AB6AXuAuWGOWXc1Fyh_aW0Q4Nb740Hdw1GpLBxhonddysbeyKxPeycXTWmvmgGBBR3nN52CbEMg_0hq8j-cFjfJVSaU0hXmJhBfk3lu8tvgucxqyXJmFApkr74eAstkSFtaw57G7s80H1mLE0XwuJlNDmXu_GDhDH6t-1aLgr8zQ3NmTxu8dfdaKeUz61L0RW1Tj118xIbpyGij2FURJaLz-RnHHjXZmXNPH6jCnnU16vko2M8bZHuGIzgIe",
-    },
-    {
-      id: "3",
-      nombre: "Casa de Campo #22",
-      ubicacion: "Sector Norte",
-      arquitecto: "Innovación Espacial",
-      fase: "Construcción",
-      estado: "Paralizada",
-      fechaSometimiento: "15 Jul 2026",
-      imagen: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-      id: "4",
-      nombre: "Las Palmas #10",
-      ubicacion: "Zona Costera",
-      arquitecto: "Diseños del Caribe",
-      fase: "Revisión Legal",
-      estado: "Rechazado",
-      fechaSometimiento: "10 Jul 2026",
-      imagen: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-      id: "5",
-      nombre: "Vista Mar #5",
-      ubicacion: "Marina, Lote 12",
-      arquitecto: "Estudio Litoral",
-      fase: "Entregado",
-      estado: "Finalizado",
-      fechaSometimiento: "05 Ago 2026",
-      imagen: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=800&auto=format&fit=crop",
-    }
-  ];
-
-  const proyectosFiltrados = proyectos.filter(p => {
-    const matchEstado = filtroEstado === "Todos" ? true : p.estado === filtroEstado || p.fase === filtroEstado;
-    const matchSearch = p.nombre.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                        p.arquitecto.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchEstado && matchSearch;
-  });
-
-  const filtros = ["Todos", "En Revisión", "Obra Activa", "Paralizada", "Rechazado", "Finalizado"];
+  useEffect(() => { getAdminProjects().then(setProjects).catch((reason) => setError(reason instanceof Error ? reason.message : "No fue posible cargar los proyectos.")).finally(() => setLoading(false)); }, []);
+  const filtered = useMemo(() => projects.filter((project) => {
+    const matchesSearch = !searchQuery || `${project.title} ${project.project_code}`.toLowerCase().includes(searchQuery.toLowerCase());
+    const label = statusLabel(project.operational_status);
+    return matchesSearch && (filtroEstado === "Todos" || label.toLowerCase() === filtroEstado.toLowerCase());
+  }), [filtroEstado, projects, searchQuery]);
 
   return (
-    <div className="px-4 md:px-10 py-8 md:py-12 max-w-7xl mx-auto">
-      <div className="mb-8">
-        <h2 className="text-4xl md:text-5xl font-bold text-on-surface mb-2 tracking-tight">Proyectos Globales</h2>
-        <p className="text-lg text-secondary">Supervisión administrativa de todos los proyectos en el sistema.</p>
-      </div>
-
-      {/* Filters */}
-      <div className="flex overflow-x-auto gap-3 mb-8 pb-2 custom-scrollbar">
-        {filtros.map(filtro => (
-          <button
-            key={filtro}
-            onClick={() => setFiltroEstado(filtro)}
-            className={`px-5 py-2 rounded-full font-medium text-sm transition-colors whitespace-nowrap ${
-              filtroEstado === filtro 
-                ? "bg-primary text-white shadow-md" 
-                : "bg-surface-container-low text-secondary border border-outline-variant/30 hover:bg-surface-container-highest"
-            }`}
-          >
-            {filtro}
-          </button>
-        ))}
-      </div>
-
-      {proyectosFiltrados.length === 0 ? (
-        <div className="text-center py-12 bg-surface-container-lowest rounded-3xl border border-outline-variant/30">
-          <span className="material-symbols-outlined text-[48px] text-secondary/50 mb-4">inbox</span>
-          <h3 className="text-xl font-bold text-on-surface mb-2">No hay proyectos</h3>
-          <p className="text-secondary">No se encontraron proyectos con el estado seleccionado.</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {proyectosFiltrados.map(proyecto => (
-            <Link to={`/admin/proyectos/${proyecto.id}`} key={proyecto.id} className="bg-surface-container-lowest border border-outline-variant/30 rounded-3xl overflow-hidden ambient-shadow hover:shadow-lg transition-shadow duration-300 block group">
-              <div className="relative h-48 w-full bg-surface-variant overflow-hidden">
-                <img 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                  alt={proyecto.nombre} 
-                  src={proyecto.imagen}
-                />
-                <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider backdrop-blur-md bg-opacity-90 shadow-sm ${
-                  proyecto.estado === 'Finalizado' || proyecto.estado === 'Aprobado' ? 'bg-success/90 text-white' :
-                  proyecto.estado === 'Obra Activa' ? 'bg-primary/90 text-white' :
-                  proyecto.estado === 'Paralizada' || proyecto.estado === 'Rechazado' ? 'bg-error/90 text-white' :
-                  'bg-warning/90 text-white'
-                }`}>
-                  {proyecto.estado}
-                </div>
-              </div>
-              <div className="p-6">
-                <h4 className="text-xl font-bold text-on-surface mb-1 truncate">{proyecto.nombre}</h4>
-                <p className="text-sm text-secondary mb-4 flex items-center gap-1">
-                  <span className="material-symbols-outlined text-[16px]">domain</span>
-                  Fase: <span className="font-medium text-on-surface">{proyecto.fase}</span>
-                </p>
-                
-                <div className="pt-4 border-t border-outline-variant/20 flex justify-between items-center text-sm">
-                  <div className="flex items-center gap-1 text-secondary">
-                    <span className="material-symbols-outlined text-[16px]">calendar_today</span>
-                    <span>Sometido: {proyecto.fechaSometimiento}</span>
-                  </div>
-                  <span className="text-primary font-medium hover:underline flex items-center gap-1">
-                    Ver Detalles <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      )}
+    <div className="p-4 md:p-8 lg:px-10 max-w-7xl mx-auto space-y-8">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-5"><div><p className="text-xs uppercase tracking-[0.22em] text-secondary">Administración general</p><h1 className="text-4xl md:text-5xl font-bold text-on-surface tracking-tight mt-2">Control de Obras</h1><p className="text-base text-secondary mt-3">Expedientes, estados operativos y trazabilidad de todos los proyectos autorizados.</p></div><span className="rounded-full bg-primary/10 text-primary px-4 py-2 text-sm font-semibold">{projects.length} proyectos registrados</span></div>
+      <div className="flex gap-2 overflow-x-auto pb-2">{statuses.map((status) => <button type="button" key={status} onClick={() => setFiltroEstado(status)} className={`whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${filtroEstado === status ? "bg-primary text-white" : "bg-white text-secondary border border-outline-variant/30 hover:text-primary"}`}>{status}</button>)}</div>
+      {loading && <div className="glass-panel p-10 text-center text-secondary">Cargando expedientes…</div>}
+      {error && <div className="glass-panel p-6 border border-error/30 text-error">{error}</div>}
+      {!loading && !error && !filtered.length && <div className="glass-panel p-10 text-center text-secondary">No hay proyectos que coincidan con el filtro actual.</div>}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{filtered.map((project) => <div key={project.id}><ProjectCard project={project} /></div>)}</div>
     </div>
   );
 }
+
+function ProjectCard({ project }: { project: ProjectRecord }) {
+  const label = statusLabel(project.operational_status);
+  const tone = project.operational_status === "critica" || project.operational_status === "paralizada" ? "bg-error/10 text-error" : project.operational_status === "finalizada" ? "bg-success/10 text-success" : project.operational_status === "pendiente_inspeccion" ? "bg-warning/10 text-warning" : "bg-primary/10 text-primary";
+  return <Link to={`/admin/proyectos/${project.id}`} className="group block overflow-hidden rounded-3xl bg-white border border-outline-variant/30 soft-shadow hover:border-primary/40 transition-colors"><div className="h-44 bg-surface-container-low relative overflow-hidden"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=80" alt="Obra Costasur" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /><div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" /><span className={`absolute top-4 right-4 rounded-full px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider ${tone}`}>{label}</span><span className="absolute bottom-4 left-4 rounded-lg bg-black/55 px-3 py-1 text-xs font-mono text-white">{project.project_code}</span></div><div className="p-6"><p className="text-xs uppercase tracking-[0.16em] text-secondary">{project.phase.replaceAll("_", " ")}</p><h2 className="text-xl font-bold text-on-surface mt-2 line-clamp-2">{project.title}</h2><div className="mt-5 space-y-3"><Progress label="Avance físico" value={Number(project.progress_percent)} color="bg-primary" /><Progress label="Avance financiero" value={Number(project.financial_progress_percent)} color="bg-success" /></div><div className="flex items-center justify-between mt-6 pt-4 border-t border-outline-variant/30 text-xs text-secondary"><span>Entrega: {formatDate(project.target_end_date)}</span><span className="inline-flex items-center gap-1 text-primary font-semibold">Expediente <span className="material-symbols-outlined text-base">arrow_forward</span></span></div></div></Link>;
+}
+
+function Progress({ label, value, color }: { label: string; value: number; color: string }) {
+  return <div><div className="flex justify-between text-xs mb-1.5"><span className="text-secondary">{label}</span><span className="font-semibold text-on-surface">{value.toFixed(0)}%</span></div><div className="h-1.5 rounded-full bg-surface-container-low overflow-hidden"><div className={`h-full rounded-full ${color}`} style={{ width: `${Math.min(100, Math.max(0, value))}%` }} /></div></div>;
+}
+

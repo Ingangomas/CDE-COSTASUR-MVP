@@ -1,4 +1,7 @@
-import { useState } from "react";
+﻿import { useEffect, useState } from "react";
+import { useSession } from "../context/SessionContext";
+import { getFirstProjectForUser } from "../lib/cde-data";
+import { ContractorWorkflows } from "../components/ContractorWorkflows";
 import { useSearchParams } from "react-router-dom";
 
 interface Obra {
@@ -18,6 +21,9 @@ interface Obra {
 
 export function ContractorPortal() {
   const [searchParams] = useSearchParams();
+  const { profile } = useSession();
+  const [projectId, setProjectId] = useState<string | null>(null);
+  useEffect(() => { if (!profile?.id) return; getFirstProjectForUser(profile.id).then(setProjectId).catch(() => setProjectId(null)); }, [profile?.id]);
   const searchQuery = searchParams.get("search") || "";
   const [filtroEstado, setFiltroEstado] = useState<string>("Todas");
   const [activeModal, setActiveModal] = useState<"inicio" | "inspeccion" | "bitacora" | null>(null);
@@ -123,6 +129,7 @@ export function ContractorPortal() {
 
   return (
     <div className="flex-1 overflow-y-auto p-4 md:p-10 pt-6 md:pt-8 bg-surface-container-low min-h-full">
+      {projectId && <ContractorWorkflows projectId={projectId} />}
       <div className="max-w-[1400px] mx-auto space-y-8">
         
         {/* Toast Notification */}
@@ -532,4 +539,5 @@ export function ContractorPortal() {
     </div>
   );
 }
+
 

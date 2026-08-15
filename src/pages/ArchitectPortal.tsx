@@ -1,7 +1,13 @@
-import { useState } from "react";
+﻿import { useEffect, useState } from "react";
+import { useSession } from "../context/SessionContext";
+import { getFirstProjectForUser } from "../lib/cde-data";
+import { DocumentUpload } from "../components/DocumentUpload";
 
 export function ArchitectPortal() {
   const [activeTab, setActiveTab] = useState("Anteproyecto");
+  const { profile } = useSession();
+  const [projectId, setProjectId] = useState<string | null>(null);
+  useEffect(() => { if (!profile?.id) return; getFirstProjectForUser(profile.id).then(setProjectId).catch(() => setProjectId(null)); }, [profile?.id]);
 
   return (
     <div className="flex-1 overflow-y-auto p-4 md:p-10 pt-8 bg-surface-container-low min-h-full">
@@ -31,6 +37,7 @@ export function ArchitectPortal() {
           
           {/* Left Column: Tabs & Upload */}
           <div className="lg:col-span-2 space-y-6">
+            {projectId && <DocumentUpload projectId={projectId} />}
             {/* Custom Tabs */}
             <div className="flex overflow-x-auto gap-2 p-1 bg-surface-container-low rounded-xl border border-outline-variant/20 max-w-full custom-scrollbar">
               <button 
@@ -192,3 +199,4 @@ export function ArchitectPortal() {
     </div>
   );
 }
+
