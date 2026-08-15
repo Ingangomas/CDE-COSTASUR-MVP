@@ -1,5 +1,6 @@
 ﻿import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { ReviewDecisionPanel } from "../components/ReviewDecisionPanel";
 
 interface DepartmentProjectDetailsProps {
   department: "Legal" | "Eléctrica" | "Hidrosanitaria" | "Paisajismo" | "Mensura" | "Seguridad";
@@ -157,6 +158,7 @@ export function DepartmentProjectDetails({ department, deptKey }: DepartmentProj
 
         {/* Tab Content */}
         <div className="p-8">
+          {id && <ReviewDecisionPanel projectId={id} departmentSlug={deptKey} departmentName={department} />}
           {activeTab === 'planos' && (
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 animate-in fade-in duration-300">
               {/* Document list sidebar */}
@@ -281,4 +283,6 @@ export function DepartmentProjectDetails({ department, deptKey }: DepartmentProj
     </div>
   );
 }
+
+
 

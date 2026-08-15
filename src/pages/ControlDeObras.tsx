@@ -1,3 +1,4 @@
+﻿import { ControlRequestsPanel } from "../components/ControlRequestsPanel";
 export function ControlDeObras() {
   return (
     <div className="p-4 md:p-8 lg:px-10 flex-1 max-w-[1600px] mx-auto w-full">
@@ -18,6 +19,7 @@ export function ControlDeObras() {
         </div>
       </div>
 
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6"><ControlRequestsPanel /></div>
       {/* Bento Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
@@ -150,3 +152,4 @@ export function ControlDeObras() {
     </div>
   );
 }
+
