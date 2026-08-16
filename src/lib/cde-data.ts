@@ -100,3 +100,119 @@ export async function getFirstProjectForUser(userId: string) {
   if (error) throw error;
   return data?.project_id ?? null;
 }
+
+
+export interface GovernanceDepartment {
+  id: string;
+  slug: string;
+  name: string;
+}
+
+export interface GovernanceRole {
+  id: string;
+  user_id: string;
+  role_key: string;
+  department_id?: string | null;
+  is_active: boolean;
+  granted_at?: string | null;
+  department?: GovernanceDepartment | null;
+}
+
+export interface GovernanceMembership {
+  id: string;
+  project_id: string;
+  user_id: string;
+  membership_role: string;
+  department_id?: string | null;
+  status: "pending" | "active" | "revoked";
+  created_at?: string | null;
+  project?: { id: string; project_code: string; title: string } | null;
+  department?: GovernanceDepartment | null;
+}
+
+export interface AdminGovernanceUser {
+  id: string;
+  email: string;
+  display_name: string;
+  phone?: string | null;
+  status: "pending" | "active" | "suspended";
+  is_demo: boolean;
+  created_at: string;
+  roles: GovernanceRole[];
+  memberships: GovernanceMembership[];
+}
+
+export async function getAdminGovernance(): Promise<AdminGovernanceUser[]> {
+  const client = requireSupabase();
+  const [{ data: profiles, error: profilesError }, { data: roles, error: rolesError }, { data: memberships, error: membershipsError }] = await Promise.all([
+    client.from("profiles").select("id,email,display_name,phone,status,is_demo,created_at").order("created_at", { ascending: false }),
+    client.from("user_roles").select("id,user_id,role_key,department_id,is_active,granted_at,departments(id,slug,name)").order("granted_at", { ascending: false }),
+    client.from("project_members").select("id,project_id,user_id,membership_role,department_id,status,created_at,projects(id,project_code,title),departments(id,slug,name)").order("created_at", { ascending: false }),
+  ]);
+  if (profilesError) throw profilesError;
+  if (rolesError) throw rolesError;
+  if (membershipsError) throw membershipsError;
+  const roleRows = (roles ?? []) as unknown as Array<GovernanceRole & { departments?: GovernanceDepartment | GovernanceDepartment[] | null }>;
+  const membershipRows = (memberships ?? []) as unknown as Array<GovernanceMembership & { projects?: GovernanceMembership["project"] | Array<NonNullable<GovernanceMembership["project"]>>; departments?: GovernanceDepartment | GovernanceDepartment[] | null }>;
+  return ((profiles ?? []) as Array<Omit<AdminGovernanceUser, "roles" | "memberships">>).map((profile) => ({
+    ...profile,
+    roles: roleRows.filter((role) => role.user_id === profile.id).map(({ departments, ...role }) => ({ ...role, department: Array.isArray(departments) ? departments[0] ?? null : departments ?? null })),
+    memberships: membershipRows.filter((membership) => membership.user_id === profile.id).map(({ projects, departments, ...membership }) => ({ ...membership, project: Array.isArray(projects) ? projects[0] ?? null : projects ?? null, department: Array.isArray(departments) ? departments[0] ?? null : departments ?? null })),
+  }));
+}
+
+export async function updateProfileStatus(userId: string, status: AdminGovernanceUser["status"]) {
+  const client = requireSupabase();
+  const { error } = await client.from("profiles").update({ status }).eq("id", userId);
+  if (error) throw error;
+}
+
+export async function addUserRole(input: { userId: string; roleKey: string; departmentId?: string | null; grantedBy: string }) {
+  const client = requireSupabase();
+  const { error } = await client.from("user_roles").insert({ user_id: input.userId, role_key: input.roleKey, department_id: input.departmentId || null, granted_by: input.grantedBy, is_active: true });
+  if (error) throw error;
+}
+
+export async function activateUserRole(roleId: string) {
+  const client = requireSupabase();
+  const { error } = await client.from("user_roles").update({ is_active: true }).eq("id", roleId);
+  if (error) throw error;
+}
+
+export async function deactivateUserRole(roleId: string) {
+  const client = requireSupabase();
+  const { error } = await client.from("user_roles").update({ is_active: false }).eq("id", roleId);
+  if (error) throw error;
+}
+
+export async function updateMembershipStatus(input: { membershipId: string; status: GovernanceMembership["status"]; approvedBy?: string }) {
+  const client = requireSupabase();
+  const payload: Record<string, unknown> = { status: input.status };
+  if (input.status === "active" && input.approvedBy) payload.approved_by = input.approvedBy;
+  const { error } = await client.from("project_members").update(payload).eq("id", input.membershipId);
+  if (error) throw error;
+}
+
+export interface NotificationRecord {
+  id: string;
+  user_id: string;
+  project_id?: string | null;
+  notification_type: string;
+  title: string;
+  body: string;
+  read_at?: string | null;
+  created_at: string;
+}
+
+export async function getUserNotifications(userId: string) {
+  const client = requireSupabase();
+  const { data, error } = await client.from("notifications").select("id,user_id,project_id,notification_type,title,body,read_at,created_at").eq("user_id", userId).order("created_at", { ascending: false }).limit(20);
+  if (error) throw error;
+  return (data ?? []) as NotificationRecord[];
+}
+
+export async function markNotificationRead(notificationId: string) {
+  const client = requireSupabase();
+  const { error } = await client.from("notifications").update({ read_at: new Date().toISOString() }).eq("id", notificationId);
+  if (error) throw error;
+}

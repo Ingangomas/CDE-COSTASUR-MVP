@@ -1,4 +1,4 @@
-﻿import { Navigate, useLocation } from "react-router-dom";
+﻿import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useSession } from "../context/SessionContext";
 import type { RoleKey } from "../lib/cde-types";
 
@@ -46,7 +46,7 @@ export function RequireAuth() {
     );
   }
 
-  return null;
+    return <Outlet />;
 }
 
 export function ProtectedOutlet() {

@@ -1,4 +1,6 @@
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { AdminLiveMetrics } from '../components/AdminLiveMetrics';
+import { AdminLiveOperations } from '../components/AdminLiveOperations';
 
 const COLORS = ['#003B70', '#4CAF50', '#FFC107', '#F44336'];
 
@@ -131,6 +133,13 @@ export function DashboardAnalytics({ role }: { role: string }) {
           <h2 className="text-4xl md:text-5xl font-bold text-on-surface mb-2 tracking-tight">{title}</h2>
           <p className="text-lg text-secondary">{description}</p>
         </div>
+
+        {role === 'admin' && (
+          <div className="space-y-8">
+            <AdminLiveMetrics />
+            <AdminLiveOperations />
+          </div>
+        )}
 
         {/* Charts Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

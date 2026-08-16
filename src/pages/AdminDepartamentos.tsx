@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AdminGovernancePanel } from "../components/AdminGovernancePanel";
 
 export function AdminDepartamentos() {
   const [activeDept, setActiveDept] = useState("arquitectura");
@@ -80,6 +81,8 @@ export function AdminDepartamentos() {
               <p className="text-3xl font-bold text-error mt-1">{departamentos.find(d => d.id === activeDept)?.alertas}</p>
             </div>
           </div>
+
+          <AdminGovernancePanel />
 
           {/* Current Queue */}
           <h4 className="font-bold text-on-surface mb-4">Cola de Trabajo (Prioridad Alta)</h4>

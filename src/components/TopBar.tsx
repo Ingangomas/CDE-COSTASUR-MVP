@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
+import { NotificationCenter } from "./NotificationCenter";
 
 export function TopBar({ role, onToggleMobileMenu }: { role: string; onToggleMobileMenu?: () => void }) {
   const location = useLocation();
@@ -95,10 +96,7 @@ export function TopBar({ role, onToggleMobileMenu }: { role: string; onToggleMob
             Usuario: <span className="font-medium text-primary">{displayRole}</span>
           </div>
 
-          <button className="hover:bg-primary-container/10 p-2 rounded-full transition-colors text-primary relative">
-            <span className="material-symbols-outlined text-[20px]">notifications</span>
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
-          </button>
+          <NotificationCenter />
 
           <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-surface-variant overflow-hidden border border-outline-variant/30 flex items-center justify-center text-secondary shrink-0">
             {img ? (

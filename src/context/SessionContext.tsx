@@ -37,13 +37,22 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   const refreshProfile = async () => {
-    if (!supabase || !session?.user) { setProfile(null); setRoles([]); return; }
-    const [{ data: profileData }, { data: roleData }] = await Promise.all([
-      supabase.from("profiles").select("*").eq("id", session.user.id).maybeSingle(),
-      supabase.from("user_roles").select("*").eq("user_id", session.user.id).eq("is_active", true),
-    ]);
-    setProfile((profileData as Profile | null) ?? null);
-    setRoles((roleData as UserRole[] | null) ?? []);
+    if (!supabase || !session?.user) {
+      setProfile(null);
+      setRoles([]);
+      setLoading(false);
+      return;
+    }
+    try {
+      const [{ data: profileData }, { data: roleData }] = await Promise.all([
+        supabase.from("profiles").select("*").eq("id", session.user.id).maybeSingle(),
+        supabase.from("user_roles").select("*").eq("user_id", session.user.id).eq("is_active", true),
+      ]);
+      setProfile((profileData as Profile | null) ?? null);
+      setRoles((roleData as UserRole[] | null) ?? []);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -52,18 +61,27 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     void supabase.auth.getSession().then(({ data }) => {
       if (!active) return;
       setSession(data.session);
-      setLoading(false);
+      if (!data.session) setLoading(false);
     });
     const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
       if (!active) return;
       setSession(nextSession);
-      setLoading(false);
+      if (!nextSession) {
+        setProfile(null);
+        setRoles([]);
+        setLoading(false);
+      }
     });
     return () => { active = false; listener.subscription.unsubscribe(); };
   }, []);
 
   useEffect(() => {
-    if (!session) { setProfile(null); setRoles([]); return; }
+    if (!session) {
+      setProfile(null);
+      setRoles([]);
+      return;
+    }
+    setLoading(true);
     void refreshProfile();
   }, [session?.user.id]);
 
