@@ -1,4 +1,4 @@
-﻿create policy contractor_requests_control_update
+create policy contractor_requests_control_update
 on public.contractor_requests
 for update
 to authenticated
