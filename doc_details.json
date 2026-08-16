@@ -1,0 +1,3350 @@
+[
+  {
+    "index": 0,
+    "style": "Normal",
+    "full_text": "Casa de Campo: Casa de Campo es un Complejo Turístico de lujo, tipo Residencial & Resort, que cuenta con mas de 2,500 villas de lujo y mas de 315 habitaciones de hotel el complejo, el complejo cuenta con campos de golf su principal atractivo, centros de tiro, centro ecuestre y polo, clases de equitación, Playa Minitas, La Marina, Tenis & Pickleball, Spa, Restaurantes & un Anfiteatro en Altos de Chavon, entre muchas otras.\n",
+    "runs": [
+      {
+        "text": "Casa de Campo",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ": ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Casa de Campo es un Complejo Turístico de lujo, tipo Residencial & Resort, que cuenta con ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "mas",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " de 2,500 villas de lujo y ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "mas",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " de 315 habitaciones de hotel el complejo, el complejo cuenta con campos de golf su principa",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "l",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " atractivo, centros de tiro, centro ecuestre y polo, clases de equitación, Playa Minitas, La Marina, Tenis & ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Pickleball",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", Spa, Restaurantes & un Anfiteatro en Altos de Chavon, entre muchas otras.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\n",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "style": "Normal",
+    "full_text": "Costasur Dominicana: es la compañía que se encarga de la planificación, desarrollo y administración de toda la infraestructura y servicios públicos dentro de los 28 kilómetros cuadrados de Casa de Campo. Es prácticamente el ayuntamiento o gobierno local del complejo y tiene varios departamentos como el de ingeniería, seguridad, energía y agua, vías y áreas verdes, etc.\nCasa de Campo se ha consolidado a través de los años como el complejo turístico de lujo más importante no solo de Republica Dominicana sino del Caribe, por ofrecer los más hermosos paisajes, una cartera variada de actividades, una seguridad de alto grado, un alto nivel de plusvalía, un confort único y una confiabilidad envidiable. Todo esto se ve reflejado a través de los años con el aumento de las inversiones y clientes, compra de propiedades para uso de vivienda personal o alquiler, renovaciones constantes, aumento de visitantes al resort, visitas, recomendaciones, etc., el retorno sobre la inversión en casa de campo es considerado uno de los más altos en el sector inmobiliario en todo el caribe.\nEl departamento de ingeniería contine varios sub-departamentos: Dept. Control de obras, Dept. Arquitectura, Dept. Ing. Electrica, Dept., Ing. Hidrosanitaria, Dept. Legal, Dept. Mensura, Guardianes, etc. ",
+    "runs": [
+      {
+        "text": "Costasur",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " Dominicana",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ":",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " es la compañía que se encarga de la planificación, desarrollo y administración de toda la infraestructura y servicios públicos dentro de los 28 kilómetros cuadrados de Casa de Campo.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " Es prácticamente el ayuntamiento o gobierno local del complejo",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " y tiene varios departamentos como el de ingeniería, seguridad, energía y agua, vías y áreas verdes, etc.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\nCasa de Campo se ha consolidado a través de los años como el complejo turístico de lujo más importante no solo de Republica Dominicana sino del Caribe, por ofrecer los más hermosos paisajes, una cartera variada de actividades, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "una seguridad de alto grado, un alto nivel de plusvalía, un confort único y una confiabilidad",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " envidiable",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". Todo esto se ve reflejado a través de los años con el aumento de las inversiones y clientes, compra de propiedades para ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "uso de vivienda personal",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " o alquiler, renovaciones constantes, aumento de visitantes al resort, visitas, recomendaciones, etc., el retorno sobre la inversión en casa de campo es considerado uno de los ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "más",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " altos en el sector inmobiliario en todo el caribe.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\nEl departamento de ingeniería contine varios ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "sub-departamentos",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ": ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Dept",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". Control de obras, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Dept",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". Arquitectura, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Dept",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". Ing. ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Electrica",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Dept",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "., Ing. Hidrosanitaria, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Dept",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". Legal, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Dept",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". Mensura,",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " Guardianes, etc.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "style": "Normal",
+    "full_text": "La problemática: Todo este magnífico desarrollo sostenido y en aumento a través de los años, ha creado una problemática para el departamento de ingeniera costasur, las obras cada año van en aumento, el control y manejo de información de las obras de construcción, remodelaciones y renovaciones se ha vuelto insostenible, el flujo de trabajo actual parte de la siguiente manera:\nCuando un cliente quiere iniciar una construcción o remodelación envía una carta o comunicación al departamento de Arquitectura apoderando a su arquitecto a someter el diseño del proyecto ante costasur, sin embargo esta carta es enviada al departamento legal para verificar si la persona que envió es la persona registrada como propietario principal de la villa en su base de datos, luego regresa la información al departamento de arquitectura indicando si es la persona apta o no para autorizar a un tercero a someter planos en la propiedad, este cruce de información puede tomar días y a veces semanas, pero no termina ahí, luego el departamento de arquitectura revisa los planos del anteproyecto y hace sus comentarios y correcciones y los envía nueva ves por correo al arquitecto que está sometiendo y/o al cliente, para que el arquitecto corrija los planos con los cambios y luego los reenvié nuevamente al departamento de arquitectura para que estos lo incluyan en una lista de espera para la reunión del directorio, todo esto entendiendo que el directorio se reúne una vez al mes y los planos deben estar sometidos al menos 1 semana antes de la reunión del directorio para ser considerados en la fecha de reunión para su posterior aprobación o rechazo para nuevos cambios cosa que sucede con bastante frecuencia y si aunque esto suene como un trabalenguas este es el flujo del trabajo actual para un anteproyecto de construcción en costasur. El workflow se rompe no porque los profesionales no estén haciendo su trabajo sino porque existe mucha información dispersa siendo manejada por muchas partes en diferentes procesos lo que genera un cuello de botella y retrasa el avance. ",
+    "runs": [
+      {
+        "text": "La ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "problemática: ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Todo este ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "magnífico",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " desarrollo",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " sostenido y en aumento ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "a través",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " de los años,",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ha creado una problemática para el departamento de ingeniera ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ",",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " las obras cada año van en aumento,",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " el control y manejo de información de las obras de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "construcción",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", remodelaciones y renovaciones se ha vuelto insostenible, el flujo de trabajo actual parte de la siguiente manera",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ":",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\nCuando un cliente quiere iniciar una construcción o remodelación envía un",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "a carta",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "o comunicación ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "al departamento de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Arquitectura apoderando a su arquitecto a someter el diseño del proyecto ante ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "sin embargo esta carta es enviada al departamento legal para verificar si la persona que envió es la persona registrada como propietario principal de la villa en su base de datos, luego regresa la información al departamento de arquitectura indicando si es la persona apta o no para autorizar a un tercero a someter planos",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " en la propiedad",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", este cruce de información puede tomar días y ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "a veces",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " semanas, pero no termina ahí, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "luego el departamento de arquitectura revisa los planos del anteproyecto y hace sus comentarios y correcciones y los envía nueva ves por correo al arquitecto que está sometiendo y/o al cliente",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "para que el arquitecto corrija los planos con ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "los cambios y luego los reenvié nuevamente al departamento de arquitectura para que estos lo incluyan en una lista de espera para la reunión del directorio, todo esto entendiendo que el directorio se reúne una vez al mes y los planos deben estar sometidos al menos 1 semana antes de la reunión del directorio para ser considerados en la fecha de reunión para su posterior aprobación o rechazo para nuevos cambios cosa que sucede con bastante frecuencia y si aunque esto suene como un trabalenguas este es el flujo del trabajo actual para un anteproyecto de construcción en ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". El ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "workflow",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " se rompe no porque los profesionales no estén haciendo su trabajo sino ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "por",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "que existe mucha información dispersa siendo manejada por muchas partes en diferentes procesos lo que ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "genera un cuello de botella y retrasa el avance. ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "style": "Normal",
+    "full_text": "Pero el flujo no termina aquí, luego que un anteproyecto es aprobado o rechazado regresa al arquitecto y propietario si es rechazado debe volverá hacer cambios para aprobación y si es aprobado entonces se envía por correo los planos firmados y sellados junto con la carta de aprobación al arquitecto, entonces inicia lo que denominamos la fase 2, esta en poder del propietario y o arquitecto someter los siguientes planos, planos estructurales, planos sanitarios, planos eléctricos, paisajismo y jardinería, etc. todo esto por correo para la aprobación definitiva y luego que este proceso termina entonces el propietario puede iniciar con el proceso de inicio de obra. El formulario de inicio de obra es un formulario que tiene costasur que debe ser sometido por la Constructora, el Ingeniero o el Contratista y debe contener las informaciones tanto del propietario como del contratista y la firma de ambos dicho proceso nueva ves se envía por correo ahora al departamento de control de obras para ser revisado ellos remiten dicho formulario por correo al departamento legal por fines de seguridad verificar que la persona que somete sea el propietario inscrito en su base de datos y regresa nueva ves al departamento de control de obras quien entonces revisa que el departamento de arquitectura haya aprobado los diseños arquitectónicos y que los departamentos de electricidad e hidrosanitaria hayan revisado los planos correspondientes para poder organizar una reunión de inicio de obra para luego poder emitir la licencia de aprobación del proyecto. Todo este proceso puede tardar semanas y a veces hasta meses por la misma problemática, es un workflow frágil información dispersa y reprocesos.\nLuego de una obra estar activa entonces el contratista debe solicitar por correo visitas topográficas siempre con una semana o 10 de antelación antes de realizar cualquier vaciado de hormigón. Los del departamento de control de obas deben siempre realizar visitas periódicas en búsqueda de que los contratistas cumplan con lo establecido en los planos aprobados, enviar fotos y reportes, generar incidencias, suspender obras, cargar fotos de drones programar visitas todo esto en diferentes lugares informacion dispersa, perdida aveces y reprocesos, flujos débiles, incomprensiones, incumplimiento de políticas, de frágil seguimiento.\n",
+    "runs": [
+      {
+        "text": "Pero el flujo no termina aquí, luego que un anteproyecto es aprobado o rechazado regresa al arquitecto y propietario si es rechazado debe volverá hacer cambios para aprobación y si es aprobado",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " entonces se envía por correo los planos firmados y sellados junto con la carta de aprobación al arquitecto,",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " entonces inicia lo que denominamos la fase 2, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "esta",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " en poder del propietario y o arquitecto someter los siguientes planos, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "plan",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "o",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "s e",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "structurales, planos sanitarios, planos eléctricos, paisajismo y ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "jardinería",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ",",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " etc.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "todo esto por correo ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "para la aprobación definitiva",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " y luego que este proceso termina entonces el propietario puede iniciar con el proceso de inicio de obra. El formulario de inicio de obra es un formulario que tiene ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " que debe ser sometido por la Constructora, el Ingeniero o el Contratista y debe contener las informaciones tanto del propietario como del contratista y la firma de ambos dicho proceso nueva ves se ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "envía",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " por correo ahora al departamento de control de obras para ser revisado ellos remiten dicho formulario por correo al departamento legal por fines de seguridad verificar que la persona que somete sea el propietario inscrito en su base de datos y regresa nueva ves al departamento de control de obras quien entonces revisa que el departamento de arquitectura haya aprobado los diseños arquitectónicos y que los departamentos de electricidad e hidrosanitaria hayan revisado los planos correspondientes para poder organizar una reunión de inicio de obra para luego poder emitir la licencia de aprobación del proyecto. Todo este proceso puede tardar semanas y ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "a veces",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " hasta meses por la misma problemática",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ",",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " es un ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "workflow",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " frágil información dispersa y reprocesos.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\nLuego de una obra ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "estar ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "activa ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "entonces el contratista debe solicitar por correo visitas topográficas siempre con una semana o 10 de antelación antes de realizar cualquier vaciado de hormigón",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". Los del departamento de control de obas deben siempre realizar visitas periódicas en búsqueda de que los contratistas cumplan con lo establecido en los planos aprobados, enviar fotos y reportes, generar incidencias, suspender obras, cargar fotos de drones programar visitas todo esto en diferentes lugares ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "informacion",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " dispersa, perdida ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "aveces",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " y reprocesos, flujos débiles, incomprensiones, incumplimiento de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "políticas, de frágil seguimiento.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\n",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 4,
+    "style": "Normal",
+    "full_text": "Nuestra solución propuesta:\nPara dicha problemática en Dominican AI Studio hemos preparado un plan basado en las normas y practicas establecidas en la ISO19650 y Building Smart, que son las entidades que se encargan de regular los flujos de trabajo BIM Building information Modeling, que se trata de descomponer los flujos de trabajo en información del modelo de construcción, establecen el CDE (Common Data Environment o Entorno común de Datos) como obligatorio para compartir información entre las diferentes disciplinas y stakeholders, lo que garantiza seguridad en la información, evita errores y reprocesos y garantiza interoperabilidad entre las partes, facilitando el flujo de la informacion evitando cuellos de botella y disminuyendo el tiempo de emisión de licencias y el seguimiento a las obras activas. Un CDE hecho a la medida de costasur.",
+    "runs": [
+      {
+        "text": "Nuestra solución propuesta:",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\nPara dicha problemática en ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Dominican",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " AI Studio hemos preparado un plan basado en las normas y practicas establecidas en la ISO19650 y ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Building",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " Smart, que son las entidades que se encargan de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "regular los flujos de trabajo BIM ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Building",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "information",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Modeling",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", que se trata de descomponer los flujos de trabajo en información del modelo de construcción, establecen el CDE (Common Data ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Environment",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " o Entorno común de Datos) como obligatorio para compartir información entre las diferentes disciplinas y ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "stakeholders",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", lo que garantiza seguridad en la información, evita errores y reprocesos y garantiza interoperabilidad entre las partes, facilitando el flujo de la ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "informacion",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " evitando cuellos de botella y disminuyendo el tiempo de emisión de licencias y el seguimiento a las obras activas. Un CDE hecho a la medida de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ".",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 5,
+    "style": "Normal",
+    "full_text": "Nuestra solución basada en las normas de un CDE propone convertir el proceso actual en un flujo digital único, trazable y controlado, donde cada proyecto funcione como un contenedor de información independiente. Siguiendo la lógica de ISO 19650, la información avanzará por estados definidos: trabajo en progreso para la carga y revisión inicial, compartido para coordinación entre departamentos, publicado para documentos aprobados y archivo para conservar el historial completo. Este enfoque, alineado con los principios de BuildingSMART, permite que propietarios, arquitectos, contratistas y departamentos internos trabajen sobre una misma fuente de verdad, con roles, permisos, revisiones, versiones y aprobaciones claramente definidos, reduciendo correos dispersos, reprocesos, confusiones y tiempos muertos en la emisión de licencias y seguimiento de obras.",
+    "runs": [
+      {
+        "text": "Nuestra solución basada en las normas de un CDE propone convertir el proceso actual en un flujo digital único, trazable y controlado, donde cada proyecto funcione como un contenedor de información independiente. Siguiendo la lógica de ISO 19650, la información avanzará por estados definidos: trabajo en progreso para la carga y revisión inicial, compartido para coordinación entre departamentos, publicado para documentos aprobados y archivo para conservar el historial completo. Este enfoque, alineado con los principios de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "BuildingSMART",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", permite que propietarios, arquitectos, contratistas y departamentos internos trabajen sobre ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "una",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " misma fuente de verdad, con roles, permisos, revisiones, versiones y aprobaciones claramente definidos, reduciendo correos dispersos, reprocesos, confusiones y tiempos muertos en la emisión de licencias y seguimiento de obras.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 6,
+    "style": "Normal",
+    "full_text": "Flujo completo propuesto del CDE para Costasur: El proceso debe iniciar desde el perfil del propietario, quien selecciona su terreno, villa, vivienda o propiedad y autoriza formalmente al arquitecto a someter un anteproyecto. Esta autorización sustituye el intercambio inicial de correos y crea el primer registro digital del proyecto, vinculando propietario, inmueble, arquitecto responsable, tipo de intervención y documentación legal inicial. Desde ese momento, el proyecto queda abierto dentro del CDE como un expediente independiente, con su propio historial, estatus, documentos, revisiones y responsables.",
+    "runs": [
+      {
+        "text": "Flujo completo propuesto del CDE para ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ":",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " El proceso debe iniciar desde el perfil del propietario, quien selecciona su terreno, villa, vivienda o propiedad y autoriza formalmente al arquitecto a someter un anteproyecto. Esta autorización sustituye el intercambio inicial de correos y crea el primer registro digital del proyecto, vinculando propietario, inmueble, arquitecto responsable, tipo de intervención y documentación legal inicial. Desde ese momento, el proyecto queda abierto dentro del CDE como un expediente independiente, con su propio historial, estatus, documentos, revisiones y responsables.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 7,
+    "style": "Normal",
+    "full_text": "En la fase de anteproyecto, el arquitecto carga los documentos requeridos en pestañas separadas dentro de la aplicación, tales como curvas de nivel, linderos, planta de ubicación, plantas dimensionadas, plantas arquitectónicas, elevaciones, secciones, renders, imágenes y memoria descriptiva del proyecto. Esta información inicia en estado de trabajo en progreso, visible para el arquitecto, Una vez sometida, pasa al estado compartido para revisión del Departamento de Arquitectura, que podrá visualizar, comentar, marcar planos, solicitar correcciones, aprobar o rechazar el paquete de información sin romper la trazabilidad del proceso.",
+    "runs": [
+      {
+        "text": "En la fase de anteproyecto, el arquitecto carga los documentos requeridos en pestañas separadas dentro de la aplicación, tales como curvas de nivel, linderos, planta de ubicación, plantas dimensionadas, plantas arquitectónicas, elevaciones, secciones, renders, imágenes y memoria descriptiva del proyecto. Esta información inicia en estado ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "de trabajo en progreso, visible para el arquitecto",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ",",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Una vez sometida, pasa al estado compartido para revisión del Departamento de Arquitectura, que podrá visualizar, comentar, marcar planos, solicitar correcciones, aprobar o rechazar el paquete de información sin romper la trazabilidad del proceso.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 8,
+    "style": "Normal",
+    "full_text": "Cuando el anteproyecto sea aprobado por Arquitectura o por el Directorio, el paquete pasa al estado publicado dentro del CDE. A partir de ahí se habilita la fase de proyecto ejecutivo, donde el arquitecto o profesional responsable somete los planos técnicos y arquitectónicos homologados con los planos estructurales y con la memoria estructural, eléctricos, hidrosanitarios, paisajismo y cualquier otra disciplina requerida. Cada departamento recibe únicamente la información que le corresponde revisar, con permisos específicos para comentar, marcar, solicitar correcciones o aprobar. Si un plano es rechazado, vuelve al estado de trabajo en progreso para ser corregido; si es aprobado, pasa a publicado como versión válida para uso interno y posterior inicio de obra.",
+    "runs": [
+      {
+        "text": "Cuando el anteproyecto sea aprobado por Arquitectura o por el Directorio, el paquete pasa al estado publicado dentro del CDE. A partir de ahí se habilita la fase de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "proyecto ejecutivo",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", donde el arquitecto o profesional responsable somete los planos ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "técnicos y arquitectónicos homologados con los planos estructurales y con la memoria ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "estructural, eléctricos, hidrosanitarios, paisajismo y cualquier otra disciplina requerida. Cada departamento recibe únicamente la información que le corresponde revisar, con permisos específicos para comentar, marcar, solicitar correcciones o aprobar. Si un plano es rechazado, vuelve al estado de trabajo en progreso para ser corregido; si es aprobado, pasa a publicado como versión válida para uso interno y posterior inicio de obra.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 9,
+    "style": "Normal",
+    "full_text": "Una vez aprobados el proyecto ejecutivo que contiene los planos arquitectónicos, estructurales y técnicos, el contratista, constructor, ingeniero o responsable de ejecución podrá someter el formulario de inicio de obra desde su perfil. El CDE enviará automáticamente el expediente al Departamento de Control de Obras quienes validaran el formulario y cotejaran con el departamento legal y de arquitectura para validar los datos del propietario y del proyecto, revisando que todas las aprobaciones previas estén completas. Si el expediente cumple, Control de Obras podrá autorizar al usuario a tener acceso a su portal de contratista especifico para cada proyecto ‘’Recordando siempre que cada proyecto es un ente individual y que cada contratista registrado puede tener 1 o varios proyectos siempre que cuente con los permisos necesarios para ello’’ el departamento de control de obras luego de todo este proceso puede programar la reunión de inicio y emitir la licencia o autorización de obra correspondiente. Nota: Si en este proceso de solicitud del contratista falta información, el sistema conservará el expediente en revisión y notificará al usuario responsable exactamente qué debe corregir o completar.",
+    "runs": [
+      {
+        "text": "Una vez aprobados",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " el proyecto ejecutivo que contiene",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " los planos arquitectónicos",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", estructurales",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " y técnicos, el contratista, constructor, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "ingeniero o responsable de ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "ejecución podrá",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " someter el formulario de inicio de obra desde su perfil. ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "El CDE enviará automáticamente el expediente al Departamento ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "de Control de Obras quienes validaran el formulario y cotejaran con el departamento legal y de arquitectura",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " para validar",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " los datos del",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " propietario",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " y del proyecto",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ",",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " revisando que todas",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " las aprobaciones previas estén completas. Si el expediente cumple, Control de Obras podrá",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " autorizar al usuario a tener acceso a su portal de contratista especifico para cada proyecto ‘’Recordando siempre que cada proyecto es un ente individual y que cada contratista registrado puede tener 1 o varios proyectos siempre que cuente con los permisos ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "necesarios",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " para ello’’ el departamento de control de obras luego de todo este proceso puede",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " programar la reunión de inicio y emitir la licencia o autorización de obra correspondiente. ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Nota: ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Si",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " en este proceso de solicitud del contratista",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " falta información, el sistema conservará el expediente en revisión y notificará al usuario responsable exactamente qué debe corregir o completar.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 10,
+    "style": "Normal",
+    "full_text": "Durante la fase de obra activa, el CDE funcionará como centro de control operativo. El contratista podrá solicitar visitas topográficas, notificar vaciados de hormigón, solicitar inspecciones y consultar los planos sellados y aprobados desde el visualizador. Control de Obras podrá programar visitas a las obras con el contratista, hacer solicitudes especificas al contratista, subir fotografías, generar reportes, registrar incidencias, suspensiones, observaciones, fotos de visitas de drones y solicitar a otros departamentos como Seguridad, Electricidad, Hidrosanitaria, Paisajismo o Mensura. Cada acción quedará registrada con fecha, usuario responsable, estado y evidencia asociada, evitando pérdidas de información y permitiendo conocer en todo momento qué ocurrió, quién intervino y cuál es el próximo paso.",
+    "runs": [
+      {
+        "text": "Durante la ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "fase de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "obra activa, el CDE funcionará como centro de control operativo. El contratista podrá solicitar visitas topográficas, notificar vaciados de hormigón, solicitar inspecciones y consultar los planos sellados y aprobados desde el visualizador. Control de Obras podrá programar visitas",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " a las obras con el contratista",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ",",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " hacer solicitudes especificas al contratista,",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " subir fotografías, generar reportes, registrar incidencias, suspensiones, observaciones, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "fotos de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "visitas de drone",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "s",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " y solicit",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "ar",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " a otros departamentos como Seguridad, Electricidad, Hidrosanitaria, Paisajismo o Mensura. Cada acción quedará registrada con fecha, usuario responsable, estado y evidencia asociada, evitando pérdidas ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "de información y permitiendo conocer en todo momento qué ocurrió, quién intervino y cuál es el próximo paso.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 11,
+    "style": "Normal",
+    "full_text": "Al finalizar una obra, el expediente del proyecto debe pasar al estado de archivo, conservando la versión final de los planos aprobados, licencias, reportes, incidencias, fotografías, aprobaciones, comunicaciones y cualquier documento asociado al proceso. Este archivo no debe eliminarse ni mezclarse con otros proyectos del mismo propietario, ya que servirá como historial técnico, legal y operativo de la villa, vivienda, terreno o propiedad. De esta forma, futuras remodelaciones, ampliaciones, compras de áreas anexas o verificaciones internas podrán iniciar desde información confiable, ordenada y validada, cumpliendo con el principio del CDE como fuente única de verdad para Costasur.",
+    "runs": [
+      {
+        "text": "Al finalizar una obra, el expediente del proyecto debe pasar al estado de archivo, conservando la versión final de los planos aprobados, licencias, reportes, incidencias, fotografías, aprobaciones, comunicaciones y cualquier documento asociado al proceso. Este archivo no debe eliminarse ni mezclarse con otros proyectos del mismo propietario, ya que servirá como historial técnico, legal y operativo de la villa, vivienda, terreno o propiedad. De esta forma, futuras remodelaciones, ampliaciones, compras de áreas anexas o verificaciones internas podrán iniciar desde información confiable, ordenada y validada, cumpliendo con el principio del CDE como fuente única de verdad para ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ".",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 12,
+    "style": "Normal",
+    "full_text": "Resumen del flujo completo del CDE: El CDE debe organizar el proceso completo desde la intención inicial del propietario hasta el cierre y archivo de la obra. El flujo inicia cuando el propietario selecciona su terreno, villa, vivienda o propiedad y autoriza al arquitecto a someter el anteproyecto. Luego el arquitecto carga los documentos iniciales, Arquitectura revisa y comenta, el Directorio aprueba o rechaza, los planos arquitectónicos que forman parte del anteproyecto y luego de que este es aprobado entonces se cargan los planos estructurales y técnicos son distribuidos a los departamentos correspondientes y, una vez aprobados, el contratista puede someter el inicio de obra, claro esta luego de haber sometido el formulario de inicio de obra el cual debe contener datos del propietario y el contratista. A partir de ese momento, Control de Obras gestiona la licencia, las visitas, incidencias, reportes, fotografías, solicitudes técnicas y seguimiento hasta el cierre del expediente. Cada proyecto debe mantenerse como un expediente independiente, evitando mezclar información entre propiedades, terrenos o procesos distintos.",
+    "runs": [
+      {
+        "text": "Resumen del flujo completo del CDE:",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " El CDE debe organizar el proceso completo desde la intención inicial del propietario hasta el cierre y archivo de la obra. El flujo inicia cuando el propietario selecciona su terreno, villa, vivienda o propiedad y autoriza al arquitecto a someter el anteproyecto. Luego el arquitecto carga los documentos iniciales, Arquitectura revisa y comenta, el Directorio aprueba o rechaza, los planos",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " arquitectónicos que forman parte del anteproyecto y luego de que este es aprobado entonces se cargan los planos",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "estructurales y ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "técnicos son distribuidos a los departamentos correspondientes y, una vez aprobados, el contratista ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "puede ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "somete",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "r",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " el inicio de obra",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", claro ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "esta",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " luego de haber sometido el formulario de inicio de obra el cual debe contener datos del propietario y el contratista",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". A partir de ese momento, Control de Obras gestiona la licencia, las visitas, incidencias, reportes, fotografías, solicitudes técnicas y seguimiento hasta el cierre del expediente. Cada proyecto debe mantenerse como un expediente independiente, evitando mezclar información entre propiedades, terrenos o procesos distintos.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 13,
+    "style": "Normal",
+    "full_text": "Ejemplos de roles y permisos dentro del CDE: El propietario debe tener una vista limitada, simple y orientada al seguimiento general de su propiedad. Desde su perfil podrá ver sus terrenos, villas o viviendas, autorizar arquitectos, consultar documentos aprobados, visualizar planos disponibles y conocer estados generales del proceso, tales como en revisión, aprobado, en proceso, obra autorizada, obra activa, ejecutado o archivado.  \nEl arquitecto debe poder cargar anteproyectos, planos técnicos y documentos requeridos, además de visualizar los planos aprobados, pero sin modificar revisiones internas de Costasur. \nEl contratista debe poder someter el formulario de inicio de obra, consultar planos sellados, solicitar visitas, notificar vaciados y dar seguimiento a solicitudes operativas de obra, pero sin alterar aprobaciones previas ni acceder a decisiones internas que no le correspondan. \nLos departamentos internos deben tener permisos según su función: Arquitectura puede revisar, comentar, marcar, aprobar o rechazar planos arquitectónicos; Electricidad revisa únicamente planos eléctricos; Hidrosanitaria revisa planos hidrosanitarios; Paisajismo revisa planos de jardinería y paisajismo; Legal valida propietarios, autorizaciones, contratos y áreas anexas; Control de Obras administra el inicio, seguimiento, inspección, incidencias y cierre de obra.",
+    "runs": [
+      {
+        "text": "Ejemplos de roles y permisos dentro del CDE:",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "El propietario debe ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "tener una vista limitada, simple y orientada al seguimiento general de su propiedad. Desde su perfil podrá",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ver sus terrenos, villas o viviendas, autorizar arquitectos, consultar ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "documentos aprobados, visualizar planos disponibles y conocer estados generales del proceso, tales como en revisión, aprobado, en proceso, obra autorizada, obra activa, ejecutado o archivado. ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\n",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "El arquitecto debe poder cargar anteproyectos, planos técnicos y documentos requeridos, además de visualizar los planos aprobados, pero sin modificar revisiones internas de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\n",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "El contratista debe poder someter el formulario de inicio de obra, consultar planos sellados, solicitar visitas, notificar vaciados y dar seguimiento a ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "solicitudes operativas de obra, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "pero sin alterar aprobaciones previas",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ni acceder a decisiones internas que no le ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "correspondan.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\n",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Los departamentos internos deben tener permisos según su función: Arquitectura puede revisar, comentar, marcar, aprobar o rechazar planos arquitectónicos; Electricidad revisa únicamente planos eléctricos; Hidrosanitaria revisa planos hidrosanitarios; Paisajismo revisa planos de jardinería y paisajismo; Legal valida propietarios, autorizaciones, contratos y áreas anexas; Control de Obras administra el inicio, seguimiento, inspección, incidencias y cierre de obra.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 14,
+    "style": "Normal",
+    "full_text": "Control de la trazabilidad: La trazabilidad se controla registrando cada acción dentro del CDE con fecha, usuario responsable, rol, estado del expediente, documento afectado, versión, comentario, aprobación, rechazo o solicitud de corrección. Cada plano o documento debe conservar su historial de versiones para saber cuál fue cargado, cuál fue revisado, cuál fue corregido, cuál fue aprobado y cuál es la versión vigente. El sistema debe permitir consultar el recorrido completo de un proyecto desde su creación hasta el archivo final, mostrando quién autorizó, quién revisó, qué departamento intervino, qué observaciones se hicieron, qué documentos cambiaron y en qué momento. De esta manera, Costasur puede reducir pérdidas de información, eliminar ambigüedades, auditar decisiones internas y garantizar que todos los usuarios trabajen sobre información confiable, validada y centralizada.",
+    "runs": [
+      {
+        "text": "Control de la trazabilidad:",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " La trazabilidad se controla registrando cada acción dentro del CDE con fecha, usuario responsable, rol, estado del expediente, documento afectado, versión, comentario, aprobación, rechazo o solicitud de corrección. Cada plano o documento debe conservar su historial de versiones para saber cuál fue cargado, cuál fue revisado, cuál fue corregido, cuál fue aprobado y cuál es la versión vigente. El sistema debe permitir consultar el recorrido completo de un proyecto desde su creación hasta el archivo final, mostrando quién autorizó, quién revisó, qué departamento intervino, qué observaciones se hicieron, qué documentos cambiaron y en qué momento. De esta manera, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " puede reducir pérdidas de información, eliminar ambigüedades, auditar decisiones internas y garantizar que todos los usuarios trabajen sobre información confiable, validada y centralizada.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 15,
+    "style": "Normal",
+    "full_text": "Definición de cada usuario y su rol dentro del CDE:\nCliente: Propietario de un terreno, villa o vivienda en Casa de Campo. Su rol dentro del CDE es el de usuario propietario o cliente. Puede autorizar a un arquitecto a someter un proceso de construcción o remodelación dentro de su propiedad, consultar sus terrenos, villas o viviendas asociadas y ver el estatus general de cada proyecto, por ejemplo: en revisión por el Departamento Legal, en revisión por el Departamento de Diseño, anteproyecto aprobado, en espera de revisión de planos técnicos, planos técnicos aprobados, formulario de inicio de obra en revisión, obra aprobada para inicio, obra activa, ejecutado o archivado. También puede visualizar documentos y planos aprobados desde la aplicación, utilizando el visualizador web de PDF o la Api de Autodesk Viewer para planos en Cad, Solo el Viewer, sin permisos de edición, mas si podrá Medir, colocar comentarios, marcas, notas , recuadros y nubes, en base a los limites permitidos por la api gratuita del autodesk viewer. Puede ser útil que el propietario pueda solicitar información sobre compra de área anexa al Departamento Legal a través de la app. Nota: un propietario puede tener varias villas, solares, viviendas o propiedades en Casa de Campo; aunque aparezcan bajo el mismo perfil, cada una debe manejarse como un expediente independiente dentro del CDE. Nota: el propietario no debe ver reportes de incidencias, reuniones entre contratistas y Control de Obras, observaciones internas, correcciones del Departamento de Arquitectura, comentarios entre departamentos, reportes de inspección, fotografías internas, suspensiones operativas ni problemáticas administrativas. Su vista debe limitarse a documentos aprobados, planos disponibles y estados generales del proceso para evitar confusiones, mantener la información sensible bajo control interno y ofrecer una experiencia simple, clara y ordenada.",
+    "runs": [
+      {
+        "text": "Definición de cada usuario y su rol dentro del CDE:",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\nCliente: ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Propietario de un terreno, villa o vivienda en Casa de Campo. Su rol dentro del CDE es el de usuario propietario o cliente. Puede autorizar a un arquitecto a someter un proceso de construcción o remodelación dentro de su propiedad, consultar sus terrenos, villas o viviendas asociadas y ver el estatus general de cada proyecto, por ejemplo: en revisión por el Departamento Legal, en revisión por el Departamento de Diseño, anteproyecto aprobado, en espera de revisión de planos técnicos, planos técnicos aprobados, formulario de inicio de obra en revisión, obra aprobada para inicio, obra activa, ejecutado o archivado. También puede visualizar documentos y planos aprobados desde la aplicación, utilizando el visualizador web de PDF o ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "la Api de Autodesk ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Viewer",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " para planos en ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Cad",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", Solo el ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Viewer",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", sin permisos de edición, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "mas",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " si podrá Medir, colocar ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "comentarios, marcas",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", notas , recuadros y nubes",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", en base a los ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "limites",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " permitidos por la api gratuita del ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "autodesk",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "viewer",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". Puede ser útil que el propietario pueda solicitar información sobre compra de área anexa al Departamento Legal a través de la app. ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Nota:",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " un propietario puede tener varias villas, solares, viviendas o propiedades en Casa de Campo; aunque aparezcan bajo el mismo perfil, cada una debe manejarse como un expediente independiente dentro del CDE. ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Nota:",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " el propietario no debe ver reportes de incidencias, reuniones entre contratistas y Control de Obras, observaciones internas, correcciones del Departamento de Arquitectura, comentarios entre departamentos, reportes de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "inspección, fotografías internas, suspensiones operativas ni problemáticas administrativas. Su vista debe limitarse a documentos aprobados, planos disponibles y estados generales del proceso para evitar confusiones, mantener la información sensible bajo control interno y ofrecer una experiencia simple, clara y ordenada.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 16,
+    "style": "Normal",
+    "full_text": "",
+    "runs": []
+  },
+  {
+    "index": 17,
+    "style": "Normal",
+    "full_text": "Arquitecto o Tramitador del Proyecto: Es la persona que diseño los planos de la Construcción nueva o remodelación. (Rol: Usuario - Arquitecto o Tramitador del proyecto) (Nota: un arquitecto puede someter múltiples proyectos simultáneos, aunque le aparezcan en el mismo perfil, deben ser tratados como proyectos independientes no se liga una cosa con otra)\nPosibilidades dentro de la App: someter planos de anteproyecto y planos técnicos, para construcción de villas nuevas desde la fase de anteproyecto hasta su aprobación final, posibilidad para someter planos para remodelaciones, etc. tiene acceso al visualizador luego de un proceso iniciado mas no edición ni comentarios.",
+    "runs": [
+      {
+        "text": "Arquitecto",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " o Tramitador del Proyecto",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ":",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Es la persona que diseño los planos de la Construcción nueva o remodelación. ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "(Rol: Usuario",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " -",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Arquitecto o ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Tramitador",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " del proyecto",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ")",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " (",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Nota:",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "un ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "arquitecto puede someter múltiples proyectos simultáneos, aunque le aparezcan en el mismo perfil, deben ser tratados como proyectos independientes no se liga una cosa con otra)",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\nPosibilidades dentro de la App: someter planos ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "de anteproyecto y planos técnicos, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "para construcción de villas nuevas desde la fase de anteproyecto hasta su aprobación final, posibilidad para someter ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "planos para remodelaciones",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", etc. tiene acceso al visualizador luego de un proceso iniciado mas no edición ni comentarios.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 18,
+    "style": "Normal",
+    "full_text": "Contratista: Es el encargado de la ejecución de la obra, Puede ser una compañía constructora, un Ingeniero Civil o un Arquitecto. (Rol: Usuario-Contratista) (Nota: un arquitecto puede someter múltiples proyectos simultáneos, aunque le aparezcan en el mismo perfil, deben ser tratados como proyectos independientes no se liga una cosa con otra)\nPosibilidades dentro de la App: Someter formulario de inicio de obra, luego que una obra esta activa, deben aparecerle los planos sellados y firmados que fueron aprobados previamente en dicha obra en su visualizador web, tiene acceso al visualizador mas no edición ni comentarios, debe tener desde su perfil en cada proyecto un botón de solicitud visita topográfica para verificación de niveles, notificar vaciados de hormigón, solicitar visitas de control de obras, Solicitar departamentos eléctrico, Hidraulico, Paisajismo,etc.",
+    "runs": [
+      {
+        "text": "C",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "ontratista",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ":",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Es el encargado de la ejecución de la obra",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", Puede ser una compañía constructora, un Ingeniero Civil o un Arquitecto. (Rol: Usuario-Contratista)",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " (",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Nota:",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " un arquitecto puede someter múltiples proyectos simultáneos, aunque le aparezcan en el mismo perfil, deben ser tratados como proyectos independientes no se liga una cosa con otra)",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\nPosibilidades dentro de la App: ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Someter formulario de inicio de obra, luego",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " que una obra esta activa",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ",",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " d",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "eben aparecerle los planos sellados y firmados que fueron aprobados previamente en dicha obra en su visualizador web, tiene acceso al visualizador mas no edición ni comentarios",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", debe tener desde su perfil en cada proyecto un botón de solicitud visita topográfica para verificación de niveles, notificar vaciados de hormigón, solicitar visitas de control de obras, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Solicitar departamentos eléctrico, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Hidraulico",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Paisajismo,",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "etc",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ".",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 19,
+    "style": "Normal",
+    "full_text": "",
+    "runs": []
+  },
+  {
+    "index": 20,
+    "style": "Normal",
+    "full_text": "\nRoles y usuarios departamentales de costasur:\nDepartamento de diseño: Es el departamento encargado de recibir los planos desde la fase del anteproyecto hasta su aprobación este departamento, este como todos los departamentos tiene varios usuarios (Sub.:adm.: Arq. Senior1*, Arq. Senior 2, Arq. Junior1, Arq. Junior2, etc.) posibilidades dentro de la app: Pueden ver todo el histórico de todos las villas y proyectos sometidos, pueden ver todos los planos tanto arquitectónicos como tecnicos, ven desde la fase1 cuando el propietario o el arquitecto envían la carta inicial, reciben los planos inicialmente, pueden ver los planos desde la app y hacer comentarios y colocar nubes o recuadros en ellos, algo que permite la api de autodesk, son los encargados de firmar y sellar los planos de cada proyecto, este es su limite de edición. \nDepartamento de Control de obras: Es el departamento encargado de regir las obras desde su solicitud de inicio hasta su finalización. Son los encargados de recibir formularios de solicitud de inicio de obra, al recibir una solicitud de inicio le aparece en su portal el formulario junto con el proceso que ya fue aprobado por el departamento de arquitectura. usuarios (Sub-adm.: Ing. Senior1*, Ing. Senior 2, Ing. Junior1, Ing. Junior2, etc.) posibilidades dentro de la app: Tienen acceso a visualizar los planos sellados tanto arquitectónicos como técnicos, la carta de aprobación y el historial del proyecto. Tienen acceso a ver el historial de cada proyecto a voluntad igual que los arquitectos, tienen que aprobar los formularios de inicio de obra, tienen acceso a crear o reportar incidencias, subir fotos de sus visitas a obra, enviar reportes, solicitar brigadas topográficas, enviar departamento de seguridad, Solicitar departamentos eléctrico, Hidráulico, Paisajismo, etc.",
+    "runs": [
+      {
+        "text": "\n",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Roles y usuarios departamentales de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ":",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\n",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Departamento de diseño",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ":",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Es el departamento encargado de recibir los planos desde la fase del anteproyecto hasta su aprobación ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "este departamento, este como todos los departamentos tiene varios usuarios (",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Sub.:",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "adm",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ".: ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Arq. Senior1",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "*",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", Arq. Senior 2, Arq. Junior1, Arq. Junior2, etc.) posibilidades dentro de la app: Pueden ver todo el histórico de todos las villas y proyectos sometidos,",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " pueden ver todos los planos tanto arquitectónicos como ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "tecnicos",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ",",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ven desde la fase1 cuando el propietario o el arquitecto envían la carta inicial, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "reciben los planos inicialmente, pueden ver los planos desde la app y hacer comentarios y colocar nubes o recuadros en ellos, algo que permite la api de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "autodesk",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "son los encargados de firmar y sellar los planos de cada proyecto, este es su ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "limite",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " de edición",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ".",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\n",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Departamento de Control de obras",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ":",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Es el departamento encargado de regir las obras desde su solicitud de inicio hasta su finalización. Son los encargados de recibir formularios de solicitud de inicio de obra, al recibir una solicitud de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "inicio",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "le aparece en su portal el formulario junto con el proceso que ya fue aprobado por el departamento de arquitectura",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ".",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " usuarios (",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Sub-adm",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ".: Ing",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". Senior1",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "*",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Ing",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". Senior 2, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Ing",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". Junior1, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Ing",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". Junior2, etc.) posibilidades dentro de la app:",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " Tienen acceso a visualizar los planos sellados tanto arquitectónicos como técnicos, la carta de aprobación y el historial del proyecto. Tienen acceso a ver el historial de cada proyecto a voluntad igual que los arquitectos",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", tienen que aprobar los formularios de inicio de obra, tienen acceso a crear o reportar incidencias, subir fotos de sus visitas a obra, enviar reportes, solicitar brigadas topográficas, enviar departamento de seguridad, Solicitar departamentos eléctrico, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Hidráulico",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", Paisajismo, etc.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 21,
+    "style": "Normal",
+    "full_text": "Departamento Electricidad: Es el departamento encargado de revisar los planos eléctricos. (Rol: Ing. Electrico1 -2 etc.) tiene acceso a visualizar los planos en sentido general, solo puede hacer comentarios y nubes en los denominados planos eléctricos para indicar revisiones y o aprobaciones.",
+    "runs": [
+      {
+        "text": "Departamento ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Electricidad",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ":",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Es el departamento encargado de re",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "visar los planos eléctricos. (Rol: Ing. Electrico1 -2 etc.) tiene acceso a visualizar los planos en sentido general, solo puede hacer comentarios y nubes en los denominados planos eléctricos para indicar revisiones y o aprobaciones.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 22,
+    "style": "Normal",
+    "full_text": "Departamento Hidrosanitaria: Es el departamento encargado de revisar los planos Hidrosanitarios. (Rol: Ing. Hidraulico1 -2 etc.) tiene acceso a visualizar los planos en sentido general, solo puede hacer comentarios y nubes en los denominados planos hidrosanitarios para indicar revisiones y o aprobaciones.",
+    "runs": [
+      {
+        "text": "Departamento Hidrosanitaria",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ":",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Es el departamento encargado de revisar los planos Hidrosanitarios. (Rol: Ing. Hidraulico1 -2 etc.) tiene acceso a visualizar los planos en sentido general, solo puede hacer comentarios y nubes en los denominados planos ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "hidrosanitarios",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " para indicar revisiones y o aprobaciones.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 23,
+    "style": "Normal",
+    "full_text": "Departamento Paisajismo: Es el departamento encargado de revisar los planos Paisajismo y Jardinería. (Rol: Paisajista 1 -2 etc.) tiene acceso a visualizar los planos en sentido general, solo puede hacer comentarios y nubes en los denominados planos de Paisajismo para indicar revisiones y o aprobaciones.",
+    "runs": [
+      {
+        "text": "Departamento Paisajismo",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ":",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Es el departamento encargado de revisar los planos Paisajismo y Jardinería. (Rol: ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Paisajista ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "1 -2 etc.) tiene acceso a visualizar los planos en sentido general, solo puede hacer comentarios y nubes en los denominados planos ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "de Paisajismo",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " para indicar revisiones y o aprobaciones.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 24,
+    "style": "Normal",
+    "full_text": "Departamento Legal: Es el departamento encargado de revisar los documentos como cartas de solicitud de someter un proyecto y formularios de inicio de obra para revisar los datos de propietarios y contratistas y arquitectos, también encargados de revisar áreas de terrenos, transferencias, contratos, etc. en caso de que se solicite compra de área anexa, etc.",
+    "runs": [
+      {
+        "text": "Departamento Legal",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ":",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Es el departamento encargado de revisar los documentos como cartas de solicitud de someter un proyecto y formularios de inicio de obra para revisar los datos de propietarios y contratistas y arquitectos, también encargados de revisar áreas de terrenos, transferencias, contratos, etc. ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "en caso de que se solicite compra de área anexa, etc.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 25,
+    "style": "Normal",
+    "full_text": "ADMINISTRADOR GENERAL: Es el administrador general del Departamento de Ingeniería. Tiene acceso transversal a todos los proyectos, expedientes, departamentos, usuarios, documentos, revisiones, aprobaciones, incidencias, reportes, dashboards e históricos dentro del CDE. Este usuario representa el nivel máximo de autoridad interna del sistema y puede supervisar el funcionamiento completo de Arquitectura, Control de Obras, Electricidad, Hidrosanitaria, Paisajismo, Legal, Mensura, Seguridad y cualquier otro departamento relacionado con los proyectos arquitectónicos y obras activas. Su función principal es garantizar que el flujo completo se mantenga ordenado, trazable, auditado y alineado con las políticas de Costasur. Además, posee la firma definitiva de aprobación de proyectos arquitectónicos, por lo que ninguna aprobación final debe considerarse completamente cerrada sin su validación cuando el proceso así lo requiera. Puede revisar, validar, aprobar, rechazar, devolver procesos para corrección, consultar reportes internos, auditar decisiones departamentales y acceder al historial completo de cada propiedad, terreno, villa, vivienda, proyecto u obra. Aunque tiene acceso ilimitado, sus acciones deben quedar registradas con fecha, usuario, rol, comentario, documento afectado y estado del expediente, para conservar la trazabilidad y responsabilidad institucional dentro del CDE.",
+    "runs": [
+      {
+        "text": "ADMINISTRADOR GENERAL: ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Es el administrador general del Departamento de Ingeniería. Tiene acceso transversal a todos los proyectos, expedientes, departamentos, usuarios, documentos, revisiones, aprobaciones, incidencias, reportes, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "dashboards",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " e históricos ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "dentro del CDE. Este usuario representa el nivel máximo de autoridad interna del sistema y puede supervisar el funcionamiento completo de Arquitectura, Control de Obras, Electricidad, Hidrosanitaria, Paisajismo, Legal, Mensura, Seguridad y cualquier otro departamento relacionado con los proyectos arquitectónicos y obras activas. Su función principal es garantizar que el flujo completo se mantenga ordenado, trazable, auditado y alineado con las políticas de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". Además, posee la firma definitiva de aprobación de proyectos arquitectónicos, por lo que ninguna aprobación final debe considerarse completamente cerrada sin su validación cuando el proceso así lo requiera. Puede revisar, validar, aprobar, rechazar, devolver procesos para corrección, consultar reportes internos, auditar decisiones departamentales y acceder al historial completo de cada propiedad, terreno, villa, vivienda, proyecto u obra. Aunque tiene acceso ilimitado, sus acciones deben quedar registradas con fecha, usuario, rol, comentario, documento afectado y estado del expediente, para conservar la trazabilidad y responsabilidad institucional dentro del CDE.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 26,
+    "style": "Normal",
+    "full_text": "Otras definiciones:\nTerreno: Denominado también solar o lote, es la unidad física de propiedad dentro de Casa de Campo sobre la cual puede existir una villa, vivienda, construcción nueva, remodelación o proyecto futuro. Dentro del CDE, cada terreno debe funcionar como un contenedor independiente de información, vinculado a su propietario, matrícula o identificación interna, área, linderos, historial legal, planos, permisos, aprobaciones, solicitudes de áreas anexas y cualquier proyecto asociado. Aunque un mismo propietario tenga varios terrenos, villas o solares, cada uno debe manejarse de forma separada para garantizar trazabilidad, control documental, claridad legal y seguimiento correcto de los procesos de diseño, aprobación, inicio y control de obra.",
+    "runs": [
+      {
+        "text": "O",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "tras definicione",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "s:",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\n",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Terreno: ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Denominado también solar o lote, es la unidad física de propiedad dentro de Casa de Campo sobre la cual puede existir una villa, vivienda, construcción nueva, remodelación o proyecto futuro. Dentro del CDE, cada terreno debe funcionar como un contenedor independiente de información, vinculado a su propietario, matrícula o identificación interna, área, linderos, historial legal, planos, permisos, aprobaciones, solicitudes de áreas anexas y cualquier proyecto asociado. Aunque un mismo propietario tenga varios terrenos, villas o solares, cada uno debe manejarse de forma separada para garantizar trazabilidad, control documental, claridad legal y seguimiento correcto de los procesos de diseño, aprobación, inicio y control de obra.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 27,
+    "style": "Normal",
+    "full_text": "Villa: Denominada también vivienda o propiedad construida, es el activo físico edificado dentro de un terreno o solar en Casa de Campo. Una villa puede corresponder a una construcción existente, una remodelación, una ampliación, una renovación o una obra nueva ya aprobada y ejecutada. Dentro del CDE, cada villa debe estar vinculada a su terreno correspondiente, propietario, historial de planos aprobados, permisos, licencias, intervenciones anteriores, reportes de inspección, incidencias, solicitudes de remodelación, fotografías, visitas técnicas y documentos legales asociados. Aunque una misma persona pueda tener varias villas o terrenos en su perfil, cada villa debe manejarse como una unidad independiente de información y seguimiento, permitiendo conocer con claridad qué se ha aprobado, qué se ha construido, qué está en revisión y qué procesos se encuentran activos o archivados.",
+    "runs": [
+      {
+        "text": "Villa: ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Denominada también vivienda o propiedad construida, es el activo físico edificado dentro de un terreno o solar en Casa de Campo. Una villa puede corresponder a una construcción existente, una remodelación, una ampliación, una renovación o una obra nueva ya aprobada y ejecutada. Dentro del CDE, cada villa debe estar vinculada a su terreno correspondiente, propietario, historial de planos aprobados, permisos, licencias, intervenciones anteriores, reportes de inspección, incidencias, solicitudes de remodelación, fotografías, visitas técnicas y documentos legales asociados. Aunque una misma persona pueda tener varias villas o terrenos en su perfil, cada villa debe manejarse como una unidad independiente de información y seguimiento, permitiendo conocer con claridad qué se ha aprobado, qué se ha construido, qué está en revisión y qué procesos se encuentran activos o archivados.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 28,
+    "style": "Normal",
+    "full_text": "Propiedad: Término general utilizado dentro del contexto de Casa de Campo para referirse a una villa, vivienda o activo inmobiliario asociado a un propietario. Aunque en el uso cotidiano puede emplearse como sinónimo de villa o vivienda, dentro del CDE debe entenderse como una referencia amplia que puede relacionarse con el terreno, la construcción existente, los permisos, el historial legal, los planos aprobados y los procesos activos o archivados de un propietario. Este término ayuda a simplificar la comunicación con clientes y usuarios externos, pero internamente debe mantenerse la separación entre terreno, villa, vivienda y proyecto para garantizar trazabilidad, control documental y claridad operativa.",
+    "runs": [
+      {
+        "text": "Propiedad: ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Término general utilizado dentro del contexto de Casa de Campo para referirse a una villa, vivienda o activo inmobiliario asociado a un propietario. Aunque en el uso cotidiano puede emplearse como sinónimo de villa o vivienda, dentro del CDE debe entenderse como una referencia amplia que puede relacionarse con el terreno, la construcción existente, los permisos, el historial legal, los planos aprobados y los procesos activos o archivados de un propietario. Este término ayuda a simplificar la comunicación con clientes y usuarios externos, pero internamente debe mantenerse la separación entre terreno, villa, vivienda y proyecto para garantizar trazabilidad, control documental y claridad operativa.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 29,
+    "style": "Normal",
+    "full_text": "Vivienda: Término utilizado para referirse a la edificación destinada al uso habitacional dentro de un terreno o solar en Casa de Campo. En este contexto, vivienda puede entenderse como sinónimo práctico de villa o propiedad construida, especialmente cuando se habla con propietarios, arquitectos, contratistas o usuarios externos. Dentro del CDE, la vivienda debe estar vinculada a su terreno, propietario, planos, permisos, licencias, remodelaciones, inspecciones, incidencias y documentos asociados. Aunque el término pueda usarse de forma equivalente a villa, se recomienda conservarlo como una categoría descriptiva para facilitar la comprensión del usuario y mantener una estructura clara de información dentro del sistema.",
+    "runs": [
+      {
+        "text": "Vivienda: ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Término utilizado para referirse a la edificación destinada al uso habitacional dentro de un terreno o solar en Casa de Campo. En este contexto, vivienda puede entenderse como sinónimo práctico de villa o propiedad construida, especialmente cuando se habla con propietarios, arquitectos, contratistas o usuarios externos. Dentro del CDE, la vivienda debe estar vinculada a su terreno, propietario, planos, permisos, licencias, remodelaciones, inspecciones, incidencias y documentos asociados. Aunque el término pueda usarse de forma equivalente a villa, se recomienda conservarlo como una categoría descriptiva para facilitar la comprensión del usuario y mantener una estructura clara de información dentro del sistema.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 30,
+    "style": "Normal",
+    "full_text": "Expediente del proyecto: Es el contenedor digital principal dentro del CDE. Cada expediente agrupa toda la información relacionada con un proceso específico de construcción, remodelación, ampliación, renovación, compra de área anexa o intervención sobre una propiedad. Debe incluir propietario, terreno, villa o vivienda asociada, arquitecto responsable, contratista, documentos legales, planos, aprobaciones, versiones, comentarios, incidencias, licencias, reportes, fotografías, solicitudes y estados del proceso. El expediente nunca debe mezclarse con otros proyectos del mismo propietario, ya que representa la unidad central de trazabilidad, control documental y seguimiento operativo.",
+    "runs": [
+      {
+        "text": "Expediente del proyecto: ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Es el contenedor digital principal dentro del CDE. Cada expediente agrupa toda la información relacionada con un proceso específico de construcción, remodelación, ampliación, renovación, compra de área anexa o intervención sobre una propiedad. Debe incluir propietario, terreno, villa o vivienda asociada, arquitecto responsable, contratista, documentos legales, planos, aprobaciones, versiones, comentarios, incidencias, licencias, reportes, fotografías, solicitudes y estados del proceso. El expediente nunca debe mezclarse con otros proyectos del mismo propietario, ya que representa la unidad central de trazabilidad, control documental y seguimiento operativo.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 31,
+    "style": "Normal",
+    "full_text": "Proyecto: Es cualquier intención formal de construir, remodelar, ampliar, renovar, modificar o intervenir una villa, vivienda, terreno o propiedad dentro de Casa de Campo. Un proyecto inicia cuando el propietario autoriza a un arquitecto o profesional responsable a someter información ante Costasur y queda registrado dentro del CDE como un expediente independiente. Un proyecto puede encontrarse en diferentes fases, tales como anteproyecto, revisión técnica, aprobación, inicio de obra, obra activa, cierre o archivo histórico.",
+    "runs": [
+      {
+        "text": "Proyecto: ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Es cualquier intención formal de construir, remodelar, ampliar, renovar, modificar o intervenir una villa, vivienda, terreno o propiedad dentro de Casa de Campo. Un proyecto inicia cuando el propietario autoriza a un arquitecto o profesional responsable a someter información ante ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " y queda registrado dentro del CDE como un expediente independiente. Un proyecto puede encontrarse en diferentes fases, tales como anteproyecto, revisión técnica, aprobación, inicio de obra, obra activa, cierre o archivo histórico.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 32,
+    "style": "Normal",
+    "full_text": "Fase del proyecto: Es la etapa en la que se encuentra un expediente dentro del flujo del CDE. Las fases principales deben permitir identificar claramente si el proyecto está en autorización inicial, anteproyecto, revisión arquitectónica, revisión del Directorio, revisión de planos técnicos, inicio de obra, obra activa, cierre de obra o archivo. Cada fase debe tener responsables, documentos requeridos, permisos, acciones disponibles y condiciones específicas para poder avanzar a la siguiente etapa.",
+    "runs": [
+      {
+        "text": "Fase del proyecto: ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Es la etapa en la que se encuentra un expediente dentro del flujo del CDE. Las fases principales deben permitir identificar claramente si el proyecto está en ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "autorización inicial, anteproyecto, revisión arquitectónica, revisión del Directorio, revisión de planos técnicos, inicio de obra, obra activa, cierre de obra o archivo. Cada fase debe tener responsables, documentos requeridos, permisos, acciones disponibles y condiciones específicas para poder avanzar a la siguiente etapa.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 33,
+    "style": "Normal",
+    "full_text": "Estados de la información: Son las condiciones que indican el nivel de madurez, revisión y validez de un documento, plano o paquete de información dentro del CDE. Siguiendo la lógica de ISO 19650, los estados principales son: trabajo en progreso, compartido, publicado y archivo. Trabajo en progreso corresponde a información cargada o corregida por el responsable; compartido corresponde a información enviada para revisión interna; publicado corresponde a información aprobada y válida para uso oficial; y archivo corresponde a información cerrada, conservada como historial técnico, legal y operativo.",
+    "runs": [
+      {
+        "text": "Estados de la información: ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Son las condiciones que indican el nivel de madurez, revisión y validez de un documento, plano o paquete de información dentro del CDE. Siguiendo la lógica de ISO 19650, los estados principales son: trabajo en progreso, compartido, publicado y archivo. Trabajo en progreso corresponde a información cargada o corregida por el responsable; compartido corresponde a información enviada para revisión interna; publicado corresponde a información aprobada y válida para uso oficial; y archivo corresponde a información cerrada, conservada como historial técnico, legal y operativo.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 34,
+    "style": "Normal",
+    "full_text": "Versión vigente: Es la última versión aprobada y válida de un plano, documento, licencia, formulario o paquete de información dentro del CDE. Solo la versión vigente debe utilizarse como referencia oficial para revisiones posteriores, emisión de licencias, ejecución de obra, inspecciones o archivo. Las versiones anteriores deben conservarse como historial, pero no deben confundirse con documentos aprobados para uso actual.",
+    "runs": [
+      {
+        "text": "Versión vigente: ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Es la última versión aprobada y válida de un plano, documento, licencia, formulario o paquete de información dentro del CDE. Solo la versión vigente debe utilizarse como referencia oficial para revisiones posteriores, emisión de licencias, ejecución de obra, inspecciones o archivo. Las versiones anteriores deben conservarse como historial, pero no deben confundirse con documentos aprobados para uso actual.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 35,
+    "style": "Normal",
+    "full_text": "Permisos y niveles de acceso: Son las reglas que determinan qué puede ver, cargar, comentar, aprobar, rechazar, editar o administrar cada usuario dentro del CDE. Los permisos deben estar definidos por rol, departamento, fase del proyecto, tipo de documento y nivel de confidencialidad. El propietario debe tener una vista simple y limitada; los profesionales externos deben acceder solo a los expedientes donde participan; los departamentos internos deben operar según sus responsabilidades; y el Administrador General debe tener acceso transversal con registro obligatorio de todas sus acciones.",
+    "runs": [
+      {
+        "text": "Permisos y niveles de acceso: ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Son las reglas que determinan qué puede ver, cargar, comentar, aprobar, rechazar, editar o administrar cada usuario dentro del CDE. Los permisos deben estar definidos por rol, departamento, fase del proyecto, tipo de documento y nivel de confidencialidad. El propietario debe tener una vista simple y limitada; los profesionales externos deben acceder solo a los expedientes donde participan; los departamentos internos deben operar según sus responsabilidades; y el Administrador General debe tener acceso transversal con registro obligatorio de todas sus acciones.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 36,
+    "style": "Normal",
+    "full_text": "Reglamentos de Construcción Costasur: Son el conjunto de normas, criterios técnicos, políticas internas y lineamientos particulares establecidos por Costasur para regular las construcciones, remodelaciones, ampliaciones, renovaciones e intervenciones dentro de Casa de Campo. Aunque estos reglamentos deben respetar las disposiciones nacionales aplicables, Costasur mantiene reglas propias adaptadas al carácter residencial, turístico y paisajístico del complejo, incluyendo criterios sobre linderos, retiros, alturas máximas, volumetría, fachadas, materiales, colores, paisajismo, accesos, manejo de obra, seguridad, horarios, circulación, impacto visual y relación con el entorno. Dentro del CDE, estos reglamentos deben servir como referencia principal para las revisiones de Arquitectura, Control de Obras y demás departamentos técnicos, permitiendo validar que cada proyecto cumpla no solo con los requisitos legales generales, sino también con los estándares internos de calidad, orden, estética, seguridad y convivencia definidos por Costasur.",
+    "runs": [
+      {
+        "text": "Reglamentos de Construcción ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ": ",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Son el conjunto de normas, criterios técnicos, políticas internas y lineamientos particulares establecidos por ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " para regular las construcciones, remodelaciones, ampliaciones, renovaciones e intervenciones dentro de Casa de Campo. Aunque estos reglamentos deben respetar las disposiciones nacionales aplicables, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " mantiene reglas propias adaptadas al carácter residencial, turístico y paisajístico del complejo, incluyendo criterios sobre linderos, retiros, alturas máximas, volumetría, fachadas, materiales, colores, paisajismo, accesos, manejo de obra, seguridad, horarios, circulación, impacto visual y relación con el entorno. Dentro del CDE, estos reglamentos deben servir como referencia principal para las revisiones de Arquitectura, Control de Obras y demás departamentos técnicos, permitiendo validar que cada proyecto cumpla no solo con los requisitos legales generales, sino también con los ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "estándares internos de calidad, orden, estética, seguridad y convivencia definidos por ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ".",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 37,
+    "style": "Normal",
+    "full_text": "Dashboards:",
+    "runs": [
+      {
+        "text": "Dashboards",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ":",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 38,
+    "style": "Normal",
+    "full_text": "Los dashboards deben ser una parte esencial del CDE, ya que representan la herramienta principal para convertir toda la información registrada en datos claros, visuales y útiles para la toma de decisiones. No deben verse únicamente como gráficos decorativos, sino como paneles de control estratégicos que permiten a Costasur entender en tiempo real qué está ocurriendo con los proyectos, cuáles procesos avanzan correctamente, dónde existen retrasos, qué departamentos tienen mayor carga de trabajo, cuántas obras están activas, cuántas incidencias se han reportado, cuáles expedientes están pendientes de aprobación y qué decisiones requieren atención inmediata. Su importancia radica en que ayudan a pasar de una gestión basada en correos, percepciones o reportes aislados, a una gestión basada en datos confiables, trazables y actualizados.",
+    "runs": [
+      {
+        "text": "Los ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "dashboards",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " deben ser una parte esencial del CDE, ya que representan la herramienta principal para convertir toda la información registrada en datos claros, visuales y útiles para la toma de decisiones. No deben verse únicamente como gráficos decorativos, sino como paneles de control estratégicos que permiten a ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " entender en tiempo real qué está ocurriendo con los proyectos, cuáles procesos avanzan correctamente, dónde existen retrasos, qué departamentos tienen mayor carga de trabajo, cuántas obras están activas, cuántas incidencias se han reportado, cuáles expedientes están pendientes de aprobación y qué decisiones requieren atención inmediata. Su importancia radica en que ayudan a pasar de una gestión basada en correos, percepciones o reportes aislados, a una gestión basada en datos confiables, trazables y actualizados.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 39,
+    "style": "Normal",
+    "full_text": "Cada dashboard debe estar diseñado según el rol del usuario, el nivel de acceso y la información que realmente necesita para actuar. El propietario debe ver un panel simple, con el estado general de sus proyectos, documentos aprobados, próximas acciones y notificaciones relevantes, sin exponer información interna o técnica que pueda generar confusión. El arquitecto debe visualizar sus proyectos sometidos, correcciones pendientes, aprobaciones recibidas, rechazos, documentos en revisión y estatus por fase. El contratista debe tener una vista operativa de obras activas, visitas solicitadas, vaciados notificados, inspecciones programadas, incidencias asignadas y documentos aprobados disponibles para ejecución. Los departamentos internos deben contar con dashboards especializados que muestren carga de trabajo, revisiones pendientes, expedientes vencidos, tiempos promedio de respuesta, aprobaciones, rechazos, incidencias, suspensiones, visitas realizadas y solicitudes interdepartamentales.",
+    "runs": [
+      {
+        "text": "Cada ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "dashboard",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " debe estar diseñado según el rol del usuario, el nivel de acceso y la información que realmente necesita para actuar. El propietario debe ver un panel simple, con el estado general de sus proyectos, documentos aprobados, próximas acciones y notificaciones relevantes, sin exponer información interna o técnica que pueda generar confusión. El arquitecto debe visualizar sus proyectos sometidos, correcciones pendientes, aprobaciones recibidas, rechazos, documentos en revisión y estatus por fase. El contratista debe tener una vista operativa de obras activas, visitas solicitadas, vaciados notificados, inspecciones programadas, incidencias asignadas y documentos aprobados disponibles para ejecución. Los departamentos internos deben contar con ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "dashboards",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " especializados que muestren carga de trabajo, revisiones pendientes, expedientes vencidos, tiempos promedio de respuesta, aprobaciones, rechazos, incidencias, suspensiones, visitas realizadas y solicitudes interdepartamentales.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 40,
+    "style": "Normal",
+    "full_text": "Para el Departamento de Arquitectura o Diseño, los dashboards deben mostrar indicadores como proyectos sometidos en el mes, anteproyectos en revisión, proyectos aprobados, proyectos rechazados, correcciones pendientes, expedientes listos para Directorio, tiempos promedio de revisión y volumen de trabajo por técnico. Para Control de Obras, deben reflejar formularios de inicio recibidos, obras autorizadas, obras activas, visitas programadas, visitas realizadas, incidencias abiertas, incidencias cerradas, obras suspendidas, fotografías cargadas, reportes emitidos y solicitudes a departamentos como Seguridad, Mensura, Electricidad, Hidrosanitaria o Paisajismo. Para Electricidad, Hidrosanitaria y Paisajismo, los dashboards deben mostrar planos recibidos, planos en revisión, planos aprobados, planos devueltos y tiempos de respuesta. Para Legal, deben mostrar validaciones pendientes de propietarios, autorizaciones revisadas, áreas anexas solicitadas, contratos o documentos en revisión y expedientes devueltos por falta de información.",
+    "runs": [
+      {
+        "text": "Para el Departamento de Arquitectura o Diseño, los ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "dashboards",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " deben mostrar indicadores como proyectos sometidos en el mes, anteproyectos en revisión, proyectos aprobados, proyectos rechazados, correcciones pendientes, expedientes listos para Directorio, tiempos promedio de revisión y volumen de trabajo por técnico. Para Control de Obras, deben reflejar formularios de inicio recibidos, obras autorizadas, obras activas, visitas programadas, visitas realizadas, incidencias abiertas, incidencias cerradas, obras suspendidas, fotografías cargadas, reportes emitidos y solicitudes a departamentos como Seguridad, Mensura, Electricidad, Hidrosanitaria o Paisajismo. Para Electricidad, Hidrosanitaria y Paisajismo, los ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "dashboards",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " deben mostrar planos recibidos, planos en revisión, planos aprobados, planos devueltos y tiempos de respuesta. Para Legal, deben mostrar validaciones pendientes de propietarios, autorizaciones revisadas, áreas anexas ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "solicitadas, contratos o documentos en revisión y expedientes devueltos por falta de información.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 41,
+    "style": "Normal",
+    "full_text": "El Administrador General debe contar con el dashboard más completo del sistema, con acceso transversal a todos los indicadores de proyectos, departamentos, obras, usuarios, aprobaciones, incidencias, tiempos de respuesta, cuellos de botella, productividad, estados de expedientes y desempeño general del CDE. Este panel debe permitirle identificar rápidamente qué áreas requieren apoyo, qué proyectos están detenidos, qué procesos están fuera de tiempo, qué departamentos tienen mayor acumulación de trabajo y qué decisiones deben tomarse para mantener la operación ordenada. De esta manera, los dashboards se convierten en una herramienta de supervisión ejecutiva, control institucional y mejora continua, no solo en una pantalla informativa.",
+    "runs": [
+      {
+        "text": "El Administrador General debe contar con el ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "dashboard",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " más completo del sistema, con acceso transversal a todos los indicadores de proyectos, departamentos, obras, usuarios, aprobaciones, incidencias, tiempos de respuesta, cuellos de botella, productividad, estados de expedientes y desempeño general del CDE. Este panel debe permitirle identificar rápidamente qué áreas requieren apoyo, qué proyectos están detenidos, qué procesos están fuera de tiempo, qué departamentos tienen mayor acumulación de trabajo y qué decisiones deben tomarse para mantener la operación ordenada. De esta manera, los ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "dashboards",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " se convierten en una herramienta de supervisión ejecutiva, control institucional y mejora continua, no solo en una pantalla informativa.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 42,
+    "style": "Normal",
+    "full_text": "Los dashboards deben permitir cortes diarios, semanales, mensuales y acumulados del año en curso, además de conservar históricos para comparar períodos, medir evolución y detectar tendencias. Según el tipo de información, pueden utilizar gráficos circulares, barras, líneas, curvas S, indicadores tipo semáforo, tablas resumidas, tarjetas de métricas, porcentajes de avance y vistas tipo abanico o distribución por estado. Lo más importante es que cada visualización responda a una pregunta concreta de gestión: qué está pendiente, qué está atrasado, qué fue aprobado, qué requiere acción, qué departamento debe intervenir y cuál es el próximo paso. Bien diseñados, los dashboards ayudarán a reducir incertidumbre, priorizar tareas, justificar decisiones, mejorar la comunicación interna, aumentar la transparencia operativa y demostrar el valor real del CDE como herramienta de dirección, control y transformación digital para Costasur.",
+    "runs": [
+      {
+        "text": "Los ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "dashboards",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " deben permitir cortes diarios, semanales, mensuales y acumulados del año en curso, además de conservar históricos para comparar períodos, medir evolución y detectar tendencias. Según el tipo de información, pueden utilizar gráficos circulares, barras, líneas, curvas S, indicadores tipo semáforo, tablas resumidas, tarjetas de métricas, porcentajes de avance y vistas tipo abanico o distribución por estado. Lo más importante es que cada visualización responda a una pregunta concreta de gestión: qué está pendiente, qué está atrasado, qué fue aprobado, qué requiere acción, qué departamento debe intervenir y cuál es el próximo paso. Bien diseñados, los ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "dashboards",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " ayudarán a reducir incertidumbre, priorizar tareas, justificar decisiones, mejorar la comunicación interna, aumentar la transparencia operativa y demostrar el valor real del CDE como herramienta de dirección, control y transformación digital para ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ".",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 43,
+    "style": "Normal",
+    "full_text": "Integración de IA:",
+    "runs": [
+      {
+        "text": "Integración de IA:",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 44,
+    "style": "Normal",
+    "full_text": "La integración de inteligencia artificial dentro del CDE debe funcionar como una capa de apoyo, validación temprana y asistencia operativa para los usuarios, sin sustituir la revisión técnica ni la aprobación formal de los departamentos de Costasur. Su objetivo principal será ayudar a ordenar la información, reducir errores de carga, detectar inconsistencias preliminares y facilitar consultas sobre expedientes, documentos, reglamentos de construcción Costasur, estados del proceso y próximos pasos dentro del flujo. La IA podrá asistir en consultas documentales, orientar al usuario sobre qué documentos debe cargar según la fase del proyecto, identificar información faltante, resumir expedientes, explicar observaciones internas y apoyar a los departamentos en la revisión inicial de paquetes sometidos.",
+    "runs": [
+      {
+        "text": "La integración de inteligencia artificial dentro del CDE debe funcionar como una capa de apoyo, validación temprana y asistencia operativa para los usuarios, sin sustituir la revisión técnica ni la aprobación formal de los departamentos de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". Su objetivo principal será ayudar a ordenar la información, reducir errores de carga, detectar inconsistencias preliminares y facilitar consultas sobre expedientes, documentos, reglamentos de construcción ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", estados del proceso y próximos pasos dentro del flujo. La IA podrá asistir en consultas documentales, orientar al usuario sobre qué documentos debe cargar según la fase del proyecto, identificar información faltante, resumir expedientes, explicar observaciones internas y apoyar a los departamentos en la revisión inicial de paquetes sometidos.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 45,
+    "style": "Normal",
+    "full_text": "Adicionalmente, el CDE podrá integrar modelos de visión artificial para realizar una pre-revisión automática al momento de la carga de ciertos planos, especialmente en documentos críticos como la planta dimensionada de ubicación, planos con linderos, retiros, áreas de ocupación, elevaciones y versiones finales de planos técnicos. Esta pre-revisión servirá para alertar posibles incumplimientos respecto a los reglamentos de construcción Costasur, como exceso de porcentaje de ocupación, invasión de linderos o retiros, alturas superiores a las permitidas por sector, diferencias relevantes entre el anteproyecto aprobado y los planos técnicos finales, o cambios no declarados entre versiones. Estas alertas no deberán considerarse aprobaciones ni rechazos automáticos, sino señales tempranas para que el departamento correspondiente pueda revisar con mayor precisión y tomar una decisión informada.",
+    "runs": [
+      {
+        "text": "Adicionalmente, el CDE podrá integrar modelos de visión artificial para realizar una ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "pre-revisión",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " automática al momento de la carga de ciertos planos, especialmente en ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "documentos críticos como la planta dimensionada de ubicación, planos con linderos, retiros, áreas de ocupación, elevaciones y versiones finales de planos técnicos. Esta ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "pre-revisión",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " servirá para alertar posibles incumplimientos respecto a los reglamentos de construcción ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", como exceso de porcentaje de ocupación, invasión de linderos o retiros, alturas superiores a las permitidas por sector, diferencias relevantes entre el anteproyecto aprobado y los planos técnicos finales, o cambios no declarados entre versiones. Estas alertas no deberán considerarse aprobaciones ni rechazos automáticos, sino señales tempranas para que el departamento correspondiente pueda revisar con mayor precisión y tomar una decisión informada.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 46,
+    "style": "Normal",
+    "full_text": "La IA también puede ayudar a comparar documentos y versiones, detectar posibles omisiones, generar resúmenes de revisión, clasificar incidencias, sugerir rutas de flujo según el tipo de proyecto y apoyar la generación de reportes internos o dashboards. Sin embargo, toda recomendación generada por IA debe quedar claramente identificada como asistencia automatizada y estar sujeta a validación humana por parte del usuario autorizado. De esta manera, la IA se integra de forma coherente al CDE como una herramienta de eficiencia, control preventivo y apoyo a la toma de decisiones, manteniendo siempre la trazabilidad, la responsabilidad institucional y la autoridad final de los departamentos de Costasur.\n",
+    "runs": [
+      {
+        "text": "La IA también puede ayudar a comparar documentos y versiones, detectar posibles omisiones, generar resúmenes de revisión, clasificar incidencias, sugerir rutas de flujo según el tipo de proyecto y apoyar la generación de reportes internos o ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "dashboards",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ". Sin embargo, toda recomendación generada por IA debe quedar claramente identificada como asistencia automatizada y estar sujeta a validación humana por parte del usuario autorizado. De esta manera, la IA se integra de forma coherente al CDE como una herramienta de eficiencia, control preventivo y apoyo a la toma de decisiones, manteniendo siempre la trazabilidad, la responsabilidad institucional y la autoridad final de los departamentos de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ".",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "\n",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 47,
+    "style": "Normal",
+    "full_text": "Interfaz inicial de inicio de sesión del CDE: La entrada al CDE de Costasur debe iniciar siempre desde una interfaz única, simple y neutral de inicio de sesión. Esta pantalla primaria no debe mostrar opciones como “ingresar como propietario”, “ingresar como arquitecto”, “ingresar como contratista” o cualquier otra selección manual de perfil, ya que esto puede generar confusión, errores de acceso y una experiencia poco profesional para los usuarios. El usuario únicamente deberá ingresar sus credenciales personales en un portal básico, limpio y directo, identificado visualmente con el logo de Costasur y un formulario de inicio de sesión.",
+    "runs": [
+      {
+        "text": "Interfaz inicial de inicio de sesión del CDE:",
+        "bold": true,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " La entrada al CDE de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " debe iniciar siempre desde una interfaz única, simple y neutral de inicio de sesión. Esta pantalla primaria no debe mostrar opciones como “ingresar como propietario”, “ingresar como arquitecto”, “ingresar como contratista” o cualquier otra selección manual de perfil, ya que esto puede generar confusión, errores de acceso y una experiencia poco profesional para los usuarios. El usuario únicamente deberá ingresar sus credenciales personales en un portal básico, limpio y directo, identificado visualmente con el logo de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " y un formulario de inicio de sesión.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 48,
+    "style": "Normal",
+    "full_text": "Una vez el usuario ingrese sus datos, el sistema debe autenticarlo y detectar automáticamente su rol, permisos y expedientes asociados. A partir de esa validación, el CDE lo dirigirá de forma automática a la ruta, dashboard o módulo que le corresponda según su perfil: propietario, arquitecto, contratista, departamento interno, administrador general u otro rol autorizado. Cada usuario verá únicamente la información, acciones, documentos, proyectos y notificaciones permitidas para su rol, evitando que un propietario vea información interna de Costasur, que un contratista acceda a revisiones que no le corresponden o que un arquitecto visualice procesos ajenos a sus proyectos asignados.",
+    "runs": [
+      {
+        "text": "Una vez el usuario ingrese sus datos, el sistema debe autenticarlo y detectar automáticamente su rol, permisos y expedientes asociados. A partir de esa validación, el CDE lo dirigirá de forma automática a la ruta, ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "dashboard",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": " o módulo que le corresponda según su perfil: propietario, arquitecto, contratista, departamento interno, administrador general u otro rol autorizado. Cada usuario verá únicamente la información, acciones, documentos, proyectos y notificaciones permitidas para su rol, evitando que un propietario vea información interna de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ", que un contratista acceda a revisiones que no le corresponden o que un arquitecto visualice procesos ajenos a sus proyectos asignados.",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 49,
+    "style": "Normal",
+    "full_text": "Este principio debe quedar establecido como una regla fundamental del CDE: nadie ve lo de nadie y ningún usuario debe tener que escoger manualmente quién es dentro del sistema. La inteligencia del acceso debe estar en la configuración interna de usuarios, roles, permisos, propiedades, proyectos y departamentos. De esta manera, la experiencia inicial se mantiene lo más básica e intuitiva posible, mientras que la complejidad operativa queda resuelta por la lógica interna del sistema. La pantalla de inicio debe transmitir orden, seguridad y sencillez, funcionando únicamente como puerta de entrada al ecosistema digital de Costasur.",
+    "runs": [
+      {
+        "text": "Este principio debe quedar establecido como una regla fundamental del CDE: nadie ve lo de nadie y ningún usuario debe tener que escoger manualmente quién es dentro del sistema. La inteligencia del acceso debe estar en la configuración interna de usuarios, roles, permisos, propiedades, proyectos y departamentos. De esta manera, la experiencia inicial se mantiene lo más básica e intuitiva posible, mientras que la complejidad operativa queda resuelta por la lógica interna del sistema. La pantalla de inicio debe transmitir orden, seguridad y sencillez, funcionando únicamente como puerta de entrada al ecosistema digital de ",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": "Costasur",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      },
+      {
+        "text": ".",
+        "bold": null,
+        "italic": null,
+        "style": "Default Paragraph Font"
+      }
+    ]
+  },
+  {
+    "index": 50,
+    "style": "Normal",
+    "full_text": "",
+    "runs": []
+  }
+]
