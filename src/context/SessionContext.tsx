@@ -96,6 +96,10 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     signOut: async () => {
       if (!supabase) return { error: new Error("Supabase no está configurado") };
       const { error } = await supabase.auth.signOut();
+      setSession(null);
+      setProfile(null);
+      setRoles([]);
+      setLoading(false);
       return { error: error ? new Error(error.message) : null };
     },
     refreshProfile,
