@@ -1,5 +1,5 @@
 ﻿import { requireSupabase } from "./supabase";
-import type { DocumentAnnotation, DocumentRecord, DocumentVersion, ProjectRecord, PropertyRecord } from "./cde-types";
+import type { DocumentAnnotation, DocumentRecord, DocumentVersion, ProjectMember, ProjectRecord, PropertyRecord } from "./cde-types";
 
 export interface PortfolioRow extends PropertyRecord {
   projects: ProjectRecord[];
@@ -95,10 +95,8 @@ export async function createPdfAnnotation(input: { documentVersionId: string; au
 }
 
 export async function getFirstProjectForUser(userId: string) {
-  const client = requireSupabase();
-  const { data, error } = await client.from("project_members").select("project_id").eq("user_id", userId).eq("status", "active").order("created_at", { ascending: true }).limit(1).maybeSingle();
-  if (error) throw error;
-  return data?.project_id ?? null;
+  const projects = await getProjectsForUser(userId);
+  return projects[0]?.id ?? null;
 }
 
 
@@ -215,4 +213,145 @@ export async function markNotificationRead(notificationId: string) {
   const client = requireSupabase();
   const { error } = await client.from("notifications").update({ read_at: new Date().toISOString() }).eq("id", notificationId);
   if (error) throw error;
+}
+
+export async function createOwnerProject(input: {
+  propertyId: string;
+  projectCode: string;
+  title: string;
+  projectType: "obra_nueva" | "remodelacion" | "ampliacion" | "renovacion" | "area_anexa" | "otro";
+}) {
+  const client = requireSupabase();
+  const { data, error } = await client.rpc("create_owner_project", {
+    p_property_id: input.propertyId,
+    p_project_code: input.projectCode,
+    p_title: input.title,
+    p_project_type: input.projectType,
+  });
+  if (error) throw error;
+  return data as ProjectRecord;
+}
+
+
+export async function createOwnerProjectWorkflow(input: {
+  propertyId: string;
+  projectCode: string;
+  title: string;
+  projectType: "obra_nueva" | "remodelacion" | "ampliacion" | "renovacion" | "area_anexa" | "otro";
+  architectEmail: string;
+}) {
+  const client = requireSupabase();
+  const { data, error } = await client.rpc("create_owner_project_workflow", {
+    p_property_id: input.propertyId,
+    p_project_code: input.projectCode,
+    p_title: input.title,
+    p_project_type: input.projectType,
+    p_architect_email: input.architectEmail,
+  });
+  if (error) throw error;
+  const payload = data as { project: ProjectRecord };
+  return payload.project;
+}
+
+export async function submitWorkflowReview(input: {
+  projectId: string;
+  documentVersionId: string;
+  workflowStage: "autorizacion" | "anteproyecto" | "planos_tecnicos" | "legal" | "inicio_obra";
+  decision: "comentado" | "devuelto" | "aprobado" | "rechazado";
+  comment: string;
+}) {
+  const client = requireSupabase();
+  const { data, error } = await client.rpc("submit_workflow_review", {
+    p_project_id: input.projectId,
+    p_document_version_id: input.documentVersionId,
+    p_workflow_stage: input.workflowStage,
+    p_decision: input.decision,
+    p_comment: input.comment,
+  });
+  if (error) throw error;
+  return data as ProjectRecord;
+}
+
+export async function authorizeContractorForProject(input: { projectId: string; contractorEmail: string }) {
+  const client = requireSupabase();
+  const { data, error } = await client.rpc("authorize_contractor_for_project", {
+    p_project_id: input.projectId,
+    p_contractor_email: input.contractorEmail,
+  });
+  if (error) throw error;
+  return data as ProjectMember;
+}
+
+export async function createContractorRequest(input: { projectId: string; requestType: string; requestedDate?: string; description?: string }) {
+  const client = requireSupabase();
+  const { data, error } = await client.rpc("create_contractor_request", {
+    p_project_id: input.projectId,
+    p_request_type: input.requestType,
+    p_requested_date: input.requestedDate || null,
+    p_description: input.description || null,
+  });
+  if (error) throw error;
+  return data;
+}
+
+export async function getProjectDocuments(projectId: string) {
+  const client = requireSupabase();
+  const { data, error } = await client.from("documents").select("*").eq("project_id", projectId).order("created_at", { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as DocumentRecord[];
+}
+
+export async function getProjectMembers(projectId: string) {
+  const client = requireSupabase();
+  const { data, error } = await client.from("project_members").select("id,user_id,membership_role,status,department_id,profiles(email,display_name)").eq("project_id", projectId).order("created_at", { ascending: true });
+  if (error) throw error;
+  return data ?? [];
+}
+
+
+export async function uploadProjectDocument(input: {
+  projectId: string;
+  title: string;
+  category: string;
+  file: File;
+  visibleToOwner?: boolean;
+}) {
+  const client = requireSupabase();
+  const profile = (await client.auth.getUser()).data.user;
+  if (!profile) throw new Error("La sesión no está disponible para cargar el documento.");
+  const { data: document, error: documentError } = await client.from("documents").insert({ project_id: input.projectId, category: input.category, title: input.title.trim(), cde_state: "wip", visible_to_owner: input.visibleToOwner ?? false, created_by: profile.id }).select("*").single();
+  if (documentError) throw documentError;
+  const safeName = input.file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+  const storagePath = `${input.projectId}/${document.id}/v1_${safeName}`;
+  const { error: uploadError } = await client.storage.from("cde-documents").upload(storagePath, input.file, { contentType: input.file.type || "application/octet-stream", upsert: false });
+  if (uploadError) throw uploadError;
+  const { data: version, error: versionError } = await client.from("document_versions").insert({ document_id: document.id, version_number: 1, original_filename: input.file.name, storage_path: storagePath, mime_type: input.file.type || "application/octet-stream", file_size_bytes: input.file.size, cde_state: "wip", uploaded_by: profile.id }).select("id").single();
+  if (versionError) throw versionError;
+  const { error: currentVersionError } = await client.from("documents").update({ current_version_id: version.id }).eq("id", document.id);
+  if (currentVersionError) throw currentVersionError;
+  return { document: document as DocumentRecord, version: version as { id: string } };
+}
+
+
+export async function resolveContractorRequest(input: { requestId: string; status: "in_review" | "scheduled" | "approved" | "rejected" | "completed" | "cancelled"; comment?: string }) {
+  const client = requireSupabase();
+  const { data, error } = await client.rpc("resolve_contractor_request", {
+    p_request_id: input.requestId,
+    p_status: input.status,
+    p_comment: input.comment || null,
+  });
+  if (error) throw error;
+  return data;
+}
+
+
+export async function getProjectsForUser(userId: string) {
+  const client = requireSupabase();
+  const { data: memberships, error: membershipError } = await client.from("project_members").select("project_id").eq("user_id", userId).eq("status", "active");
+  if (membershipError) throw membershipError;
+  const projectIds = (memberships ?? []).map((row) => row.project_id as string);
+  if (!projectIds.length) return [] as ProjectRecord[];
+  const { data, error } = await client.from("projects").select("*").in("id", projectIds).order("updated_at", { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as ProjectRecord[];
 }

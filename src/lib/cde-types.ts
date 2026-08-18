@@ -86,7 +86,7 @@ export interface ProjectRecord {
   cde_status: CDEState;
   operational_status: OperationalStatus;
   progress_percent: number;
-  financial_progress_percent: number;
+  
   start_date?: string | null;
   target_end_date?: string | null;
 }
