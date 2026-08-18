@@ -1,202 +1,84 @@
-﻿import { useEffect, useState } from "react";
-import { useSession } from "../context/SessionContext";
-import { getFirstProjectForUser } from "../lib/cde-data";
+﻿import { useEffect, useMemo, useState } from "react";
 import { DocumentUpload } from "../components/DocumentUpload";
+import { DocumentViewer } from "../components/DocumentViewer";
+import { getProjectsForUser, getProjectWorkspace, type ProjectWorkspace } from "../lib/cde-data";
+import type { ProjectRecord } from "../lib/cde-types";
+import { useSession } from "../context/SessionContext";
+
+const technicalCategories = [
+  { value: "arquitectonico", label: "Arquitectónico" },
+  { value: "estructural", label: "Estructural" },
+  { value: "electrico", label: "Eléctrico" },
+  { value: "hidrosanitario", label: "Hidrosanitario" },
+  { value: "climatizacion", label: "Climatización" },
+];
+
+const phaseLabels: Record<string, string> = {
+  autorizacion_inicial: "Esperando aprobación de carta",
+  anteproyecto: "Anteproyecto habilitado",
+  planos_tecnicos: "Planos técnicos habilitados",
+  inicio_obra: "Planos aprobados · esperando inicio de obra",
+  obra_activa: "Obra activa",
+};
 
 export function ArchitectPortal() {
-  const [activeTab, setActiveTab] = useState("Anteproyecto");
   const { profile } = useSession();
+  const [activeTab, setActiveTab] = useState<"anteproyecto" | "planos_tecnicos" | "memoria_descriptiva">("anteproyecto");
   const [projectId, setProjectId] = useState<string | null>(null);
-  useEffect(() => { if (!profile?.id) return; getFirstProjectForUser(profile.id).then(setProjectId).catch(() => setProjectId(null)); }, [profile?.id]);
+  const [projects, setProjects] = useState<ProjectRecord[]>([]);
+  const [workspace, setWorkspace] = useState<ProjectWorkspace | null>(null);
+  const [selectedDocumentId, setSelectedDocumentId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  return (
-    <div className="flex-1 overflow-y-auto p-4 md:p-10 pt-8 bg-surface-container-low min-h-full">
-      <div className="max-w-[1200px] mx-auto space-y-8">
-        
-        {/* Project Header */}
-        <div className="mb-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-on-surface mb-2 tracking-tight">Dashboard Arquitecto</h2>
-          <p className="text-lg text-secondary">Gestione sus proyectos y sometimientos a revisión.</p>
-        </div>
+  const loadWorkspace = async (requestedProjectId?: string) => {
+    if (!profile?.id) return;
+    setLoading(true);
+    setError("");
+    try {
+      const projectRows = await getProjectsForUser(profile.id);
+      setProjects(projectRows);
+      const id = requestedProjectId ?? projectId ?? projectRows[0]?.id ?? null;
+      setProjectId(id);
+      if (!id) { setWorkspace(null); return; }
+      const nextWorkspace = await getProjectWorkspace(id);
+      setWorkspace(nextWorkspace);
+      setSelectedDocumentId((current) => current && nextWorkspace.documents.some((document) => document.id === current) ? current : nextWorkspace.documents[0]?.id ?? null);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "No fue posible cargar los expedientes del arquitecto.");
+    } finally { setLoading(false); }
+  };
 
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-outline-variant/30 pb-6">
-          <div>
-            <span className="inline-block px-3 py-1 rounded-full bg-surface-container-highest text-secondary text-xs font-semibold uppercase tracking-wider mb-3">
-              Active Project
-            </span>
-            <h1 className="text-4xl md:text-5xl font-bold text-primary">Remodelación Villa Vivero #22</h1>
-          </div>
-          <button className="glass-panel text-primary-container font-medium px-6 py-3 rounded-full hover:bg-white/90 transition-all flex items-center gap-2 border-white shadow-sm">
-            <span className="material-symbols-outlined">upload_file</span>
-            Someter a Revisión
-          </button>
-        </div>
+  useEffect(() => { void loadWorkspace(); }, [profile?.id]);
 
-        {/* Submission Tabs & Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
-          {/* Left Column: Tabs & Upload */}
-          <div className="lg:col-span-2 space-y-6">
-            {projectId && <DocumentUpload projectId={projectId} />}
-            {/* Custom Tabs */}
-            <div className="flex overflow-x-auto gap-2 p-1 bg-surface-container-low rounded-xl border border-outline-variant/20 max-w-full custom-scrollbar">
-              <button 
-                onClick={() => setActiveTab("Anteproyecto")}
-                className={`px-6 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${activeTab === "Anteproyecto" ? "bg-white shadow-sm text-primary" : "text-secondary hover:text-primary"}`}>
-                  Anteproyecto
-              </button>
-              <button 
-                onClick={() => setActiveTab("Planos Técnicos")}
-                className={`px-6 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${activeTab === "Planos Técnicos" ? "bg-white shadow-sm text-primary" : "text-secondary hover:text-primary"}`}>
-                  Planos Técnicos
-              </button>
-              <button 
-                onClick={() => setActiveTab("Memoria Descriptiva")}
-                className={`px-6 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${activeTab === "Memoria Descriptiva" ? "bg-white shadow-sm text-primary" : "text-secondary hover:text-primary"}`}>
-                  Memoria Descriptiva
-              </button>
-            </div>
+  const phase = workspace?.project.phase ?? "autorizacion_inicial";
+  const anteprojectEnabled = phase !== "autorizacion_inicial";
+  const technicalEnabled = ["planos_tecnicos", "inicio_obra", "obra_activa", "cierre"].includes(phase);
+  const visibleDocuments = useMemo(() => {
+    if (!workspace) return [];
+    if (activeTab === "anteproyecto") return workspace.documents.filter((document) => ["anteproyecto", "memoria_descriptiva"].includes(document.category));
+    if (activeTab === "memoria_descriptiva") return workspace.documents.filter((document) => document.category === "memoria_descriptiva");
+    return workspace.documents.filter((document) => technicalCategories.some((category) => category.value === document.category));
+  }, [activeTab, workspace]);
 
-            {/* Upload Area Bento Card */}
-            <div className="bg-white rounded-[2rem] border border-[#E5E5E7] p-8 soft-shadow">
-              
-              {activeTab === "Anteproyecto" && (
-                <>
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-                    <h3 className="text-xl font-bold text-primary">Documentos Requeridos</h3>
-                    <div className="flex items-center gap-1.5 text-xs font-semibold text-primary bg-primary-fixed/50 border border-primary/20 px-3 py-1.5 rounded-full shadow-sm">
-                      <span className="material-symbols-outlined text-[16px]">smart_toy</span>
-                      Revisión Asistida por IA Próximamente
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    
-                    {/* Upload Item 1 */}
-                    <div className="border-2 border-dashed border-outline-variant rounded-2xl p-6 flex flex-col items-center justify-center bg-surface-container-low text-center cursor-pointer hover:border-primary-container hover:bg-primary-fixed/30 transition-colors">
-                      <span className="material-symbols-outlined text-4xl text-secondary mb-2">map</span>
-                      <p className="font-medium text-primary">Curvas de nivel</p>
-                      <p className="text-sm text-secondary mt-1">Arrastra y suelta tu archivo PDF o DWG aquí</p>
-                    </div>
+  useEffect(() => {
+    if (visibleDocuments.length && !visibleDocuments.some((document) => document.id === selectedDocumentId)) setSelectedDocumentId(visibleDocuments[0].id);
+  }, [selectedDocumentId, visibleDocuments]);
 
-                    {/* Upload Item 2 */}
-                    <div className="border-2 border-dashed border-outline-variant rounded-2xl p-6 flex flex-col items-center justify-center bg-surface-container-low text-center cursor-pointer hover:border-primary-container hover:bg-primary-fixed/30 transition-colors">
-                      <span className="material-symbols-outlined text-4xl text-secondary mb-2">view_compact</span>
-                      <p className="font-medium text-primary">Plantas Arquitectónicas</p>
-                      <p className="text-sm text-secondary mt-1">Arrastra y suelta tus archivos PDF aquí</p>
-                    </div>
+  if (loading) return <div className="flex-1 overflow-y-auto p-10 bg-surface-container-low"><div className="glass-panel p-10 text-center text-secondary">Cargando expediente arquitectónico…</div></div>;
+  if (error) return <div className="flex-1 overflow-y-auto p-10 bg-surface-container-low"><div className="glass-panel p-8 border border-error/30 text-error">{error}</div></div>;
+  if (!workspace || !projectId) return <div className="flex-1 overflow-y-auto p-10 bg-surface-container-low"><div className="glass-panel p-10 text-center"><span className="material-symbols-outlined text-4xl text-warning">folder_off</span><h1 className="text-2xl font-bold text-on-surface mt-4">No hay expediente arquitectónico asignado</h1><p className="text-secondary mt-2">El propietario o el Administrador General debe crear y asignar un proyecto antes de iniciar el sometimiento.</p></div></div>;
 
-                    {/* Upload Item 3 */}
-                    <div className="border-2 border-dashed border-outline-variant rounded-2xl p-6 flex flex-col items-center justify-center bg-surface-container-low text-center cursor-pointer hover:border-primary-container hover:bg-primary-fixed/30 transition-colors">
-                      <span className="material-symbols-outlined text-4xl text-secondary mb-2">view_in_ar</span>
-                      <p className="font-medium text-primary">Renders</p>
-                      <p className="text-sm text-secondary mt-1">Arrastra y suelta tus imágenes JPG o PNG aquí</p>
-                    </div>
-                    
-                  </div>
-                </>
-              )}
-
-              {activeTab === "Planos Técnicos" && (
-                <>
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-                    <h3 className="text-xl font-bold text-primary">Planos Técnicos Especializados</h3>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="border-2 border-dashed border-outline-variant rounded-2xl p-6 flex flex-col items-center justify-center bg-surface-container-low text-center cursor-pointer hover:border-primary-container hover:bg-primary-fixed/30 transition-colors">
-                      <span className="material-symbols-outlined text-4xl text-secondary mb-2">foundation</span>
-                      <p className="font-medium text-primary">Estructurales</p>
-                      <p className="text-sm text-secondary mt-1">Archivos PDF / DWG</p>
-                    </div>
-                    <div className="border-2 border-dashed border-outline-variant rounded-2xl p-6 flex flex-col items-center justify-center bg-surface-container-low text-center cursor-pointer hover:border-primary-container hover:bg-primary-fixed/30 transition-colors">
-                      <span className="material-symbols-outlined text-4xl text-secondary mb-2">electrical_services</span>
-                      <p className="font-medium text-primary">Eléctricos</p>
-                      <p className="text-sm text-secondary mt-1">Archivos PDF / DWG</p>
-                    </div>
-                    <div className="border-2 border-dashed border-outline-variant rounded-2xl p-6 flex flex-col items-center justify-center bg-surface-container-low text-center cursor-pointer hover:border-primary-container hover:bg-primary-fixed/30 transition-colors">
-                      <span className="material-symbols-outlined text-4xl text-secondary mb-2">water_drop</span>
-                      <p className="font-medium text-primary">Hidrosanitarios</p>
-                      <p className="text-sm text-secondary mt-1">Archivos PDF / DWG</p>
-                    </div>
-                    <div className="border-2 border-dashed border-outline-variant rounded-2xl p-6 flex flex-col items-center justify-center bg-surface-container-low text-center cursor-pointer hover:border-primary-container hover:bg-primary-fixed/30 transition-colors">
-                      <span className="material-symbols-outlined text-4xl text-secondary mb-2">air</span>
-                      <p className="font-medium text-primary">Climatización</p>
-                      <p className="text-sm text-secondary mt-1">Archivos PDF / DWG</p>
-                    </div>
-                  </div>
-                </>
-              )}
-
-              {activeTab === "Memoria Descriptiva" && (
-                <>
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-                    <h3 className="text-xl font-bold text-primary">Memoria Descriptiva del Proyecto</h3>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="border-2 border-dashed border-outline-variant rounded-2xl p-8 flex flex-col items-center justify-center bg-surface-container-low text-center cursor-pointer hover:border-primary-container hover:bg-primary-fixed/30 transition-colors min-h-[250px]">
-                      <span className="material-symbols-outlined text-5xl text-secondary mb-3">description</span>
-                      <p className="text-lg font-medium text-primary">Cargar Documento Completo</p>
-                      <p className="text-sm text-secondary mt-2 max-w-sm mx-auto">Adjunte la memoria descriptiva arquitectónica y de ingeniería. Se aceptan formatos PDF, DOCX (Máx 50MB).</p>
-                    </div>
-                  </div>
-                </>
-              )}
-
-            </div>
-          </div>
-
-          {/* Right Column: History */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-[2rem] border border-[#E5E5E7] p-6 soft-shadow h-full">
-              <div className="flex items-center justify-between mb-6 pb-4 border-b border-outline-variant/30">
-                <h3 className="text-xl font-bold text-primary">Historial de Versiones</h3>
-                <span className="material-symbols-outlined text-secondary">history</span>
-              </div>
-              
-              <div className="relative border-l-2 border-surface-container-high ml-3 space-y-8 pb-4">
-                
-                {/* Timeline Item 1 */}
-                <div className="relative pl-6">
-                  <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-error"></div>
-                  <div className="mb-1 flex justify-between items-center">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-secondary">12 OCT 2023</span>
-                    <span className="px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-[10px] font-semibold uppercase tracking-wider">Rejected</span>
-                  </div>
-                  <p className="font-medium text-primary text-sm mb-2">V2 - Revisión Arquitectónica</p>
-                  <div className="bg-surface-container-low p-3 rounded-lg text-sm text-on-surface-variant">
-                    "Los retiros laterales no cumplen con el reglamento del sector Vivero. Favor ajustar a mínimo 3.5m."
-                  </div>
-                </div>
-
-                {/* Timeline Item 2 */}
-                <div className="relative pl-6">
-                  <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-surface-tint"></div>
-                  <div className="mb-1 flex justify-between items-center">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-secondary">05 OCT 2023</span>
-                    <span className="px-2 py-0.5 rounded-full bg-surface-dim text-on-surface text-[10px] font-semibold uppercase tracking-wider">Under Review</span>
-                  </div>
-                  <p className="font-medium text-primary text-sm mb-2">V2 - Sometido</p>
-                </div>
-
-                {/* Timeline Item 3 */}
-                <div className="relative pl-6">
-                  <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary-container"></div>
-                  <div className="mb-1 flex justify-between items-center">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-secondary">28 SEP 2023</span>
-                    <span className="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-semibold uppercase tracking-wider">Approved</span>
-                  </div>
-                  <p className="font-medium text-primary text-sm mb-2">V1 - Conceptualización</p>
-                  <div className="bg-surface-container-low p-3 rounded-lg text-sm text-on-surface-variant">
-                    "Volumetría aprobada preliminarmente."
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  );
+  return <div className="flex-1 overflow-y-auto p-4 md:p-10 pt-8 bg-surface-container-low min-h-full"><div className="max-w-[1200px] mx-auto space-y-8">
+    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4"><div><p className="text-xs uppercase tracking-[0.2em] text-secondary">Expediente arquitectónico persistente</p><h1 className="text-4xl md:text-5xl font-bold text-on-surface mt-2">{workspace.project.title}</h1><p className="text-sm text-secondary mt-3">{workspace.project.project_code} · {workspace.property?.name ?? "Propiedad CDE"}</p></div><div className="flex flex-col items-stretch md:items-end gap-3"><span className="rounded-full bg-primary/10 text-primary px-4 py-2 text-sm font-semibold">{phaseLabels[phase] ?? phase}</span>{projects.length > 1 && <select value={projectId ?? ""} onChange={(event) => void loadWorkspace(event.target.value)} className="rounded-xl border border-outline-variant/30 bg-white px-3 py-2 text-sm text-on-surface"><option value="">Seleccionar expediente</option>{projects.map((project) => <option key={project.id} value={project.id}>{project.project_code} · {project.title}</option>)}</select>}</div></div>
+    <section className="glass-panel bg-white p-6 md:p-7 border border-outline-variant/30"><div className="flex items-start gap-4"><span className="material-symbols-outlined text-3xl text-primary">account_tree</span><div><p className="text-xs uppercase tracking-[0.18em] text-secondary">Gate del workflow</p><h2 className="text-xl font-bold text-on-surface mt-2">{phase === "autorizacion_inicial" ? "La carta aún debe ser aprobada por Arquitectura" : phase === "anteproyecto" ? "Puede someter el anteproyecto" : phase === "planos_tecnicos" ? "Puede someter los planos técnicos" : "El expediente avanzó a la etapa de inicio de obra"}</h2><p className="text-sm text-secondary mt-2">Los documentos y revisiones se guardan en Supabase. La revisión asistida por IA continúa señalizada como futura y no ejecuta análisis.</p></div></div></section>
+    <div className="flex flex-col md:flex-row gap-2 p-1 bg-surface-container-low rounded-xl border border-outline-variant/20"><TabButton active={activeTab === "anteproyecto"} disabled={!anteprojectEnabled} onClick={() => setActiveTab("anteproyecto")} label="Anteproyecto" /><TabButton active={activeTab === "planos_tecnicos"} disabled={!technicalEnabled} onClick={() => setActiveTab("planos_tecnicos")} label="Planos técnicos" /><TabButton active={activeTab === "memoria_descriptiva"} disabled={!anteprojectEnabled} onClick={() => setActiveTab("memoria_descriptiva")} label="Memoria descriptiva" /></div>
+    {((activeTab === "anteproyecto" && anteprojectEnabled) || (activeTab === "memoria_descriptiva" && anteprojectEnabled) || (activeTab === "planos_tecnicos" && technicalEnabled)) && <DocumentUpload projectId={projectId} defaultCategory={activeTab === "planos_tecnicos" ? technicalCategories[0].value : activeTab} categories={activeTab === "planos_tecnicos" ? technicalCategories : activeTab === "memoria_descriptiva" ? [{ value: "memoria_descriptiva", label: "Memoria descriptiva" }] : [{ value: "anteproyecto", label: "Anteproyecto" }, { value: "memoria_descriptiva", label: "Memoria descriptiva" }]} onUploaded={() => { void loadWorkspace(projectId ?? undefined); }} />}
+    {activeTab === "planos_tecnicos" && !technicalEnabled && <GateNotice title="Planos técnicos bloqueados" body="Arquitectura debe aprobar el anteproyecto antes de habilitar los planos técnicos." />}
+    {activeTab !== "planos_tecnicos" && !anteprojectEnabled && <GateNotice title="Sometimiento bloqueado" body="La carta de autorización debe ser aprobada por el departamento de Arquitectura antes de habilitar este expediente." />}
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6"><section className="glass-panel bg-white p-6 border border-outline-variant/30 lg:col-span-1"><p className="text-xs uppercase tracking-[0.18em] text-secondary">Documentos disponibles</p><h2 className="text-xl font-bold text-on-surface mt-2">{visibleDocuments.length} registros</h2><div className="space-y-2 mt-5">{visibleDocuments.length ? visibleDocuments.map((document) => <button type="button" key={document.id} onClick={() => setSelectedDocumentId(document.id)} className={`w-full text-left rounded-xl border p-3 transition-colors ${selectedDocumentId === document.id ? "border-primary bg-primary/5" : "border-outline-variant/30 hover:border-primary/30"}`}><p className="text-sm font-semibold text-on-surface truncate">{document.title}</p><p className="text-xs text-secondary mt-1 uppercase">{document.category.replaceAll("_", " ")} · {document.cde_state}</p></button>) : <p className="text-sm text-secondary">Todavía no hay documentos en esta etapa.</p>}</div></section><div className="lg:col-span-2">{selectedDocumentId ? <DocumentViewer documentId={selectedDocumentId} /> : <div className="glass-panel p-10 text-center text-secondary">Selecciona un documento versionado para abrir el visor PDF o CAD.</div>}</div></div>
+  </div></div>;
 }
 
+function TabButton({ active, disabled, onClick, label }: { active: boolean; disabled: boolean; onClick: () => void; label: string }) { return <button type="button" disabled={disabled} onClick={onClick} className={`flex-1 px-5 py-3 rounded-lg font-medium transition-all whitespace-nowrap ${active ? "bg-white shadow-sm text-primary" : "text-secondary hover:text-primary"} disabled:opacity-40 disabled:cursor-not-allowed`}>{label}{disabled && <span className="material-symbols-outlined text-sm align-middle ml-2">lock</span>}</button>; }
+function GateNotice({ title, body }: { title: string; body: string }) { return <div className="rounded-2xl border border-warning/30 bg-warning/10 p-5 flex items-start gap-3"><span className="material-symbols-outlined text-warning">lock</span><div><h3 className="font-semibold text-on-surface">{title}</h3><p className="text-sm text-secondary mt-1">{body}</p></div></div>; }

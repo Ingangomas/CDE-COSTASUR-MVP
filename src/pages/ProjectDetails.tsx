@@ -1,6 +1,7 @@
 ﻿import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { formatDate, getProjectWorkspace, type ProjectWorkspace } from "../lib/cde-data";
+import { ContractorAuthorizationPanel } from "../components/ContractorAuthorizationPanel";
 
 const phaseLabels: Record<string, string> = { anteproyecto: "Anteproyecto", revision_tecnica: "Revisión técnica", planos_tecnicos: "Planos técnicos", inicio_obra: "Inicio de obra", obra_activa: "Obra activa", cierre: "Cierre", archivo: "Archivo", autorizacion_inicial: "Autorización inicial", directorio: "Directorio" };
 const cdeLabels: Record<string, string> = { wip: "En trabajo", shared: "Compartido", published: "Publicado", archive: "Archivado" };
@@ -41,9 +42,8 @@ export function ProjectDetails() {
         <div className="lg:col-span-8 space-y-8">
           <section className="bg-white rounded-3xl p-7 md:p-8 border border-outline-variant/30 soft-shadow">
             <div className="flex items-center justify-between gap-4 mb-7"><div><p className="text-xs uppercase tracking-[0.18em] text-secondary">Estado del expediente</p><h2 className="text-2xl font-bold text-on-surface mt-2">Avance consolidado</h2></div><span className="text-sm font-semibold text-primary">{phaseLabels[project.phase] ?? project.phase}</span></div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+<div className="max-w-xl">
               <Progress label="Avance físico" value={Number(project.progress_percent)} tone="primary" />
-              <Progress label="Avance financiero" value={Number(project.financial_progress_percent)} tone="success" />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-7 border-t border-outline-variant/30">
               <Metric label="Estado CDE" value={cdeLabels[project.cde_status] ?? project.cde_status} />
@@ -59,6 +59,7 @@ export function ProjectDetails() {
               {documents.map((document) => <div key={document.id}><DocumentCard projectId={project.id} documentId={document.id} title={document.title} category={document.category} state={document.cde_state} visibleToOwner={document.visible_to_owner} /></div>)}
             </div>
           </section>
+          <ContractorAuthorizationPanel projectId={project.id} phase={project.phase} />
         </div>
 
         <aside className="lg:col-span-4 space-y-8">
