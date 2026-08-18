@@ -1,236 +1,89 @@
-﻿import { useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { getProjectsForUser } from "../lib/cde-data";
+import type { ProjectRecord } from "../lib/cde-types";
+import { useSession } from "../context/SessionContext";
 
 interface DepartmentProyectosProps {
   department: "Legal" | "Eléctrica" | "Hidrosanitaria" | "Paisajismo" | "Mensura" | "Seguridad";
   deptKey: "legal" | "electrica" | "hidrosanitaria" | "paisajismo" | "mensura" | "seguridad";
 }
 
+const statusLabel = (status: string) => ({
+  obra_activa: "Obra activa",
+  en_revision: "En revisión",
+  pendiente_inspeccion: "Pendiente de inspección",
+  critica: "Crítica",
+  paralizada: "Paralizada",
+  finalizada: "Finalizada",
+  aprobado: "Aprobada",
+}[status] ?? status.replaceAll("_", " "));
+
+function statusTone(status: string) {
+  if (status === "critica" || status === "paralizada") return "bg-error/10 text-error";
+  if (status === "en_revision" || status === "pendiente_inspeccion") return "bg-warning/10 text-warning";
+  if (status === "finalizada") return "bg-success/10 text-success";
+  return "bg-primary/10 text-primary";
+}
+
 export function DepartmentProyectos({ department, deptKey }: DepartmentProyectosProps) {
-  const [filtroEstado, setFiltroEstado] = useState<string>("Todos");
+  const { session } = useSession();
   const [searchParams] = useSearchParams();
-  const searchQuery = searchParams.get("search") || "";
+  const searchQuery = searchParams.get("search")?.trim().toLowerCase() ?? "";
+  const [projects, setProjects] = useState<ProjectRecord[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Data customized per department
-  const getDepartmentProjects = () => {
-    switch (deptKey) {
-      case "legal":
-        return [
-          {
-            id: "1",
-            nombre: "Villa Punta Águila #15",
-            propietario: "Juan Pérez",
-            ubicacion: "Costasur - Parcela 42-B",
-            estado: "En Revisión Legal",
-            detalle: "Verificación de Título y Deslinde",
-            fecha: "10 Ago 2026",
-            imagen: "https://lh3.googleusercontent.com/aida-public/AB6AXuDuFYMxX4l2AYjQh0ZLvhR-q67Q4XEepb3zGqd2LeDZUvs-BrveruRScUEh58i_vXNm4jcPuE3-Dmboe4NnULR_aFErYQHFa0ejDqvWtznOUrYKi1UUjKUD-IDG-qjrtUlHp9HP4Z_Kk1AdHRoyausxeQlFLcs2dS4Qht3kMfGxHOwULF4W_qN3ctDyKMuovROLMIaZHs4oR0UCRKR6RTWQF9pvKmBZOxjUJyjrWZro1fD6wfeK_4l0",
-          },
-          {
-            id: "2",
-            nombre: "Solar Los Lagos #4",
-            propietario: "Inversiones del Caribe",
-            ubicacion: "Lote 1,200 m²",
-            estado: "Validado",
-            detalle: "Sin Objeciones / No Gravamen",
-            fecha: "01 Ago 2026",
-            imagen: "https://lh3.googleusercontent.com/aida-public/AB6AXuAuWGOWXc1Fyh_aW0Q4Nb740Hdw1GpLBxhonddysbeyKxPeycXTWmvmgGBBR3nN52CbEMg_0hq8j-cFjfJVSaU0hXmJhBfk3lu8tvgucxqyXJmFApkr74eAstkSFtaw57G7s80H1mLE0XwuJlNDmXu_GDhDH6t-1aLgr8zQ3NmTxu8dfdaKeUz61L0RW1Tj118xIbpyGij2FURJaLz-RnHHjXZmXNPH6jCnnU16vko2M8bZHuGIzgIe",
-          },
-          {
-            id: "3",
-            nombre: "Casa de Campo #22",
-            propietario: "Roberto Gómez",
-            ubicacion: "Costasur, Sector Norte",
-            estado: "Pendiente Titulo",
-            detalle: "Documento de Traspaso en Proceso",
-            fecha: "15 Jul 2026",
-            imagen: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800&auto=format&fit=crop",
-          },
-        ];
-      case "electrica":
-        return [
-          {
-            id: "1",
-            nombre: "Villa Punta Águila #15",
-            propietario: "Juan Pérez",
-            ubicacion: "Carga solicitada: 75 kVA",
-            estado: "En Revisión Unifilar",
-            detalle: "Cálculo de subestación y grupo electrógeno",
-            fecha: "10 Ago 2026",
-            imagen: "https://lh3.googleusercontent.com/aida-public/AB6AXuDuFYMxX4l2AYjQh0ZLvhR-q67Q4XEepb3zGqd2LeDZUvs-BrveruRScUEh58i_vXNm4jcPuE3-Dmboe4NnULR_aFErYQHFa0ejDqvWtznOUrYKi1UUjKUD-IDG-qjrtUlHp9HP4Z_Kk1AdHRoyausxeQlFLcs2dS4Qht3kMfGxHOwULF4W_qN3ctDyKMuovROLMIaZHs4oR0UCRKR6RTWQF9pvKmBZOxjUJyjrWZro1fD6wfeK_4l0",
-          },
-          {
-            id: "2",
-            nombre: "Solar Los Lagos #4",
-            propietario: "Inversiones del Caribe",
-            ubicacion: "Carga solicitada: 45 kVA",
-            estado: "Aprobado",
-            detalle: "Acometida subterránea conforme",
-            fecha: "02 Ago 2026",
-            imagen: "https://lh3.googleusercontent.com/aida-public/AB6AXuAuWGOWXc1Fyh_aW0Q4Nb740Hdw1GpLBxhonddysbeyKxPeycXTWmvmgGBBR3nN52CbEMg_0hq8j-cFjfJVSaU0hXmJhBfk3lu8tvgucxqyXJmFApkr74eAstkSFtaw57G7s80H1mLE0XwuJlNDmXu_GDhDH6t-1aLgr8zQ3NmTxu8dfdaKeUz61L0RW1Tj118xIbpyGij2FURJaLz-RnHHjXZmXNPH6jCnnU16vko2M8bZHuGIzgIe",
-          },
-          {
-            id: "5",
-            nombre: "Vista Mar #5",
-            propietario: "Estudio Litoral",
-            ubicacion: "Carga solicitada: 100 kVA",
-            estado: "Con Correcciones",
-            detalle: "Ajustar ubicación de transfer switch",
-            fecha: "05 Ago 2026",
-            imagen: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=800&auto=format&fit=crop",
-          },
-        ];
-      case "hidrosanitaria":
-        return [
-          {
-            id: "1",
-            nombre: "Villa Punta Águila #15",
-            propietario: "Juan Pérez",
-            ubicacion: "Acometida 2 pulgadas - Cisterna 12,000G",
-            estado: "En Revisión Pluvial",
-            detalle: "Diseño de pozos de infiltración y trampa de grasa",
-            fecha: "10 Ago 2026",
-            imagen: "https://lh3.googleusercontent.com/aida-public/AB6AXuDuFYMxX4l2AYjQh0ZLvhR-q67Q4XEepb3zGqd2LeDZUvs-BrveruRScUEh58i_vXNm4jcPuE3-Dmboe4NnULR_aFErYQHFa0ejDqvWtznOUrYKi1UUjKUD-IDG-qjrtUlHp9HP4Z_Kk1AdHRoyausxeQlFLcs2dS4Qht3kMfGxHOwULF4W_qN3ctDyKMuovROLMIaZHs4oR0UCRKR6RTWQF9pvKmBZOxjUJyjrWZro1fD6wfeK_4l0",
-          },
-          {
-            id: "3",
-            nombre: "Casa de Campo #22",
-            propietario: "Roberto Gómez",
-            ubicacion: "Tanque Séptico ecológico",
-            estado: "Aprobado",
-            detalle: "Drenaje pluvial y trampa de grasa aprobada",
-            fecha: "20 Jul 2026",
-            imagen: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800&auto=format&fit=crop",
-          },
-          {
-            id: "5",
-            nombre: "Vista Mar #5",
-            propietario: "Estudio Litoral",
-            ubicacion: "Piscina + Cisterna 18,000G",
-            estado: "Con Correcciones",
-            detalle: "Relocalizar trampa de grasa a 3m del lindero",
-            fecha: "05 Ago 2026",
-            imagen: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=800&auto=format&fit=crop",
-          },
-        ];
-      case "paisajismo":
-        return [
-          {
-            id: "1",
-            nombre: "Villa Punta Águila #15",
-            propietario: "Juan Pérez",
-            ubicacion: "Área verde: 450 m²",
-            estado: "En Revisión Especies",
-            detalle: "Plan de siembra de palmas reales y grama Zoysia",
-            fecha: "11 Ago 2026",
-            imagen: "https://lh3.googleusercontent.com/aida-public/AB6AXuDuFYMxX4l2AYjQh0ZLvhR-q67Q4XEepb3zGqd2LeDZUvs-BrveruRScUEh58i_vXNm4jcPuE3-Dmboe4NnULR_aFErYQHFa0ejDqvWtznOUrYKi1UUjKUD-IDG-qjrtUlHp9HP4Z_Kk1AdHRoyausxeQlFLcs2dS4Qht3kMfGxHOwULF4W_qN3ctDyKMuovROLMIaZHs4oR0UCRKR6RTWQF9pvKmBZOxjUJyjrWZro1fD6wfeK_4l0",
-          },
-          {
-            id: "2",
-            nombre: "Solar Los Lagos #4",
-            propietario: "Inversiones del Caribe",
-            ubicacion: "Área verde: 600 m²",
-            estado: "Aprobado",
-            detalle: "Cumple con el 35% mínimo de cobertura vegetal",
-            fecha: "03 Ago 2026",
-            imagen: "https://lh3.googleusercontent.com/aida-public/AB6AXuAuWGOWXc1Fyh_aW0Q4Nb740Hdw1GpLBxhonddysbeyKxPeycXTWmvmgGBBR3nN52CbEMg_0hq8j-cFjfJVSaU0hXmJhBfk3lu8tvgucxqyXJmFApkr74eAstkSFtaw57G7s80H1mLE0XwuJlNDmXu_GDhDH6t-1aLgr8zQ3NmTxu8dfdaKeUz61L0RW1Tj118xIbpyGij2FURJaLz-RnHHjXZmXNPH6jCnnU16vko2M8bZHuGIzgIe",
-          },
-        ];
-    }
-  };
+  useEffect(() => {
+    if (!session?.user.id) return;
+    let active = true;
+    setLoading(true);
+    void getProjectsForUser(session.user.id)
+      .then((rows) => { if (active) setProjects(rows); })
+      .catch((loadError) => { if (active) setError(loadError instanceof Error ? loadError.message : "No se pudieron cargar los expedientes del departamento."); })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [session?.user.id]);
 
-  const proyectos = getDepartmentProjects();
-
-  const proyectosFiltrados = proyectos.filter(p => {
-    const matchEstado = filtroEstado === "Todos" ? true : p.estado.includes(filtroEstado) || filtroEstado === p.estado;
-    const matchSearch = p.nombre.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                        p.propietario.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchEstado && matchSearch;
-  });
-
-  const filtros = ["Todos", "En Revisión", "Aprobado", "Validado", "Con Correcciones"];
+  const filtered = useMemo(() => projects.filter((project) => {
+    if (!searchQuery) return true;
+    return project.title.toLowerCase().includes(searchQuery) || project.project_code.toLowerCase().includes(searchQuery);
+  }), [projects, searchQuery]);
 
   return (
-    <div className="px-4 md:px-10 py-8 md:py-12 max-w-7xl mx-auto">
-      <div className="mb-8">
-        <h2 className="text-4xl md:text-5xl font-bold text-on-surface mb-2 tracking-tight">
-          Proyectos - Depto. {department}
-        </h2>
-        <p className="text-lg text-secondary">
-          Expedientes y solicitudes sometidas a la revisión del departamento de {department.toLowerCase()}.
-        </p>
-      </div>
+    <div className="mx-auto max-w-7xl px-4 py-8 md:px-10 md:py-12">
+      <header className="mb-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Expedientes persistentes</p>
+        <h2 className="mt-2 text-4xl font-bold tracking-tight text-on-surface md:text-5xl">Proyectos — {department}</h2>
+        <p className="mt-2 text-lg text-secondary">Expedientes asignados al departamento {department.toLowerCase()} mediante membresías activas.</p>
+      </header>
 
-      {/* Filters */}
-      <div className="flex overflow-x-auto gap-3 mb-8 pb-2 custom-scrollbar">
-        {filtros.map(filtro => (
-          <button
-            key={filtro}
-            onClick={() => setFiltroEstado(filtro)}
-            className={`px-5 py-2 rounded-full font-medium text-sm transition-colors whitespace-nowrap ${
-              filtroEstado === filtro 
-                ? "bg-primary text-white shadow-md" 
-                : "bg-surface-container-low text-secondary border border-outline-variant/30 hover:bg-surface-container-highest"
-            }`}
-          >
-            {filtro}
-          </button>
-        ))}
-      </div>
-
-      {proyectosFiltrados.length === 0 ? (
-        <div className="text-center py-12 bg-surface-container-lowest rounded-3xl border border-outline-variant/30">
-          <span className="material-symbols-outlined text-[48px] text-secondary/50 mb-4">inbox</span>
-          <h3 className="text-xl font-bold text-on-surface mb-2">No hay proyectos</h3>
-          <p className="text-secondary">No se encontraron proyectos para este filtro.</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {proyectosFiltrados.map(proyecto => (
-            <Link 
-              to={`/${deptKey}/proyectos/${proyecto.id}`} 
-              key={proyecto.id} 
-              className="bg-surface-container-lowest border border-outline-variant/30 rounded-3xl overflow-hidden ambient-shadow hover:shadow-lg transition-shadow duration-300 block group"
-            >
-              <div className="relative h-48 w-full bg-surface-variant overflow-hidden">
-                <img 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                  alt={proyecto.nombre} 
-                  src={proyecto.imagen}
-                />
-                <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider backdrop-blur-md bg-opacity-90 shadow-sm ${
-                  proyecto.estado.includes('Aprobado') || proyecto.estado.includes('Validado') ? 'bg-success/90 text-white' :
-                  proyecto.estado.includes('Correcciones') ? 'bg-warning/90 text-white' :
-                  'bg-primary-fixed text-primary'
-                }`}>
-                  {proyecto.estado}
-                </div>
-              </div>
-              <div className="p-6">
-                <h4 className="text-xl font-bold text-on-surface mb-1 truncate">{proyecto.nombre}</h4>
-                <p className="text-xs text-secondary mb-2 flex items-center gap-1">
-                  <span className="material-symbols-outlined text-[16px]">person</span>
-                  Propietario: <span className="font-medium text-on-surface">{proyecto.propietario}</span>
-                </p>
-                <p className="text-xs text-secondary mb-4 line-clamp-1">
-                  {proyecto.ubicacion}
-                </p>
-                
-                <div className="pt-4 border-t border-outline-variant/20 flex justify-between items-center text-sm">
-                  <div className="flex items-center gap-1 text-secondary text-xs">
-                    <span className="material-symbols-outlined text-[16px]">calendar_today</span>
-                    <span>{proyecto.fecha}</span>
+      {loading && <div className="rounded-3xl border border-outline-variant/30 bg-surface-container-lowest p-8 text-sm text-secondary">Cargando expedientes persistidos...</div>}
+      {error && <div className="rounded-3xl border border-error/30 bg-error/10 p-8 text-sm text-error">{error}</div>}
+      {!loading && !error && (
+        filtered.length ? (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {filtered.map((project) => (
+              <Link key={project.id} to={`/${deptKey}/proyectos/${project.id}`} className="group block overflow-hidden rounded-3xl border border-outline-variant/30 bg-surface-container-lowest transition-shadow hover:shadow-lg">
+                <div className="flex items-start justify-between gap-4 border-b border-outline-variant/20 bg-surface-container-low p-5">
+                  <div className="min-w-0">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-secondary">{project.project_code}</p>
+                    <h3 className="mt-2 truncate text-xl font-bold text-on-surface">{project.title}</h3>
                   </div>
-                  <span className="text-primary font-medium hover:underline flex items-center gap-1 text-xs">
-                    Ver Expediente <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-                  </span>
+                  <span className={`shrink-0 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider ${statusTone(project.operational_status)}`}>{statusLabel(project.operational_status)}</span>
                 </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+                <div className="space-y-4 p-6">
+                  <div className="flex items-center justify-between text-sm text-secondary"><span>Fase</span><span className="font-semibold text-on-surface">{project.phase.replaceAll("_", " ")}</span></div>
+                  <div><div className="mb-1 flex justify-between text-xs text-secondary"><span>Avance físico</span><span>{project.progress_percent}%</span></div><div className="h-1.5 overflow-hidden rounded-full bg-surface-variant"><div className="h-full rounded-full bg-primary" style={{ width: `${project.progress_percent}%` }} /></div></div>
+                  <div className="flex items-center justify-between border-t border-outline-variant/20 pt-4 text-xs font-semibold text-primary"><span>Ver expediente</span><span className="material-symbols-outlined text-[17px] transition-transform group-hover:translate-x-1">arrow_forward</span></div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-3xl border border-outline-variant/30 bg-surface-container-lowest p-12 text-center"><span className="material-symbols-outlined text-[48px] text-secondary/50">inbox</span><h3 className="mt-4 text-xl font-bold text-on-surface">No hay expedientes asignados</h3><p className="mt-2 text-secondary">Este departamento no tiene todavía una membresía activa para mostrar.</p></div>
+        )
       )}
     </div>
   );
 }
-

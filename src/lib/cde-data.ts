@@ -355,3 +355,10 @@ export async function getProjectsForUser(userId: string) {
   if (error) throw error;
   return (data ?? []) as ProjectRecord[];
 }
+
+export async function getAdminProperties(): Promise<PropertyRecord[]> {
+  const client = requireSupabase();
+  const { data, error } = await client.from("properties").select("*").order("property_code", { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as PropertyRecord[];
+}

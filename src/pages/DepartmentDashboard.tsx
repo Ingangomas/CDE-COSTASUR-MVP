@@ -1,91 +1,56 @@
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { getProjectsForUser } from "../lib/cde-data";
+import type { ProjectRecord } from "../lib/cde-types";
+import { useSession } from "../context/SessionContext";
 
-export function DepartmentDashboard({ department, icon, type, deptKey }: { department: string, icon: string, type: string, deptKey?: string }) {
-  const targetLink = deptKey ? `/${deptKey}/proyectos/1` : "/revision-tecnica/proyectos/1";
+export function DepartmentDashboard({ department, icon, type, deptKey }: { department: string; icon: string; type: string; deptKey?: string }) {
+  const { session } = useSession();
+  const [projects, setProjects] = useState<ProjectRecord[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const targetPrefix = deptKey ?? "revision-tecnica";
+
+  useEffect(() => {
+    if (!session?.user.id) return;
+    let active = true;
+    void getProjectsForUser(session.user.id)
+      .then((rows) => { if (active) setProjects(rows); })
+      .catch((loadError) => { if (active) setError(loadError instanceof Error ? loadError.message : "No se pudieron cargar los expedientes."); })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [session?.user.id]);
+
+  const summary = useMemo(() => ({
+    total: projects.length,
+    review: projects.filter((project) => project.operational_status === "en_revision" || project.phase === "revision_tecnica").length,
+    active: projects.filter((project) => project.operational_status === "obra_activa").length,
+  }), [projects]);
+
   return (
-    <div className="p-4 md:p-10 max-w-7xl mx-auto space-y-8">
+    <div className="mx-auto max-w-7xl space-y-8 p-4 md:p-10">
       <div className="flex items-center gap-4 border-b border-outline-variant/30 pb-6">
-        <div className="w-16 h-16 rounded-2xl bg-primary-fixed flex items-center justify-center text-primary shadow-sm">
-          <span className="material-symbols-outlined text-3xl">{icon}</span>
-        </div>
-        <div>
-          <h1 className="text-3xl md:text-4xl font-bold text-primary">Dashboard Depto. {department}</h1>
-          <p className="text-secondary mt-1">Bandeja de entrada: {type}</p>
-        </div>
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-fixed text-primary shadow-sm"><span className="material-symbols-outlined text-3xl">{icon}</span></div>
+        <div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">CDE Costasur</p><h1 className="mt-2 text-3xl font-bold text-primary md:text-4xl">Departamento {department}</h1><p className="mt-1 text-secondary">{type}</p></div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="glass-panel p-6 rounded-3xl soft-shadow border border-outline-variant/30">
-          <p className="text-secondary text-sm font-semibold uppercase tracking-wider mb-2">Pendientes de Revisión</p>
-          <p className="text-4xl font-bold text-primary">12</p>
-        </div>
-        <div className="glass-panel p-6 rounded-3xl soft-shadow border border-outline-variant/30">
-          <p className="text-secondary text-sm font-semibold uppercase tracking-wider mb-2">Aprobados este mes</p>
-          <p className="text-4xl font-bold text-primary">45</p>
-        </div>
-      </div>
+      {loading && <div className="rounded-3xl border border-outline-variant/30 bg-surface-container-lowest p-8 text-sm text-secondary">Cargando expedientes persistidos...</div>}
+      {error && <div className="rounded-3xl border border-error/30 bg-error/10 p-8 text-sm text-error">{error}</div>}
+      {!loading && !error && (
+        <>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {[["Expedientes asignados", summary.total, "folder_open"], ["En revisión", summary.review, "rate_review"], ["Obras activas", summary.active, "construction"]].map(([label, value, symbol]) => <div key={String(label)} className="rounded-3xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-sm"><span className="material-symbols-outlined text-primary">{symbol}</span><p className="mt-3 text-xs font-semibold uppercase tracking-wider text-secondary">{label}</p><p className="mt-1 text-4xl font-bold text-primary">{value}</p></div>)}
+          </div>
 
-      <div className="bg-surface-container-lowest rounded-3xl border border-outline-variant/30 overflow-hidden soft-shadow">
-        <div className="p-6 border-b border-outline-variant/20 flex justify-between items-center">
-          <h3 className="text-xl font-bold text-primary">Solicitudes Pendientes</h3>
-          <button className="text-sm text-primary-container font-medium flex items-center gap-1 bg-surface-container-low px-3 py-1.5 rounded-full hover:bg-surface-variant transition-colors">
-            Filtrar <span className="material-symbols-outlined text-[18px]">filter_list</span>
-          </button>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse min-w-[800px]">
-            <thead>
-              <tr className="bg-surface-container-low text-secondary text-sm uppercase tracking-wider">
-                <th className="p-4 font-semibold">Proyecto</th>
-                <th className="p-4 font-semibold">Propietario / Arq.</th>
-                <th className="p-4 font-semibold">Fecha Solicitud</th>
-                <th className="p-4 font-semibold">Estado</th>
-                <th className="p-4 font-semibold text-right">Acción</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-outline-variant/20 text-on-surface">
-              <tr className="hover:bg-surface-container-low/50 transition-colors">
-                <td className="p-4">
-                  <p className="font-bold text-primary">Villa Punta Águila #15</p>
-                  <p className="text-sm text-secondary">Construcción Nueva</p>
-                </td>
-                <td className="p-4">
-                  <p className="font-medium">Juan Pérez</p>
-                  <p className="text-sm text-secondary">Studio A</p>
-                </td>
-                <td className="p-4 text-sm text-secondary">12 Oct 2023</td>
-                <td className="p-4">
-                  <span className="bg-error-container/50 text-on-error-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Urgente</span>
-                </td>
-                <td className="p-4 text-right">
-                  <Link to={targetLink} className="inline-flex items-center justify-center bg-primary-container text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-primary-container/90 transition-colors">
-                    Revisar
-                  </Link>
-                </td>
-              </tr>
-              <tr className="hover:bg-surface-container-low/50 transition-colors">
-                <td className="p-4">
-                  <p className="font-bold text-primary">Remodelación Los Lagos #4</p>
-                  <p className="text-sm text-secondary">Remodelación Mayor</p>
-                </td>
-                <td className="p-4">
-                  <p className="font-medium">María Gómez</p>
-                  <p className="text-sm text-secondary">Arq. Independiente</p>
-                </td>
-                <td className="p-4 text-sm text-secondary">15 Oct 2023</td>
-                <td className="p-4">
-                  <span className="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">En Cola</span>
-                </td>
-                <td className="p-4 text-right">
-                  <Link to={targetLink} className="inline-flex items-center justify-center bg-primary-container text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-primary-container/90 transition-colors">
-                    Revisar
-                  </Link>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+          <section className="overflow-hidden rounded-3xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm">
+            <div className="flex items-center justify-between border-b border-outline-variant/20 p-6"><div><h3 className="text-xl font-bold text-primary">Expedientes asignados</h3><p className="mt-1 text-sm text-secondary">Datos obtenidos de membresías activas y proyectos persistidos.</p></div><Link to={`/${targetPrefix}/proyectos`} className="text-sm font-semibold text-primary hover:underline">Ver todos</Link></div>
+            <div className="divide-y divide-outline-variant/20">
+              {projects.slice(0, 8).map((project) => <Link key={project.id} to={`/${targetPrefix}/proyectos/${project.id}`} className="flex flex-col gap-3 p-5 transition-colors hover:bg-surface-container-low sm:flex-row sm:items-center sm:justify-between"><div><p className="font-semibold text-on-surface">{project.title}</p><p className="mt-1 text-xs text-secondary">{project.project_code} · {project.phase.replaceAll("_", " ")}</p></div><div className="flex items-center gap-4"><span className="text-xs font-semibold text-primary">{project.operational_status.replaceAll("_", " ")}</span><span className="text-xs text-secondary">{project.progress_percent}% físico</span></div></Link>)}
+              {!projects.length && <p className="p-8 text-sm text-secondary">No hay expedientes con membresía activa para este departamento.</p>}
+            </div>
+          </section>
+        </>
+      )}
     </div>
   );
 }

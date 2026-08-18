@@ -36,23 +36,27 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   const [roles, setRoles] = useState<UserRole[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const refreshProfile = async () => {
+  const refreshProfile = async (attempt = 0): Promise<void> => {
     if (!supabase || !session?.user) {
       setProfile(null);
       setRoles([]);
       setLoading(false);
       return;
     }
-    try {
-      const [{ data: profileData }, { data: roleData }] = await Promise.all([
-        supabase.from("profiles").select("*").eq("id", session.user.id).maybeSingle(),
-        supabase.from("user_roles").select("*").eq("user_id", session.user.id).eq("is_active", true),
-      ]);
-      setProfile((profileData as Profile | null) ?? null);
-      setRoles((roleData as UserRole[] | null) ?? []);
-    } finally {
-      setLoading(false);
+
+    const [profileResult, roleResult] = await Promise.all([
+      supabase.from("profiles").select("*").eq("id", session.user.id).maybeSingle(),
+      supabase.from("user_roles").select("*").eq("user_id", session.user.id).eq("is_active", true),
+    ]);
+
+    if ((profileResult.error || roleResult.error) && attempt < 2) {
+      await new Promise((resolve) => window.setTimeout(resolve, 200 * (attempt + 1)));
+      return refreshProfile(attempt + 1);
     }
+
+    setProfile((profileResult.data as Profile | null) ?? null);
+    setRoles((roleResult.data as UserRole[] | null) ?? []);
+    setLoading(false);
   };
 
   useEffect(() => {

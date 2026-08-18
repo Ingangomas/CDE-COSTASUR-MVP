@@ -13,6 +13,8 @@ const routeRoles: Array<[string, RoleKey[]]> = [
   ["/electrica", ["electrica", "admin_general"]],
   ["/hidrosanitaria", ["hidrosanitaria", "admin_general"]],
   ["/paisajismo", ["paisajismo", "admin_general"]],
+  ["/mensura", ["mensura", "admin_general"]],
+  ["/seguridad", ["seguridad", "admin_general"]],
 ];
 
 function rolesForPath(pathname: string) {
