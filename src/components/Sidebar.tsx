@@ -3,11 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 export function Sidebar({ 
   role, 
   isMobileOpen, 
-  onCloseMobileMenu 
+  onCloseMobileMenu,
+  onSignOut,
 }: { 
   role: string; 
   isMobileOpen?: boolean; 
-  onCloseMobileMenu?: () => void; 
+  onCloseMobileMenu?: () => void;
+  onSignOut?: () => Promise<void>;
 }) {
   const location = useLocation();
   const path = location.pathname;
@@ -135,8 +137,18 @@ export function Sidebar({
       </div>
 
       <div className="px-6 mt-6">
-        {(role === 'propietario' || role === 'arquitecto') && (
-          <button className="w-full bg-primary-container text-white rounded-full py-3 px-6 flex items-center justify-center gap-2 font-medium hover:bg-primary-container/90 transition-colors shadow-md text-sm">
+        {role === 'propietario' && (
+          <Link
+            to="/propietario/mis-propiedades?nuevo=1"
+            onClick={isMobile ? onCloseMobileMenu : undefined}
+            className="w-full bg-primary-container text-white rounded-full py-3 px-6 flex items-center justify-center gap-2 font-medium hover:bg-primary-container/90 transition-colors shadow-md text-sm"
+          >
+            <span className="material-symbols-outlined text-[20px]">add</span>
+            Nuevo Proyecto
+          </Link>
+        )}
+        {role === 'arquitecto' && (
+          <button type="button" className="w-full bg-primary-container text-white rounded-full py-3 px-6 flex items-center justify-center gap-2 font-medium hover:bg-primary-container/90 transition-colors shadow-md text-sm">
             <span className="material-symbols-outlined text-[20px]">add</span>
             Nuevo Proyecto
           </button>
@@ -146,14 +158,14 @@ export function Sidebar({
       <div className="mt-6 border-t border-outline-variant/20 pt-4">
         <ul className="space-y-2">
           <li>
-            <Link 
-              to="/" 
-              onClick={isMobile ? onCloseMobileMenu : undefined}
-              className={getNavClass(false)}
+            <button
+              type="button"
+              onClick={() => { void onSignOut?.(); }}
+              className={`${getNavClass(false)} w-full text-left`}
             >
               <span className="material-symbols-outlined">logout</span>
               <span className="font-medium text-sm md:text-base">Cerrar Sesión</span>
-            </Link>
+            </button>
           </li>
         </ul>
       </div>
