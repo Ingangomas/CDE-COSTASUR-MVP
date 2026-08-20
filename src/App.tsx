@@ -101,7 +101,7 @@ export default function App() {
           <Route path="proyectos/:id" element={<DepartmentProjectDetails department="Seguridad" deptKey="seguridad" />} />
         </Route>
         <Route path="/admin" element={<Layout role="admin" />}>
-          <Route index element={<DashboardAnalytics role="admin" />} />
+          <Route index element={<AdminMapaGeneral />} />
           <Route path="mapa" element={<AdminMapaGeneral />} />
           <Route path="proyectos" element={<AdminProyectos />} />
           <Route path="departamentos" element={<AdminDepartamentos />} />

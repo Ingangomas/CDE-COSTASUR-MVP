@@ -2,6 +2,7 @@
 import { AdminLiveMapSummary } from "../components/AdminLiveMapSummary";
 import { AdminLiveMetrics } from "../components/AdminLiveMetrics";
 import { AdminLiveOperations } from "../components/AdminLiveOperations";
+import { CasaDeCampoMap } from "../components/CasaDeCampoMap";
 
 export function AdminMapaGeneral() {
   return (
@@ -32,6 +33,14 @@ export function AdminMapaGeneral() {
         </div>
       </div>
 
+      <section className="rounded-3xl border border-outline-variant/30 bg-surface-container-lowest p-4 md:p-6">
+        <div className="mb-4 flex items-center justify-between gap-4 px-2">
+          <div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Mapa principal</p><h3 className="mt-1 text-xl font-bold text-primary">Casa de Campo y propiedades del CDE</h3></div>
+          <span className="hidden rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary sm:inline-flex">Ubicación operativa</span>
+        </div>
+        <CasaDeCampoMap />
+      </section>
+
       <AdminLiveMetrics />
 
       <section className="rounded-3xl border border-outline-variant/30 bg-surface-container-lowest p-6 md:p-8">
@@ -40,7 +49,7 @@ export function AdminMapaGeneral() {
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Mapa GIS Costasur</p>
             <h3 className="mt-2 text-xl font-bold text-primary">Ubicación de expedientes y propiedades</h3>
             <p className="mt-2 max-w-3xl text-sm leading-6 text-secondary">
-              Esta vista usa únicamente coordenadas y estados persistidos en el CDE. La capa cartográfica externa se conectará cuando se configure la API GIS oficial; mientras tanto no se muestran mapas simulados ni métricas inventadas.
+              Inventario georreferenciado persistente desde el día cero, con villas, lotes vacíos y expedientes vinculados.
             </p>
           </div>
           <span className="inline-flex w-fit items-center gap-2 rounded-full bg-warning/10 px-3 py-1.5 text-xs font-semibold text-warning">
