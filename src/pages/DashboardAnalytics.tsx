@@ -4,6 +4,7 @@ import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveCo
 import { getAdminProjects, getProjectsForUser } from "../lib/cde-data";
 import type { ProjectRecord } from "../lib/cde-types";
 import { useSession } from "../context/SessionContext";
+import { CasaDeCampoMap } from "../components/CasaDeCampoMap";
 
 const COLORS = ["#001e40", "#d18b00", "#0f766e", "#b42318", "#667085"];
 
@@ -81,6 +82,7 @@ export function DashboardAnalytics({ role }: { role: string }) {
     <div className="min-h-full flex-1 overflow-y-auto bg-surface-container-low p-4 pt-8 md:p-10">
       <div className="mx-auto max-w-[1300px] space-y-8">
         <header><p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">CDE Costasur</p><h2 className="mt-2 text-4xl font-bold tracking-tight text-on-surface md:text-5xl">Dashboard {title}</h2><p className="mt-2 text-lg text-secondary">{description}</p></header>
+        {role === "revision-tecnica" && <CasaDeCampoMap title="Mapa GIS de Arquitectura" subtitle="Casa de Campo · La Romana · expedientes de revisión" heightClassName="h-[300px] md:h-[380px]" />}
         {loading && <div className="rounded-3xl border border-outline-variant/30 bg-surface-container-lowest p-8 text-sm text-secondary">Cargando expedientes persistidos...</div>}
         {error && <div className="rounded-3xl border border-error/30 bg-error/10 p-8 text-sm text-error">{error}</div>}
         {!loading && !error && <>

@@ -1,6 +1,7 @@
 ﻿import { Link } from "react-router-dom";
 import { ControlRequestsPanel } from "../components/ControlRequestsPanel";
 import { AdminLiveMetrics } from "../components/AdminLiveMetrics";
+import { CasaDeCampoMap } from "../components/CasaDeCampoMap";
 
 export function ControlDeObras() {
   return (
@@ -21,6 +22,8 @@ export function ControlDeObras() {
           Ver expedientes
         </Link>
       </div>
+
+      <CasaDeCampoMap title="Mapa GIS de Control de Obras" subtitle="Casa de Campo · La Romana · ubicación de expedientes" heightClassName="h-[300px] md:h-[380px]" />
 
       <AdminLiveMetrics />
 
