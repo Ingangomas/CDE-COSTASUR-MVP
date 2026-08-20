@@ -7,11 +7,12 @@ export function CasaDeCampoMap() {
       </div>
       <iframe
         title="Mapa de Casa de Campo"
-        src="https://www.google.com/maps?q=18.54021,-68.36541&z=15&output=embed"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-68.38%2C18.53%2C-68.34%2C18.56&layer=mapnik&marker=18.54021%2C-68.36541"
         className="h-[360px] w-full border-0 md:h-[430px]"
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
       />
+      <p className="border-t border-outline-variant/20 bg-white px-4 py-2 text-[11px] text-secondary">Mapa base © OpenStreetMap contributors · ubicación de referencia para Casa de Campo</p>
     </div>
   );
 }
