@@ -25,7 +25,8 @@ export async function getOwnerPortfolio(userId: string): Promise<PortfolioRow[]>
   const { data: projects, error: projectError } = await client
     .from("projects")
     .select("*")
-    .in("property_id", propertyRows.map((property) => property.id))
+.in("property_id", propertyRows.map((property) => property.id))
+    .neq("operational_status", "archivada")
     .order("created_at", { ascending: true });
   if (projectError) throw projectError;
   const projectRows = (projects ?? []) as ProjectRecord[];
@@ -351,7 +352,7 @@ export async function getProjectsForUser(userId: string) {
   if (membershipError) throw membershipError;
   const projectIds = (memberships ?? []).map((row) => row.project_id as string);
   if (!projectIds.length) return [] as ProjectRecord[];
-  const { data, error } = await client.from("projects").select("*").in("id", projectIds).order("updated_at", { ascending: false });
+  const { data, error } = await client.from("projects").select("*").in("id", projectIds).neq("operational_status", "archivada").order("updated_at", { ascending: false });
   if (error) throw error;
   return (data ?? []) as ProjectRecord[];
 }

@@ -13,6 +13,7 @@ interface DocumentUploadProps {
   defaultCategory?: string;
   categories?: DocumentCategoryOption[];
   titleLabel?: string;
+  accept?: string;
 }
 
 const DEFAULT_CATEGORIES: DocumentCategoryOption[] = [
@@ -27,7 +28,7 @@ const DEFAULT_CATEGORIES: DocumentCategoryOption[] = [
   { value: "otro", label: "Otro" },
 ];
 
-export function DocumentUpload({ projectId, onUploaded, defaultCategory = "anteproyecto", categories = DEFAULT_CATEGORIES, titleLabel = "Título del documento" }: DocumentUploadProps) {
+export function DocumentUpload({ projectId, onUploaded, defaultCategory = "anteproyecto", categories = DEFAULT_CATEGORIES, titleLabel = "Título del documento", accept = ".pdf,.dwg,.dxf,.doc,.docx,image/png,image/jpeg" }: DocumentUploadProps) {
   const { profile } = useSession();
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState(defaultCategory);
@@ -75,7 +76,7 @@ export function DocumentUpload({ projectId, onUploaded, defaultCategory = "antep
         <label className="text-sm text-secondary">{titleLabel}<input value={title} onChange={(event) => setTitle(event.target.value)} className="mt-2 w-full rounded-xl border border-outline-variant/40 px-4 py-3 text-on-surface outline-none focus:border-primary" placeholder="Ej. Carta de autorización de obra" /></label>
         <label className="text-sm text-secondary">Categoría<select value={category} onChange={(event) => setCategory(event.target.value)} className="mt-2 w-full rounded-xl border border-outline-variant/40 px-4 py-3 text-on-surface outline-none focus:border-primary">{categories.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>
       </div>
-      <label className="block text-sm text-secondary">Archivo<input type="file" onChange={onFileChange} accept=".pdf,.dwg,.dxf,.doc,.docx,image/png,image/jpeg" className="mt-2 block w-full rounded-xl border border-dashed border-outline-variant/60 bg-surface-container-low px-4 py-4 text-sm text-on-surface" /><span className="block text-xs mt-2">PDF, CAD, DOCX o imágenes · máximo 50 MB</span></label>
+      <label className="block text-sm text-secondary">Archivo<input type="file" onChange={onFileChange} accept={accept} className="mt-2 block w-full rounded-xl border border-dashed border-outline-variant/60 bg-surface-container-low px-4 py-4 text-sm text-on-surface" /><span className="block text-xs mt-2">PDF, CAD, DOCX, imágenes o anexos autorizados · máximo 50 MB</span></label>
       {file && <p className="text-sm text-primary flex items-center gap-2"><span className="material-symbols-outlined text-base">attach_file</span>{file.name}</p>}
       {error && <p className="text-sm text-error">{error}</p>}
       {message && <p className="text-sm text-success">{message}</p>}

@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { DocumentViewer } from "./DocumentViewer";
 import { getProjectWorkspace, submitWorkflowReview, type ProjectWorkspace } from "../lib/cde-data";
 
-const stageLabels: Record<string, string> = { autorizacion: "Carta de autorización", anteproyecto: "Anteproyecto", planos_tecnicos: "Planos técnicos" };
+const stageLabels: Record<string, string> = { autorizacion: "Carta de autorización", anteproyecto: "Anteproyecto y documentación arquitectónica", planos_tecnicos: "Planos técnicos" };
+const anteprojectCategories = ["anteproyecto", "planta_conjunto", "planta_nivel", "elevaciones", "secciones", "curvas_nivel", "memoria_descriptiva", "anexos"];
 
 export function WorkflowReviewPanel({ projectId }: { projectId: string }) {
   const [workspace, setWorkspace] = useState<ProjectWorkspace | null>(null);
@@ -35,7 +36,7 @@ export function WorkflowReviewPanel({ projectId }: { projectId: string }) {
 
   const relevantDocuments = useMemo(() => {
     if (!workspace) return [];
-    const categories = stage === "autorizacion" ? ["autorizacion"] : stage === "anteproyecto" ? ["anteproyecto"] : ["arquitectonico", "estructural", "electrico", "hidrosanitario", "climatizacion"];
+    const categories = stage === "autorizacion" ? ["autorizacion"] : stage === "anteproyecto" ? anteprojectCategories : ["arquitectonico", "estructural", "electrico", "hidrosanitario", "climatizacion", "memoria_descriptiva"];
     return workspace.documents.filter((document) => categories.includes(document.category) && document.current_version_id);
   }, [stage, workspace]);
 
