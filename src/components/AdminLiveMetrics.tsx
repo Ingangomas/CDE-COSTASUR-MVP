@@ -8,7 +8,7 @@ export function AdminLiveMetrics() {
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     let active = true;
-    void getAdminProjects().then((data) => { if (active) setProjects(data); }).catch((loadError) => { if (active) setError(loadError instanceof Error ? loadError.message : "No se pudieron cargar las métricas."); }).finally(() => { if (active) setLoading(false); });
+    void getAdminProjects().then((data) => { if (active) setProjects(data.filter((project) => project.operational_status !== "archivada")); }).catch((loadError) => { if (active) setError(loadError instanceof Error ? loadError.message : "No se pudieron cargar las métricas."); }).finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, []);
   const metrics = useMemo(() => ({
