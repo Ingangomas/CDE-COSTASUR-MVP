@@ -86,7 +86,7 @@ export function Sidebar({
         { to: "/admin/mapa", icon: "admin_panel_settings", label: "Admin General" },
         { to: "/admin/proyectos", icon: "folder_open", label: "Proyectos Generales" },
         { to: "/admin/departamentos", icon: "corporate_fare", label: "Control Departamentos" },
-        { to: "/admin", icon: "dashboard", label: "Dashboard General" },
+        { to: "/admin/dashboard", icon: "dashboard", label: "Dashboard General" },
       ];
       break;
   }

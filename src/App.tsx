@@ -103,6 +103,7 @@ export default function App() {
         <Route path="/admin" element={<Layout role="admin" />}>
           <Route index element={<AdminMapaGeneral />} />
           <Route path="mapa" element={<AdminMapaGeneral />} />
+          <Route path="dashboard" element={<DashboardAnalytics role="admin" />} />
           <Route path="proyectos" element={<AdminProyectos />} />
           <Route path="departamentos" element={<AdminDepartamentos />} />
           <Route path="proyectos/:id" element={<ControlDeObrasProjectDetails />} /> 
