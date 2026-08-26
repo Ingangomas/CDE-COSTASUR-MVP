@@ -48,6 +48,7 @@ export function ProjectDetails() {
   if (error || !workspace) return <div className="p-10 max-w-3xl mx-auto"><Link to="/propietario/mis-propiedades" className="text-primary hover:underline">← Volver a Mis Propiedades</Link><div className="glass-panel mt-6 p-8 border border-error/30 text-error">{error || "Expediente no disponible."}</div></div>;
 
   const { project, property, documents, events } = workspace;
+  const technicalEnabled = ["planos_tecnicos", "inicio_obra", "obra_activa", "cierre"].includes(project.phase);
   return (
     <div className="px-4 md:px-10 py-8 md:py-12 max-w-7xl mx-auto space-y-8">
       <div>
@@ -105,14 +106,14 @@ export function ProjectDetails() {
         </aside>
             </div>
 
-      <OwnerPlansSection projectId={project.id} documents={documents} />
+      <OwnerPlansSection projectId={project.id} documents={documents} technicalEnabled={technicalEnabled} />
     </div>
   );
 }
 
-function OwnerPlansSection({ projectId, documents }: { projectId: string; documents: ProjectWorkspace["documents"] }) {
+function OwnerPlansSection({ projectId, documents, technicalEnabled }: { projectId: string; documents: ProjectWorkspace["documents"]; technicalEnabled: boolean }) {
   const visiblePlans = documents.filter((document) => document.visible_to_owner && OWNER_PLAN_CATEGORIES.has(document.category));
-  return <PlanSetViewer projectId={projectId} documents={visiblePlans} />;
+  return <PlanSetViewer projectId={projectId} documents={visiblePlans} technicalEnabled={technicalEnabled} />;
 }
 
 function OwnerWorkflowTracker({ phase, operationalStatus }: { phase: string; operationalStatus: string }) {
