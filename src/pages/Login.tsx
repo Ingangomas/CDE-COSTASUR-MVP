@@ -134,6 +134,34 @@ export function Login() {
                 </select>
               </div>
 
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2" htmlFor="demo-email">
+                  Usuario / Correo Electrónico
+                </label>
+                <input
+                  id="demo-email"
+                  type="text"
+                  readOnly
+                  aria-disabled="true"
+                  className="w-full bg-white border border-outline-variant/50 rounded-xl py-3 px-4 text-on-surface focus:ring-2 focus:ring-[#003B70] focus:border-[#003B70] transition-all outline-none"
+                  placeholder="usuario@costasur.com"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2" htmlFor="demo-password">
+                  Contraseña
+                </label>
+                <input
+                  id="demo-password"
+                  type="password"
+                  readOnly
+                  aria-disabled="true"
+                  className="w-full bg-white border border-outline-variant/50 rounded-xl py-3 px-4 text-on-surface focus:ring-2 focus:ring-[#003B70] focus:border-[#003B70] transition-all outline-none"
+                  placeholder="••••••••"
+                />
+              </div>
+
               <button 
                 type="submit"
                 disabled={isSubmitting} className="w-full py-4 px-6 rounded-full bg-[#4A5056] text-white font-bold hover:bg-[#4A5056] transition-all shadow-md mt-4 flex items-center justify-center gap-2"
@@ -146,7 +174,7 @@ export function Login() {
             {/* Helper Note for Prototype Navigation */}
             <div className="mt-10 pt-6 border-t border-outline-variant/20">
               <p className="text-xs text-[#4A5056] text-center leading-relaxed">
-                Seleccione un perfil para explorar el entorno de demostración del CDE Costasur.
+                *Info Demo: Seleccione un perfil para explorar el entorno de demostración del CDE Costasur.
               </p>
             </div>
           </div>
