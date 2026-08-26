@@ -5,19 +5,24 @@ export function Sidebar({
   isMobileOpen, 
   onCloseMobileMenu,
   onSignOut,
+  collapsed = false,
+  onToggleCollapsed,
 }: { 
   role: string; 
   isMobileOpen?: boolean; 
   onCloseMobileMenu?: () => void;
   onSignOut?: () => Promise<void>;
+  collapsed?: boolean;
+  onToggleCollapsed?: () => void;
 }) {
   const location = useLocation();
   const path = location.pathname;
+  const isCollapsed = collapsed;
 
-  const getNavClass = (isActive: boolean) => 
+  const getNavClass = (isActive: boolean, compact = isCollapsed) =>
     isActive
-      ? "bg-white text-primary border-l-4 border-primary px-6 py-3 flex items-center gap-4 transition-all duration-200"
-      : "text-secondary hover:text-primary px-6 py-3 flex items-center gap-4 hover:bg-secondary-container/30 transition-all duration-200";
+      ? `bg-white text-primary border-l-4 border-primary py-3 flex items-center gap-4 transition-all duration-200 ${compact ? "justify-center px-3" : "px-6"}`
+      : `text-secondary hover:text-primary py-3 flex items-center gap-4 hover:bg-secondary-container/30 transition-all duration-200 ${compact ? "justify-center px-3" : "px-6"}`;
 
   let links: { to: string; icon: string; label: string }[] = [];
 
@@ -93,21 +98,31 @@ export function Sidebar({
 
   const renderNavContent = (isMobile: boolean = false) => (
     <>
-      <div className="px-6 mb-8 flex items-center justify-between">
-        <div>
+      <div className={`${isCollapsed && !isMobile ? "px-3 justify-center" : "px-6"} mb-8 flex items-start justify-between gap-2`}>
+        <div className={isCollapsed && !isMobile ? "flex justify-center w-full" : ""}>
           <div className="bg-[#333333] p-3 rounded-xl inline-block mb-2 shadow-sm">
-            <img src="/costasur-logo.svg" alt="Costasur Casa de Campo" className="block w-[120px] h-auto" />
+            <img src="/costasur-logo.svg" alt="Costasur Casa de Campo" className={`block h-auto ${isCollapsed && !isMobile ? "w-[48px]" : "w-[120px]"}`} />
           </div>
-          <p className="text-xs text-secondary font-medium">Oficina de Control de Obras</p>
+          {!isCollapsed || isMobile ? <p className="text-xs text-secondary font-medium">Oficina de Control de Obras</p> : null}
         </div>
 
-        {isMobile && (
+        {isMobile ? (
           <button 
             onClick={onCloseMobileMenu}
             className="p-2 rounded-full hover:bg-surface-variant text-secondary"
             aria-label="Cerrar menú"
           >
             <span className="material-symbols-outlined">close</span>
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={onToggleCollapsed}
+            className="absolute right-[-14px] top-7 z-10 grid h-7 w-7 place-items-center rounded-full border border-outline-variant/30 bg-white text-secondary shadow-md transition-colors hover:text-primary"
+            aria-label={isCollapsed ? "Ampliar menú lateral" : "Plegar menú lateral"}
+            title={isCollapsed ? "Ampliar menú lateral" : "Plegar menú lateral"}
+          >
+            <span className="material-symbols-outlined text-base">{isCollapsed ? "chevron_right" : "chevron_left"}</span>
           </button>
         )}
       </div>
@@ -119,31 +134,33 @@ export function Sidebar({
               <Link 
                 to={link.to} 
                 onClick={isMobile ? onCloseMobileMenu : undefined}
-                className={getNavClass(path === link.to)}
+                className={getNavClass(path === link.to, isCollapsed && !isMobile)}
+                title={isCollapsed && !isMobile ? link.label : undefined}
               >
                 <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>{link.icon}</span>
-                <span className="font-medium text-sm md:text-base">{link.label}</span>
+                {(!isCollapsed || isMobile) && <span className="font-medium text-sm md:text-base">{link.label}</span>}
               </Link>
             </li>
           ))}
         </ul>
       </div>
 
-      <div className="px-6 mt-6">
+      <div className={`${isCollapsed && !isMobile ? "px-3" : "px-6"} mt-6`}>
         {role === 'propietario' && (
           <Link
             to="/propietario/mis-propiedades?nuevo=1"
             onClick={isMobile ? onCloseMobileMenu : undefined}
-            className="w-full bg-primary-container text-white rounded-full py-3 px-6 flex items-center justify-center gap-2 font-medium hover:bg-primary-container/90 transition-colors shadow-md text-sm"
+            className="w-full bg-primary-container text-white rounded-full py-3 px-3 flex items-center justify-center gap-2 font-medium hover:bg-primary-container/90 transition-colors shadow-md text-sm"
+            title={isCollapsed && !isMobile ? "Nuevo Proyecto" : undefined}
           >
             <span className="material-symbols-outlined text-[20px]">add</span>
-            Nuevo Proyecto
+            {!isCollapsed || isMobile ? "Nuevo Proyecto" : null}
           </Link>
         )}
         {role === 'arquitecto' && (
-          <button type="button" className="w-full bg-primary-container text-white rounded-full py-3 px-6 flex items-center justify-center gap-2 font-medium hover:bg-primary-container/90 transition-colors shadow-md text-sm">
+          <button type="button" className="w-full bg-primary-container text-white rounded-full py-3 px-3 flex items-center justify-center gap-2 font-medium hover:bg-primary-container/90 transition-colors shadow-md text-sm" title={isCollapsed && !isMobile ? "Nuevo Proyecto" : undefined}>
             <span className="material-symbols-outlined text-[20px]">add</span>
-            Nuevo Proyecto
+            {!isCollapsed || isMobile ? "Nuevo Proyecto" : null}
           </button>
         )}
       </div>
@@ -154,10 +171,11 @@ export function Sidebar({
             <button
               type="button"
               onClick={() => { void onSignOut?.(); }}
-              className={`${getNavClass(false)} w-full text-left`}
+              className={`${getNavClass(false, isCollapsed && !isMobile)} w-full text-left`}
+              title={isCollapsed && !isMobile ? "Cerrar Sesión" : undefined}
             >
               <span className="material-symbols-outlined">logout</span>
-              <span className="font-medium text-sm md:text-base">Cerrar Sesión</span>
+              {(!isCollapsed || isMobile) && <span className="font-medium text-sm md:text-base">Cerrar Sesión</span>}
             </button>
           </li>
         </ul>
@@ -168,7 +186,7 @@ export function Sidebar({
   return (
     <>
       {/* Desktop Sidebar */}
-      <nav className="hidden md:flex flex-col h-full py-8 fixed left-0 top-0 w-[280px] backdrop-blur-2xl border-r border-outline-variant/20 shadow-xl bg-surface/70 z-40">
+      <nav className={`hidden md:flex flex-col h-full py-8 fixed left-0 top-0 backdrop-blur-2xl border-r border-outline-variant/20 shadow-xl bg-surface/70 z-40 transition-[width] duration-200 ${isCollapsed ? "w-[88px]" : "w-[280px]"}`}>
         {renderNavContent(false)}
       </nav>
 
