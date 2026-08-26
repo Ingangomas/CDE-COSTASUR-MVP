@@ -65,7 +65,9 @@
 
   /* Costasur Header Styles */
   .costasur-header {
-    background: linear-gradient(180deg, rgba(10, 10, 10, 0.98) 0%, rgba(22, 22, 22, 0.93) 58%, rgba(43, 43, 43, 0.76) 100%);
+    background: linear-gradient(180deg, rgba(10, 10, 10, 0.82) 0%, rgba(22, 22, 22, 0.72) 58%, rgba(43, 43, 43, 0.58) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     width: 100%;
     min-height: 78px;
