@@ -1,5 +1,6 @@
 ﻿import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { useSession } from "../context/SessionContext";
+import type { DocumentRecord } from "../lib/cde-types";
 import { requireSupabase } from "../lib/supabase";
 
 interface DocumentCategoryOption {
@@ -9,7 +10,7 @@ interface DocumentCategoryOption {
 
 interface DocumentUploadProps {
   projectId: string;
-  onUploaded?: () => void;
+  onUploaded?: (document?: DocumentRecord) => void;
   defaultCategory?: string;
   categories?: DocumentCategoryOption[];
   titleLabel?: string;
@@ -64,7 +65,7 @@ export function DocumentUpload({ projectId, onUploaded, defaultCategory = "antep
       if (versionError) throw versionError;
       const { error: currentVersionError } = await client.from("documents").update({ current_version_id: version.id }).eq("id", document.id);
       if (currentVersionError) throw currentVersionError;
-      setTitle(""); setFile(null); setMessage("Documento cargado, versionado y vinculado al expediente."); onUploaded?.();
+      setTitle(""); setFile(null); setMessage("Documento cargado, versionado y vinculado al expediente."); onUploaded?.(document as DocumentRecord);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "No fue posible cargar el documento.");
     } finally { setBusy(false); }

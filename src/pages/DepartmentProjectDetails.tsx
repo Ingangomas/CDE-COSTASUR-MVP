@@ -51,7 +51,7 @@ export function DepartmentProjectDetails({ department, deptKey }: DepartmentProj
 
       <ReviewDecisionPanel projectId={id} departmentSlug={deptKey} departmentName={department} />
 
-      <PlanSetViewer documents={documents} />
+      <PlanSetViewer projectId={id} documents={documents} />
     </div>
   );
 }

@@ -110,9 +110,9 @@ export function ProjectDetails() {
   );
 }
 
-function OwnerPlansSection({ documents }: { projectId: string; documents: ProjectWorkspace["documents"] }) {
+function OwnerPlansSection({ projectId, documents }: { projectId: string; documents: ProjectWorkspace["documents"] }) {
   const visiblePlans = documents.filter((document) => document.visible_to_owner && OWNER_PLAN_CATEGORIES.has(document.category));
-  return <PlanSetViewer documents={visiblePlans} />;
+  return <PlanSetViewer projectId={projectId} documents={visiblePlans} />;
 }
 
 function OwnerWorkflowTracker({ phase, operationalStatus }: { phase: string; operationalStatus: string }) {
