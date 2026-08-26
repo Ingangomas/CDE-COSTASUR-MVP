@@ -96,7 +96,7 @@ export function Sidebar({
       <div className="px-6 mb-8 flex items-center justify-between">
         <div>
           <div className="bg-[#333333] p-3 rounded-xl inline-block mb-2 shadow-sm">
-            <img src="/costasur-logo.svg" alt="Costasur Casa de Campo" className="block w-44 h-auto" />
+            <img src="/costasur-logo.svg" alt="Costasur Casa de Campo" className="block w-[120px] h-auto" />
           </div>
           <p className="text-xs text-secondary font-medium">Oficina de Control de Obras</p>
         </div>
