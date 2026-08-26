@@ -5,6 +5,7 @@ import { PlanSetViewer } from "../components/PlanSetViewer";
 import { getProjectsForUser, getProjectWorkspace, type ProjectWorkspace } from "../lib/cde-data";
 import type { ProjectRecord } from "../lib/cde-types";
 import { useSession } from "../context/SessionContext";
+import { ProjectOverviewCard, projectStatusTone } from "../components/ProjectOverviewCard";
 
 const technicalCategories = [
   { value: "arquitectonico", label: "Arquitectónico" },
@@ -13,8 +14,6 @@ const technicalCategories = [
   { value: "hidrosanitario", label: "Hidrosanitario" },
   { value: "climatizacion", label: "Climatización" },
 ];
-
-const PROJECT_CARD_IMAGE = "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85";
 
 const phaseLabels: Record<string, string> = {
   autorizacion_inicial: "Esperando aprobación de carta",
@@ -73,7 +72,7 @@ export function ArchitectPortal() {
   if (!projectId) {
     const activationProjects = projects.filter((project) => ["autorizacion_inicial", "anteproyecto", "revision_tecnica", "planos_tecnicos"].includes(project.phase));
     const activeProjects = projects.filter((project) => ["inicio_obra", "obra_activa", "cierre"].includes(project.phase));
-    const projectCard = (project: ProjectRecord) => <article key={project.id} className="overflow-hidden rounded-[2rem] border border-outline-variant/30 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"><div className="relative h-44 overflow-hidden bg-surface-container-low"><img src={PROJECT_CARD_IMAGE} alt={project.title} className="absolute inset-0 h-full w-full object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent" /><div className="absolute bottom-5 left-6 text-white"><p className="text-xs uppercase tracking-[0.2em] opacity-80">Expediente arquitectónico</p><h2 className="mt-2 text-2xl font-bold">{project.title}</h2></div></div><div className="p-6 md:p-7"><div className="flex items-start justify-between gap-4"><div><p className="text-xs uppercase tracking-[0.18em] text-secondary">{project.project_code}</p><p className="mt-2 flex items-center gap-2 text-sm text-secondary"><span className="material-symbols-outlined text-base">domain</span>Proyecto asignado a Arquitectura</p></div><span className="inline-flex items-center gap-2 rounded-full bg-success/10 px-3 py-1.5 text-xs font-semibold text-success"><span className="h-2 w-2 rounded-full bg-success" />{phaseLabels[project.phase] ?? project.phase.replaceAll("_", " ")}</span></div><div className="mt-6 border-t border-outline-variant/30 pt-5"><button type="button" onClick={() => void loadWorkspace(project.id)} className="group flex w-full items-center justify-between gap-4 rounded-2xl border border-outline-variant/30 bg-surface-container-low/50 p-5 text-left transition-colors hover:border-primary/50 hover:bg-surface-container-low"><span><span className="block text-[11px] uppercase tracking-[0.18em] text-secondary">Expediente disponible</span><span className="mt-1 block text-lg font-semibold text-on-surface">Entrar al proyecto</span></span><span className="material-symbols-outlined text-3xl text-primary transition-transform group-hover:translate-x-1">arrow_forward</span></button></div></div></article>;
+    const projectCard = (project: ProjectRecord) => <ProjectOverviewCard key={project.id} project={project} href={`/arquitecto/mis-proyectos?proyecto=${project.id}`} statusLabel={phaseLabels[project.phase] ?? project.phase.replaceAll("_", " ")} statusTone={projectStatusTone(project.operational_status)} contextLabel="Proyecto asignado a Arquitectura" />;
     return <div className="flex-1 overflow-y-auto bg-surface-container-low p-4 pt-8 md:p-10"><div className="mx-auto max-w-[1200px] space-y-8"><header><p className="text-xs uppercase tracking-[0.2em] text-secondary">Portal arquitectónico</p><h1 className="mt-2 text-4xl font-bold tracking-tight text-on-surface md:text-5xl">Mis Proyectos</h1><p className="mt-3 text-base text-secondary">Selecciona un expediente para entrar a su visor y continuar el proceso.</p></header>{!projects.length && <div className="glass-panel p-10 text-center"><span className="material-symbols-outlined text-4xl text-warning">folder_off</span><h2 className="mt-4 text-2xl font-bold text-on-surface">No hay proyectos asignados</h2><p className="mt-2 text-secondary">El propietario o el Administrador General debe crear y asignar un proyecto antes de iniciar el sometimiento.</p></div>}{Boolean(activationProjects.length) && <section className="space-y-4"><div><p className="text-xs uppercase tracking-[0.18em] text-secondary">Procesos en activación</p><h2 className="mt-2 text-2xl font-bold text-primary">Proyectos por habilitar</h2></div>{activationProjects.map(projectCard)}</section>}{Boolean(activeProjects.length) && <section className="space-y-4"><div><p className="text-xs uppercase tracking-[0.18em] text-secondary">Expedientes activos</p><h2 className="mt-2 text-2xl font-bold text-primary">Proyectos en curso</h2></div>{activeProjects.map(projectCard)}</section>}</div></div>;
   }
 

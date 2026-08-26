@@ -2,6 +2,7 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { formatDate, getAdminProjects } from "../lib/cde-data";
 import type { ProjectRecord } from "../lib/cde-types";
+import { ProjectOverviewCard, projectStatusTone } from "../components/ProjectOverviewCard";
 
 const statuses = ["Todos", "En revisión", "Obra activa", "Pendiente inspección", "Finalizada"];
 const statusLabel = (value: string) => ({ en_revision: "En revisión", obra_activa: "Obra activa", pendiente_inspeccion: "Pendiente inspección", finalizada: "Finalizada", aprobado: "Aprobada", paralizada: "Paralizada", critica: "Crítica" }[value] ?? value.replaceAll("_", " "));
@@ -34,9 +35,7 @@ export function AdminProyectos() {
 }
 
 function ProjectCard({ project }: { project: ProjectRecord }) {
-  const label = statusLabel(project.operational_status);
-  const tone = project.operational_status === "critica" || project.operational_status === "paralizada" ? "bg-error/10 text-error" : project.operational_status === "finalizada" ? "bg-success/10 text-success" : project.operational_status === "pendiente_inspeccion" ? "bg-warning/10 text-warning" : "bg-primary/10 text-primary";
-  return <Link to={`/admin/proyectos/${project.id}`} className="group block overflow-hidden rounded-3xl bg-white border border-outline-variant/30 soft-shadow hover:border-primary/40 transition-colors"><div className="h-44 bg-surface-container-low relative overflow-hidden"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=80" alt="Obra Costasur" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /><div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" /><span className={`absolute top-4 right-4 rounded-full px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider ${tone}`}>{label}</span><span className="absolute bottom-4 left-4 rounded-lg bg-black/55 px-3 py-1 text-xs font-mono text-white">{project.project_code}</span></div><div className="p-6"><p className="text-xs uppercase tracking-[0.16em] text-secondary">{project.phase.replaceAll("_", " ")}</p><h2 className="text-xl font-bold text-on-surface mt-2 line-clamp-2">{project.title}</h2><div className="mt-5 space-y-3"><Progress label="Avance físico" value={Number(project.progress_percent)} color="bg-primary" /></div><div className="flex items-center justify-between mt-6 pt-4 border-t border-outline-variant/30 text-xs text-secondary"><span>Entrega: {formatDate(project.target_end_date)}</span><span className="inline-flex items-center gap-1 text-primary font-semibold">Expediente <span className="material-symbols-outlined text-base">arrow_forward</span></span></div></div></Link>;
+  return <ProjectOverviewCard project={project} href={`/admin/proyectos/${project.id}`} statusLabel={statusLabel(project.operational_status)} statusTone={projectStatusTone(project.operational_status)} contextLabel={`Entrega: ${formatDate(project.target_end_date)}`} />;
 }
 
 function Progress({ label, value, color }: { label: string; value: number; color: string }) {
