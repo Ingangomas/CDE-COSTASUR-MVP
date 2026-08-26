@@ -25,6 +25,16 @@ const PHASE_LABELS: Record<string, string> = {
   archivo: "Archivo",
 };
 
+const DEMO_OWNER_EMAIL = "owner.demo@costasur.com";
+
+function getDemoProperties(ownerId: string): PortfolioRow[] {
+  return [
+    { id: "demo-property-tamarindo-13", property_code: "TAMARINDO-13", property_type: "villa", name: "Tamarindo #13", address: "Casa de Campo · La Romana", owner_user_id: ownerId, area_m2: 420, latitude: null, longitude: null, status: "active", projects: [] },
+    { id: "demo-property-caleton-57", property_code: "CALETON-57", property_type: "villa", name: "Caleton #57", address: "Casa de Campo · La Romana", owner_user_id: ownerId, area_m2: 510, latitude: null, longitude: null, status: "active", projects: [] },
+    { id: "demo-property-las-canas-24", property_code: "LAS-CAÑAS-I-24", property_type: "villa", name: "Las Cañas I #24", address: "Casa de Campo · La Romana", owner_user_id: ownerId, area_m2: 385, latitude: null, longitude: null, status: "active", projects: [] },
+  ];
+}
+
 export function OwnerDashboard() {
   const { profile } = useSession();
   const navigate = useNavigate();
@@ -43,6 +53,8 @@ export function OwnerDashboard() {
     projectType: "obra_nueva",
     architectEmail: "architect.demo@costasur.com",
   });
+  const isDemoOwner = profile?.is_demo === true && profile.email.toLowerCase() === DEMO_OWNER_EMAIL;
+  const visiblePortfolio = isDemoOwner && profile ? [...portfolio, ...getDemoProperties(profile.id)] : portfolio;
 
   const loadPortfolio = async () => {
     if (!profile?.id) return;
@@ -60,7 +72,7 @@ export function OwnerDashboard() {
   useEffect(() => { void loadPortfolio(); }, [profile?.id]);
 
   const openCreate = () => {
-    const firstProperty = portfolio[0];
+    const firstProperty = visiblePortfolio[0];
     if (!firstProperty) return;
     setForm({ propertyId: firstProperty.id, projectCode: `${firstProperty.property_code}-PROY-${String(Date.now()).slice(-6)}`, title: "", projectType: "obra_nueva", architectEmail: "architect.demo@costasur.com" });
     setAuthorizationFile(null);
@@ -69,8 +81,8 @@ export function OwnerDashboard() {
   };
 
   useEffect(() => {
-    if (searchParams.get("nuevo") === "1" && portfolio.length > 0 && !showCreate) openCreate();
-  }, [searchParams, portfolio.length, showCreate]);
+    if (searchParams.get("nuevo") === "1" && visiblePortfolio.length > 0 && !showCreate) openCreate();
+  }, [searchParams, visiblePortfolio.length, showCreate]);
 
   const closeCreate = () => {
     setShowCreate(false);
@@ -88,6 +100,10 @@ export function OwnerDashboard() {
     const generatedProjectTitle = form.title.trim() || `Proyecto ${selectedProperty?.name ?? "Costasur"}`;
     if (!form.propertyId || !form.architectEmail.trim() || !authorizationFile) {
       setCreateError("Completa la propiedad, el correo del arquitecto y adjunta la carta de autorización.");
+      return;
+    }
+    if (form.propertyId.startsWith("demo-property-")) {
+      setCreateError("Esta propiedad es una demostración visual; utiliza la propiedad registrada para crear el expediente.");
       return;
     }
     if (authorizationFile.size > 50 * 1024 * 1024) {
@@ -124,11 +140,11 @@ export function OwnerDashboard() {
 
       {loading && <div className="glass-panel p-8 text-center text-secondary">Cargando inventario persistente…</div>}
       {error && <div className="glass-panel p-6 border border-error/30 text-error">{error}</div>}
-      {!loading && !error && !portfolio.length && <div className="glass-panel p-10 text-center"><span className="material-symbols-outlined text-4xl text-warning mb-4">home_work</span><h2 className="text-2xl font-semibold text-on-surface">Aún no tienes propiedades autorizadas</h2><p className="mt-3 text-secondary">El Administrador General debe validar tu propiedad y activar tu membresía del CDE.</p></div>}
+      {!loading && !error && !visiblePortfolio.length && <div className="glass-panel p-10 text-center"><span className="material-symbols-outlined text-4xl text-warning mb-4">home_work</span><h2 className="text-2xl font-semibold text-on-surface">Aún no tienes propiedades autorizadas</h2><p className="mt-3 text-secondary">El Administrador General debe validar tu propiedad y activar tu membresía del CDE.</p></div>}
 
-      {!loading && !error && portfolio.length > 0 && (
+      {!loading && !error && visiblePortfolio.length > 0 && (
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-7">
-          {portfolio.map((property) => <PropertyCard key={property.id} property={property} onOpenProject={(projectId) => navigate(`/propietario/mis-propiedades/${projectId}`)} />)}
+          {visiblePortfolio.map((property) => <PropertyCard key={property.id} property={property} onOpenProject={(projectId) => navigate(`/propietario/mis-propiedades/${projectId}`)} />)}
         </section>
       )}
 
@@ -137,7 +153,7 @@ export function OwnerDashboard() {
           <form onSubmit={submitCreate} className="glass-panel w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-[2rem] bg-white p-7 md:p-9 shadow-2xl">
             <div className="flex items-start justify-between gap-4"><div><p className="text-xs uppercase tracking-[0.18em] text-secondary">Nuevo expediente</p><h2 id="new-project-title" className="text-2xl font-bold text-on-surface mt-2">Iniciar proyecto en mi propiedad</h2><p className="text-sm text-secondary mt-2">Costasur generará automáticamente el nombre y número del expediente. La carta será revisada antes de habilitar al arquitecto.</p></div><button type="button" onClick={closeCreate} className="p-2 rounded-full text-secondary hover:bg-surface-container-low" aria-label="Cerrar"><span className="material-symbols-outlined">close</span></button></div>
             <div className="space-y-5 mt-7">
-              <label className="block text-sm font-medium text-on-surface">Propiedad<select value={form.propertyId} onChange={(event) => setForm((current) => ({ ...current, propertyId: event.target.value }))} className="mt-2 w-full rounded-xl border border-outline-variant/40 bg-white px-4 py-3 outline-none focus:border-primary">{portfolio.map((item) => <option key={item.id} value={item.id}>{item.property_code} — {item.name}</option>)}</select></label>
+              <label className="block text-sm font-medium text-on-surface">Propiedad<select value={form.propertyId} onChange={(event) => setForm((current) => ({ ...current, propertyId: event.target.value }))} className="mt-2 w-full rounded-xl border border-outline-variant/40 bg-white px-4 py-3 outline-none focus:border-primary">{visiblePortfolio.map((item) => <option key={item.id} value={item.id}>{item.property_code} — {item.name}</option>)}</select></label>
               <label className="block text-sm font-medium text-on-surface">Correo del arquitecto<input required type="email" value={form.architectEmail} onChange={(event) => setForm((current) => ({ ...current, architectEmail: event.target.value }))} placeholder="architect@costasur.com" className="mt-2 w-full rounded-xl border border-outline-variant/40 bg-white px-4 py-3 outline-none focus:border-primary" /><span className="block text-xs text-secondary mt-2">El arquitecto quedará pendiente hasta que Arquitectura apruebe la carta.</span></label>
               <label className="block text-sm font-medium text-on-surface">Carta de autorización<input required type="file" accept=".pdf,.doc,.docx,image/png,image/jpeg" onChange={(event: ChangeEvent<HTMLInputElement>) => setAuthorizationFile(event.target.files?.[0] ?? null)} className="mt-2 block w-full rounded-xl border border-dashed border-outline-variant/60 bg-surface-container-low px-4 py-4 text-sm" /><span className="block text-xs text-secondary mt-2">Documento obligatorio · PDF, DOCX o imagen · máximo 50 MB</span></label>
               {authorizationFile && <p className="text-sm text-primary flex items-center gap-2"><span className="material-symbols-outlined text-base">attach_file</span>{authorizationFile.name}</p>}
