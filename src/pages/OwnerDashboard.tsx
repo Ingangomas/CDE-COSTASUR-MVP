@@ -83,8 +83,11 @@ export function OwnerDashboard() {
 
   const submitCreate = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!form.propertyId || !form.projectCode.trim() || !form.title.trim() || !form.architectEmail.trim() || !authorizationFile) {
-      setCreateError("Completa la propiedad, el código, el nombre, el arquitecto y adjunta la carta de autorización.");
+    const selectedProperty = portfolio.find((item) => item.id === form.propertyId);
+    const generatedProjectCode = form.projectCode.trim() || `${selectedProperty?.property_code ?? "PROPIEDAD"}-PROY-${String(Date.now()).slice(-6)}`;
+    const generatedProjectTitle = form.title.trim() || `Proyecto ${selectedProperty?.name ?? "Costasur"}`;
+    if (!form.propertyId || !form.architectEmail.trim() || !authorizationFile) {
+      setCreateError("Completa la propiedad, el correo del arquitecto y adjunta la carta de autorización.");
       return;
     }
     if (authorizationFile.size > 50 * 1024 * 1024) {
@@ -94,8 +97,8 @@ export function OwnerDashboard() {
     setSaving(true);
     setCreateError("");
     try {
-      const project = await createOwnerProjectWorkflow({ propertyId: form.propertyId, projectCode: form.projectCode.trim(), title: form.title.trim(), projectType: form.projectType, architectEmail: form.architectEmail.trim() });
-      await uploadProjectDocument({ projectId: project.id, category: "autorizacion", title: `Carta de autorización — ${form.title.trim()}`, file: authorizationFile, visibleToOwner: true });
+      const project = await createOwnerProjectWorkflow({ propertyId: form.propertyId, projectCode: generatedProjectCode, title: generatedProjectTitle, projectType: form.projectType, architectEmail: form.architectEmail.trim() });
+      await uploadProjectDocument({ projectId: project.id, category: "autorizacion", title: `Carta de autorización — ${generatedProjectTitle}`, file: authorizationFile, visibleToOwner: true });
       await loadPortfolio();
       closeCreate();
       navigate(`/propietario/mis-propiedades/${project.id}`);
@@ -132,17 +135,15 @@ export function OwnerDashboard() {
       {showCreate && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4" role="dialog" aria-modal="true" aria-labelledby="new-project-title">
           <form onSubmit={submitCreate} className="glass-panel w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-[2rem] bg-white p-7 md:p-9 shadow-2xl">
-            <div className="flex items-start justify-between gap-4"><div><p className="text-xs uppercase tracking-[0.18em] text-secondary">Nuevo expediente</p><h2 id="new-project-title" className="text-2xl font-bold text-on-surface mt-2">Iniciar proyecto en mi propiedad</h2><p className="text-sm text-secondary mt-2">La carta será revisada antes de habilitar al arquitecto para someter el anteproyecto.</p></div><button type="button" onClick={closeCreate} className="p-2 rounded-full text-secondary hover:bg-surface-container-low" aria-label="Cerrar"><span className="material-symbols-outlined">close</span></button></div>
+            <div className="flex items-start justify-between gap-4"><div><p className="text-xs uppercase tracking-[0.18em] text-secondary">Nuevo expediente</p><h2 id="new-project-title" className="text-2xl font-bold text-on-surface mt-2">Iniciar proyecto en mi propiedad</h2><p className="text-sm text-secondary mt-2">Costasur generará automáticamente el nombre y número del expediente. La carta será revisada antes de habilitar al arquitecto.</p></div><button type="button" onClick={closeCreate} className="p-2 rounded-full text-secondary hover:bg-surface-container-low" aria-label="Cerrar"><span className="material-symbols-outlined">close</span></button></div>
             <div className="space-y-5 mt-7">
               <label className="block text-sm font-medium text-on-surface">Propiedad<select value={form.propertyId} onChange={(event) => setForm((current) => ({ ...current, propertyId: event.target.value }))} className="mt-2 w-full rounded-xl border border-outline-variant/40 bg-white px-4 py-3 outline-none focus:border-primary">{portfolio.map((item) => <option key={item.id} value={item.id}>{item.property_code} — {item.name}</option>)}</select></label>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4"><label className="block text-sm font-medium text-on-surface">Código del proyecto<input value={form.projectCode} onChange={(event) => setForm((current) => ({ ...current, projectCode: event.target.value }))} className="mt-2 w-full rounded-xl border border-outline-variant/40 bg-white px-4 py-3 outline-none focus:border-primary" /></label><label className="block text-sm font-medium text-on-surface">Tipo de proyecto<select value={form.projectType} onChange={(event) => setForm((current) => ({ ...current, projectType: event.target.value as ProjectType }))} className="mt-2 w-full rounded-xl border border-outline-variant/40 bg-white px-4 py-3 outline-none focus:border-primary">{Object.entries(PROJECT_TYPE_LABELS).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label></div>
-              <label className="block text-sm font-medium text-on-surface">Nombre del proyecto<input required value={form.title} onChange={(event) => setForm((current) => ({ ...current, title: event.target.value }))} placeholder="Ej. Remodelación Villa Principal" className="mt-2 w-full rounded-xl border border-outline-variant/40 bg-white px-4 py-3 outline-none focus:border-primary" /></label>
-              <label className="block text-sm font-medium text-on-surface">Arquitecto autorizado<input required type="email" value={form.architectEmail} onChange={(event) => setForm((current) => ({ ...current, architectEmail: event.target.value }))} placeholder="architect@costasur.com" className="mt-2 w-full rounded-xl border border-outline-variant/40 bg-white px-4 py-3 outline-none focus:border-primary" /><span className="block text-xs text-secondary mt-2">El arquitecto quedará pendiente hasta que Arquitectura apruebe la carta.</span></label>
-              <label className="block text-sm font-medium text-on-surface">Carta de autorización de obra<input required type="file" accept=".pdf,.doc,.docx,image/png,image/jpeg" onChange={(event: ChangeEvent<HTMLInputElement>) => setAuthorizationFile(event.target.files?.[0] ?? null)} className="mt-2 block w-full rounded-xl border border-dashed border-outline-variant/60 bg-surface-container-low px-4 py-4 text-sm" /><span className="block text-xs text-secondary mt-2">Documento obligatorio · PDF, DOCX o imagen · máximo 50 MB</span></label>
+              <label className="block text-sm font-medium text-on-surface">Correo del arquitecto<input required type="email" value={form.architectEmail} onChange={(event) => setForm((current) => ({ ...current, architectEmail: event.target.value }))} placeholder="architect@costasur.com" className="mt-2 w-full rounded-xl border border-outline-variant/40 bg-white px-4 py-3 outline-none focus:border-primary" /><span className="block text-xs text-secondary mt-2">El arquitecto quedará pendiente hasta que Arquitectura apruebe la carta.</span></label>
+              <label className="block text-sm font-medium text-on-surface">Carta de autorización<input required type="file" accept=".pdf,.doc,.docx,image/png,image/jpeg" onChange={(event: ChangeEvent<HTMLInputElement>) => setAuthorizationFile(event.target.files?.[0] ?? null)} className="mt-2 block w-full rounded-xl border border-dashed border-outline-variant/60 bg-surface-container-low px-4 py-4 text-sm" /><span className="block text-xs text-secondary mt-2">Documento obligatorio · PDF, DOCX o imagen · máximo 50 MB</span></label>
               {authorizationFile && <p className="text-sm text-primary flex items-center gap-2"><span className="material-symbols-outlined text-base">attach_file</span>{authorizationFile.name}</p>}
             </div>
             {createError && <p className="mt-5 text-sm text-error">{createError}</p>}
-            <div className="flex justify-end gap-3 mt-7"><button type="button" onClick={closeCreate} className="rounded-full border border-outline-variant/40 px-5 py-3 text-sm font-semibold text-secondary hover:bg-surface-container-low">Cancelar</button><button type="submit" disabled={saving} className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white hover:bg-primary/90 disabled:opacity-60">{saving ? "Creando expediente…" : "Crear y enviar carta"}</button></div>
+            <div className="flex justify-end gap-3 mt-7"><button type="button" onClick={closeCreate} className="rounded-full border border-outline-variant/40 px-5 py-3 text-sm font-semibold text-secondary hover:bg-surface-container-low">Cancelar</button><button type="submit" disabled={saving} className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white hover:bg-primary/90 disabled:opacity-60">{saving ? "Iniciando obra…" : "Iniciar obra"}</button></div>
           </form>
         </div>
       )}
