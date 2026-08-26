@@ -1,9 +1,44 @@
 import React, { useState } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { NotificationCenter } from "./NotificationCenter";
+import { useSession } from "../context/SessionContext";
+import { supabase } from "../lib/supabase";
+
+const DEMO_PROFILES = [
+  ["propietario", "Propietario", "/propietario/mis-propiedades"],
+  ["legal", "Departamento Legal", "/legal"],
+  ["arquitectura", "Departamento de Arquitectura", "/revision-tecnica"],
+  ["arquitecto", "Arquitecto", "/arquitecto/mis-proyectos"],
+  ["contratista", "Contratista", "/contratista/obras-activas"],
+  ["obras", "Control de Obras", "/control-obras"],
+  ["electrica", "Electricidad", "/electrica"],
+  ["hidrosanitaria", "Hidrosanitaria", "/hidrosanitaria"],
+  ["paisajismo", "Paisajismo", "/paisajismo"],
+  ["mensura", "Mensura", "/mensura"],
+  ["seguridad", "Seguridad", "/seguridad"],
+  ["admin", "Administración General", "/admin"],
+] as const;
+
+const ROLE_TO_PROFILE: Record<string, string> = {
+  admin: "admin",
+  propietario: "propietario",
+  arquitecto: "arquitecto",
+  contratista: "contratista",
+  "revision-tecnica": "arquitectura",
+  "control-obras": "obras",
+  legal: "legal",
+  electrica: "electrica",
+  hidrosanitaria: "hidrosanitaria",
+  paisajismo: "paisajismo",
+  mensura: "mensura",
+  seguridad: "seguridad",
+};
 
 export function TopBar({ role, onToggleMobileMenu }: { role: string; onToggleMobileMenu?: () => void }) {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { isConfigured } = useSession();
+  const [isSwitching, setIsSwitching] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get("search") || "";
   const [showMobileSearch, setShowMobileSearch] = useState(false);
@@ -36,6 +71,32 @@ export function TopBar({ role, onToggleMobileMenu }: { role: string; onToggleMob
   };
 
   const { title, displayRole, img } = getRoleInfo();
+  const currentProfile = ROLE_TO_PROFILE[role] ?? "propietario";
+
+  const handleProfileSwitch = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const nextProfile = event.target.value;
+    const destination = DEMO_PROFILES.find(([value]) => value === nextProfile)?.[2];
+    if (!destination || nextProfile === currentProfile || !isConfigured || !supabase) return;
+
+    setIsSwitching(true);
+    try {
+      const response = await fetch("/api/demo-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ profile: nextProfile }),
+      });
+      const result = await response.json() as { error?: string; session?: Parameters<NonNullable<typeof supabase>["auth"]["setSession"]>[0] };
+      if (!response.ok || !result.session) throw new Error(result.error || "No fue posible cambiar de perfil.");
+      const { error } = await supabase.auth.setSession(result.session);
+      if (error) throw new Error(error.message);
+      navigate(destination, { replace: true });
+    } catch (error) {
+      window.alert(error instanceof Error ? error.message : "No fue posible cambiar de perfil.");
+      event.currentTarget.value = currentProfile;
+    } finally {
+      setIsSwitching(false);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-30 w-full bg-white/90 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm flex flex-col justify-center px-4 md:px-10 py-3">
@@ -92,9 +153,25 @@ export function TopBar({ role, onToggleMobileMenu }: { role: string; onToggleMob
             />
           </div>
 
-          <div className="hidden md:block text-xs md:text-sm text-secondary">
+          <div className="hidden md:block text-xs md:text-sm text-secondary whitespace-nowrap">
             Usuario: <span className="font-medium text-primary">{displayRole}</span>
           </div>
+
+          <label className="relative flex items-center rounded-full bg-surface-container-low px-3 py-1.5 border border-outline-variant/20 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+            <span className="sr-only">Cambiar perfil de demostración</span>
+            <select
+              aria-label="Cambiar perfil de demostración"
+              value={currentProfile}
+              onChange={handleProfileSwitch}
+              disabled={isSwitching}
+              className="w-32 md:w-44 appearance-none bg-transparent pr-5 text-xs md:text-sm font-semibold text-primary outline-none disabled:cursor-wait disabled:opacity-60"
+            >
+              {DEMO_PROFILES.map(([value, label]) => (
+                <option key={value} value={value}>{label}</option>
+              ))}
+            </select>
+            <span className="material-symbols-outlined pointer-events-none absolute right-2 text-[18px] text-primary">expand_more</span>
+          </label>
 
           <NotificationCenter />
 
