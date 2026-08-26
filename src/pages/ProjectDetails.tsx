@@ -6,6 +6,11 @@ import { ContractorAuthorizationPanel } from "../components/ContractorAuthorizat
 const phaseLabels: Record<string, string> = { anteproyecto: "Anteproyecto", revision_tecnica: "Revisión técnica", planos_tecnicos: "Planos técnicos", inicio_obra: "Inicio de obra", obra_activa: "Obra activa", cierre: "Cierre", archivo: "Archivo", autorizacion_inicial: "Autorización inicial", directorio: "Directorio" };
 const cdeLabels: Record<string, string> = { wip: "En trabajo", shared: "Compartido", published: "Publicado", archive: "Archivado" };
 
+const OWNER_PLAN_CATEGORIES = new Set([
+  "anteproyecto", "planta_conjunto", "planta_nivel", "elevaciones", "secciones", "curvas_nivel",
+  "arquitectonico", "estructural", "electrico", "hidrosanitario", "climatizacion", "cad", "planos_tecnicos",
+]);
+
 const OWNER_WORKFLOW_STEPS = [
   { key: "autorizacion", label: "Validación legal", shortLabel: "Autorización" },
   { key: "anteproyecto", label: "Anteproyecto", shortLabel: "Anteproyecto" },
@@ -97,8 +102,28 @@ export function ProjectDetails() {
             <p className="text-sm text-white/75 mt-3 leading-relaxed">El expediente está preparado para la futura revisión automática de normativas. Esta señal no ejecuta todavía análisis de IA.</p>
           </section>
         </aside>
-      </div>
+            </div>
+
+      <OwnerPlansSection projectId={project.id} documents={documents} />
     </div>
+  );
+}
+
+function OwnerPlansSection({ projectId, documents }: { projectId: string; documents: ProjectWorkspace["documents"] }) {
+  const visiblePlans = documents.filter((document) => document.visible_to_owner && Boolean(document.current_version_id) && OWNER_PLAN_CATEGORIES.has(document.category));
+
+  return (
+    <section className="bg-white rounded-3xl p-7 md:p-8 border border-outline-variant/30 soft-shadow">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+        <div>
+          <p className="text-xs uppercase tracking-[0.18em] text-secondary">Documentación para el propietario</p>
+          <h2 className="text-2xl font-bold text-on-surface mt-2">Planos del proyecto</h2>
+          <p className="text-sm text-secondary mt-2">Consulta los planos cargados y autorizados para este expediente. Los archivos se abren en modo lectura.</p>
+        </div>
+        <span className="self-start rounded-full bg-surface-container-low px-3 py-1.5 text-xs font-semibold text-secondary">{visiblePlans.length} {visiblePlans.length === 1 ? "documento" : "documentos"}</span>
+      </div>
+      {visiblePlans.length ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">{visiblePlans.map((document) => <div key={document.id}><DocumentCard projectId={projectId} documentId={document.id} title={document.title} category={document.category} state={document.cde_state} visibleToOwner={document.visible_to_owner} /></div>)}</div> : <div className="mt-6 rounded-2xl border border-dashed border-outline-variant/40 bg-surface-container-low/40 p-6 text-sm text-secondary">Los planos aparecerán aquí cuando sean cargados y habilitados para consulta del propietario.</div>}
+    </section>
   );
 }
 

@@ -14,6 +14,7 @@ interface DocumentUploadProps {
   categories?: DocumentCategoryOption[];
   titleLabel?: string;
   accept?: string;
+  visibleToOwner?: boolean;
 }
 
 const DEFAULT_CATEGORIES: DocumentCategoryOption[] = [
@@ -28,7 +29,7 @@ const DEFAULT_CATEGORIES: DocumentCategoryOption[] = [
   { value: "otro", label: "Otro" },
 ];
 
-export function DocumentUpload({ projectId, onUploaded, defaultCategory = "anteproyecto", categories = DEFAULT_CATEGORIES, titleLabel = "Título del documento", accept = ".pdf,.dwg,.dxf,.doc,.docx,image/png,image/jpeg" }: DocumentUploadProps) {
+export function DocumentUpload({ projectId, onUploaded, defaultCategory = "anteproyecto", categories = DEFAULT_CATEGORIES, titleLabel = "Título del documento", accept = ".pdf,.dwg,.dxf,.doc,.docx,image/png,image/jpeg", visibleToOwner = false }: DocumentUploadProps) {
   const { profile } = useSession();
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState(defaultCategory);
@@ -53,7 +54,7 @@ export function DocumentUpload({ projectId, onUploaded, defaultCategory = "antep
     setBusy(true); setError(""); setMessage("");
     try {
       const client = requireSupabase();
-      const { data: document, error: documentError } = await client.from("documents").insert({ project_id: projectId, category, title: title.trim(), cde_state: "wip", visible_to_owner: category === "autorizacion", created_by: profile.id }).select("*").single();
+      const { data: document, error: documentError } = await client.from("documents").insert({ project_id: projectId, category, title: title.trim(), cde_state: "wip", visible_to_owner: visibleToOwner || category === "autorizacion", created_by: profile.id }).select("*").single();
       if (documentError) throw documentError;
       const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
       const storagePath = `${projectId}/${document.id}/v1_${safeName}`;
