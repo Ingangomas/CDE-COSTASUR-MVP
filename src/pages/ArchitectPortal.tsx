@@ -1,7 +1,7 @@
 ﻿import { useEffect, useMemo, useState } from "react";
 import { DocumentUpload } from "../components/DocumentUpload";
 import { ArchitectAnteprojectUploadPanel } from "../components/ArchitectAnteprojectUploadPanel";
-import { DocumentViewer } from "../components/DocumentViewer";
+import { PlanSetViewer } from "../components/PlanSetViewer";
 import { getProjectsForUser, getProjectWorkspace, type ProjectWorkspace } from "../lib/cde-data";
 import type { ProjectRecord } from "../lib/cde-types";
 import { useSession } from "../context/SessionContext";
@@ -79,7 +79,7 @@ export function ArchitectPortal() {
     {activeTab === "planos_tecnicos" && technicalEnabled && <DocumentUpload projectId={projectId} defaultCategory={technicalCategories[0].value} categories={technicalCategories} accept=".pdf,.dwg,.dxf" visibleToOwner onUploaded={() => { void loadWorkspace(projectId ?? undefined); }} />}
     {activeTab === "planos_tecnicos" && !technicalEnabled && <GateNotice title="Planos técnicos bloqueados" body="Arquitectura debe aprobar el anteproyecto antes de habilitar los planos técnicos." />}
     {activeTab !== "planos_tecnicos" && !anteprojectEnabled && <GateNotice title="Sometimiento bloqueado" body="La carta de autorización debe ser aprobada por el departamento de Arquitectura antes de habilitar este expediente." />}
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6"><section className="glass-panel bg-white p-6 border border-outline-variant/30 lg:col-span-1"><p className="text-xs uppercase tracking-[0.18em] text-secondary">Documentos disponibles</p><h2 className="text-xl font-bold text-on-surface mt-2">{visibleDocuments.length} registros</h2><div className="space-y-2 mt-5">{visibleDocuments.length ? visibleDocuments.map((document) => <button type="button" key={document.id} onClick={() => setSelectedDocumentId(document.id)} className={`w-full text-left rounded-xl border p-3 transition-colors ${selectedDocumentId === document.id ? "border-primary bg-primary/5" : "border-outline-variant/30 hover:border-primary/30"}`}><p className="text-sm font-semibold text-on-surface truncate">{document.title}</p><p className="text-xs text-secondary mt-1 uppercase">{document.category.replaceAll("_", " ")} · {document.cde_state}</p></button>) : <p className="text-sm text-secondary">Todavía no hay documentos en esta etapa.</p>}</div></section><div className="lg:col-span-2">{selectedDocumentId ? <DocumentViewer documentId={selectedDocumentId} /> : <div className="glass-panel p-10 text-center text-secondary">Selecciona un documento versionado para abrir el visor PDF o CAD.</div>}</div></div>
+    <PlanSetViewer documents={workspace.documents} />
   </div></div>;
 }
 
