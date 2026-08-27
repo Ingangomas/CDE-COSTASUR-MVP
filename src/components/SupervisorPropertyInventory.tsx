@@ -1,44 +1,58 @@
 import { useMemo, useState } from "react";
+import type { PropertyRecord } from "../lib/cde-types";
 
-type SimulatedProperty = {
-  id: string;
-  code: string;
-  name: string;
-  sector: string;
-  status: string;
-  type: string;
+type PropertyInventoryRow = PropertyRecord & {
+  historyCount: number;
+  activeProject: string | null;
+  projectStatus: string;
 };
 
+const propertyImages = [
+  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85",
+  "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=85",
+  "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1200&q=85",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85",
+];
 const sectors = ["Punta Águila", "Tamarindo", "Caletón", "Las Cañas", "La Romana"];
-const statuses = ["Disponible", "En revisión", "Obra activa", "Finalizada"];
+const projectStatuses = ["En revisión", "Obra activa", "Finalizada", "Sin expediente activo"];
 
-const SIMULATED_PROPERTIES: SimulatedProperty[] = Array.from({ length: 100 }, (_, index) => {
+const SIMULATED_PROPERTIES: PropertyInventoryRow[] = Array.from({ length: 100 }, (_, index) => {
   const number = index + 1;
+  const projectStatus = projectStatuses[index % projectStatuses.length];
   return {
     id: `supervisor-demo-property-${String(number).padStart(3, "0")}`,
-    code: `COSTASUR-VIV-${String(number).padStart(3, "0")}`,
+    property_code: `COSTASUR-VIV-${String(number).padStart(3, "0")}`,
+    property_type: number % 5 === 0 ? "terreno" : "villa",
     name: `Villa ${String(number).padStart(3, "0")}`,
-    sector: sectors[index % sectors.length],
-    status: statuses[index % statuses.length],
-    type: number % 5 === 0 ? "Lote en desarrollo" : "Vivienda",
+    address: `Sector ${sectors[index % sectors.length]}, Casa de Campo · La Romana`,
+    owner_user_id: null,
+    area_m2: 420 + (number % 8) * 35,
+    latitude: 18.423 + (index % 10) * 0.001,
+    longitude: -68.976 - (index % 10) * 0.001,
+    status: "active",
+    historyCount: number % 4,
+    activeProject: projectStatus === "Sin expediente activo" ? null : `Expediente ${String(number).padStart(3, "0")}`,
+    projectStatus,
   };
 });
+
+const statusTone = (status: string) => status === "Obra activa" ? "bg-primary/10 text-primary" : status === "Finalizada" ? "bg-success/10 text-success" : status === "En revisión" ? "bg-warning/10 text-warning" : "bg-surface-container-low text-secondary";
 
 export function SupervisorPropertyInventory({ contextLabel = "Inventario general del proyecto" }: { contextLabel?: string }) {
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("Todas");
   const filteredProperties = useMemo(() => SIMULATED_PROPERTIES.filter((property) => {
-    const haystack = `${property.code} ${property.name} ${property.sector}`.toLowerCase();
-    return (!query || haystack.includes(query.toLowerCase())) && (status === "Todas" || property.status === status);
+    const haystack = `${property.property_code} ${property.name} ${property.address}`.toLowerCase();
+    return (!query || haystack.includes(query.toLowerCase())) && (status === "Todas" || property.projectStatus === status);
   }), [query, status]);
 
   return <section className="rounded-3xl border border-outline-variant/30 bg-surface-container-lowest p-5 shadow-sm md:p-7">
     <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-      <div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">{contextLabel}</p><h3 className="mt-2 text-2xl font-bold text-primary">100 viviendas y propiedades</h3><p className="mt-2 max-w-3xl text-sm leading-6 text-secondary">Simulación visual del inventario completo del proyecto para supervisión general. Estos registros no modifican propiedades ni expedientes reales.</p></div>
+      <div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">{contextLabel}</p><h3 className="mt-2 text-2xl font-bold text-primary">100 viviendas y propiedades</h3><p className="mt-2 max-w-3xl text-sm leading-6 text-secondary">Vista general del mismo inventario del proyecto: cada propiedad conserva su histórico y muestra si tiene una actividad actual.</p></div>
       <span className="inline-flex w-fit items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary"><span className="material-symbols-outlined text-[16px]">grid_view</span>{filteredProperties.length} de 100 visibles</span>
     </div>
-    <div className="mt-6 flex flex-col gap-3 sm:flex-row"><label className="relative block flex-1"><span className="sr-only">Buscar propiedad simulada</span><span className="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-secondary">search</span><input value={query} onChange={(event) => setQuery(event.target.value)} className="w-full rounded-2xl border border-outline-variant/30 bg-white py-3 pl-10 pr-4 text-sm text-on-surface outline-none transition-colors focus:border-primary" placeholder="Buscar por código, villa o sector" /></label><select value={status} onChange={(event) => setStatus(event.target.value)} className="rounded-2xl border border-outline-variant/30 bg-white px-4 py-3 text-sm text-on-surface outline-none focus:border-primary"><option>Todas</option>{statuses.map((item) => <option key={item}>{item}</option>)}</select></div>
-    <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">{filteredProperties.map((property) => <div key={property.id} className="rounded-2xl border border-outline-variant/30 bg-white p-4"><div className="flex items-start justify-between gap-3"><div className="min-w-0"><p className="truncate text-sm font-semibold text-on-surface">{property.name}</p><p className="mt-1 text-[11px] font-medium uppercase tracking-[0.12em] text-secondary">{property.code}</p></div><span className={`shrink-0 rounded-full px-2 py-1 text-[10px] font-semibold ${property.status === "Obra activa" ? "bg-primary/10 text-primary" : property.status === "Finalizada" ? "bg-success/10 text-success" : property.status === "En revisión" ? "bg-warning/10 text-warning" : "bg-surface-container-low text-secondary"}`}>{property.status}</span></div><p className="mt-3 flex items-center gap-1 text-xs text-secondary"><span className="material-symbols-outlined text-[16px]">location_on</span>{property.sector} · {property.type}</p></div>)}</div>
-    {!filteredProperties.length && <div className="mt-6 rounded-2xl border border-dashed border-outline-variant/50 bg-surface-container-low p-8 text-center text-sm text-secondary">No hay propiedades simuladas con esos criterios.</div>}
+    <div className="mt-6 flex flex-col gap-3 sm:flex-row"><label className="relative block flex-1"><span className="sr-only">Buscar propiedad</span><span className="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-secondary">search</span><input value={query} onChange={(event) => setQuery(event.target.value)} className="w-full rounded-2xl border border-outline-variant/30 bg-white py-3 pl-10 pr-4 text-sm text-on-surface outline-none transition-colors focus:border-primary" placeholder="Buscar por código, villa o sector" /></label><select value={status} onChange={(event) => setStatus(event.target.value)} className="rounded-2xl border border-outline-variant/30 bg-white px-4 py-3 text-sm text-on-surface outline-none focus:border-primary"><option>Todas</option>{projectStatuses.map((item) => <option key={item}>{item}</option>)}</select></div>
+    <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">{filteredProperties.map((property, index) => <article key={property.id} className="group overflow-hidden rounded-[2rem] border border-outline-variant/30 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"><div className="relative h-36 overflow-hidden bg-surface-container-low"><img src={propertyImages[index % propertyImages.length]} alt={property.name} className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" /><div className="absolute bottom-4 left-5 right-5 text-white"><p className="text-[10px] uppercase tracking-[0.18em] opacity-85">Propiedad del proyecto</p><h4 className="mt-1 line-clamp-1 text-xl font-bold">{property.name}</h4></div></div><div className="p-5"><div className="flex items-start justify-between gap-3"><div className="min-w-0"><p className="truncate text-[11px] font-semibold uppercase tracking-[0.15em] text-secondary">{property.property_code}</p><p className="mt-2 flex items-start gap-1.5 text-xs leading-5 text-secondary"><span className="material-symbols-outlined text-[16px]">location_on</span><span>{property.address}</span></p></div><span className={`shrink-0 rounded-full px-2 py-1 text-[10px] font-semibold ${statusTone(property.projectStatus)}`}>{property.projectStatus}</span></div><div className="mt-4 border-t border-outline-variant/20 pt-4"><p className="text-xs text-secondary">Histórico: <span className="font-semibold text-on-surface">{property.historyCount} {property.historyCount === 1 ? "expediente" : "expedientes"}</span></p><p className="mt-1 text-xs text-secondary">Activo: <span className="font-semibold text-on-surface">{property.activeProject ?? "Sin expediente activo"}</span></p></div></div></article>)}</div>
+    {!filteredProperties.length && <div className="mt-6 rounded-2xl border border-dashed border-outline-variant/50 bg-surface-container-low p-8 text-center text-sm text-secondary">No hay propiedades con esos criterios.</div>}
   </section>;
 }
