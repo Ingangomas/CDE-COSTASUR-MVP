@@ -18,6 +18,7 @@ const membershipClass = (status: GovernanceMembership["status"]) => status === "
 
 export function AdminGovernancePanel() {
   const { session, primaryRole } = useSession();
+  const isGovernance = primaryRole === "gobernanza";
   const [users, setUsers] = useState<AdminGovernanceUser[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -27,16 +28,16 @@ export function AdminGovernancePanel() {
   const [action, setAction] = useState<Action | null>(null);
   const [role, setRole] = useState<RoleKey>("revision_tecnica");
   const [department, setDepartment] = useState("");
-  const isAdmin = primaryRole === "admin_general";
+  const canManageGovernance = primaryRole === "admin_general" || isGovernance;
 
   const load = async () => {
-    if (!isAdmin) { setLoading(false); return; }
+    if (!canManageGovernance) { setLoading(false); return; }
     setLoading(true); setError(null);
     try { setUsers(await getAdminGovernance()); }
     catch (loadError) { setError(loadError instanceof Error ? loadError.message : "No se pudo cargar el directorio administrativo."); }
     finally { setLoading(false); }
   };
-  useEffect(() => { void load(); }, [isAdmin]);
+  useEffect(() => { void load(); }, [canManageGovernance]);
 
   const visibleUsers = useMemo(() => {
     const term = query.trim().toLowerCase();
@@ -45,7 +46,7 @@ export function AdminGovernancePanel() {
   }, [query, users]);
   const totals = useMemo(() => ({ total: users.length, active: users.filter((user) => user.status === "active").length, pending: users.filter((user) => user.status === "pending").length, access: users.reduce((sum, user) => sum + user.memberships.filter((item) => item.status === "pending").length, 0) }), [users]);
 
-  if (!isAdmin) return null;
+  if (!canManageGovernance) return null;
   const close = () => { if (!saving) setAction(null); };
   const addRole = (user: AdminGovernanceUser) => { setRole("revision_tecnica"); setDepartment(""); setAction({ kind: "add", user }); };
   const save = async () => {
@@ -69,7 +70,7 @@ export function AdminGovernancePanel() {
   const actions = (user: AdminGovernanceUser) => <div className="flex flex-wrap gap-2"><button type="button" onClick={() => setAction({ kind: "status", user, next: user.status === "active" ? "suspended" : "active" })} className="rounded-full border border-outline-variant/50 px-3 py-1.5 text-[11px] font-semibold text-secondary hover:border-primary/50 hover:text-primary">{user.status === "active" ? "Suspender" : "Activar"}</button><button type="button" onClick={() => addRole(user)} className="rounded-full border border-primary/30 bg-primary/5 px-3 py-1.5 text-[11px] font-semibold text-primary hover:bg-primary/10">Agregar rol</button><button type="button" disabled={!user.memberships.length} onClick={() => user.memberships.length && setAction({ kind: "membership", user, membership: user.memberships[0], next: user.memberships[0].status === "active" ? "revoked" : "active" })} className="rounded-full border border-outline-variant/50 px-3 py-1.5 text-[11px] font-semibold text-secondary hover:border-primary/50 hover:text-primary disabled:cursor-not-allowed disabled:opacity-40">Gestionar acceso</button>{user.roles.filter((item) => item.is_active).slice(0, 1).map((item) => <button key={item.id} type="button" onClick={() => setAction({ kind: "remove", user, role: item })} className="rounded-full px-3 py-1.5 text-[11px] font-semibold text-error hover:bg-error/10">Retirar rol</button>)}</div>;
 
   return <section className="mb-8 rounded-2xl border border-outline-variant/30 bg-surface-container-lowest p-5 md:p-6">
-    <div className="flex flex-col gap-4 border-b border-outline-variant/20 pb-5 md:flex-row md:items-start md:justify-between"><div><div className="flex items-center gap-2"><span className="material-symbols-outlined text-primary">admin_panel_settings</span><h4 className="text-xl font-bold text-primary">Gobernanza del CDE</h4></div><p className="mt-1 max-w-2xl text-sm text-secondary">Directorio de usuarios, roles funcionales y accesos a expedientes. Las mutaciones quedan auditadas por Supabase.</p></div><button type="button" onClick={() => void load()} className="inline-flex items-center justify-center gap-2 rounded-full border border-outline-variant/40 px-4 py-2 text-xs font-semibold text-primary hover:bg-primary/5"><span className={`material-symbols-outlined text-[17px] ${loading ? "animate-spin" : ""}`}>refresh</span>Actualizar</button></div>
+    <div className="flex flex-col gap-4 border-b border-outline-variant/20 pb-5 md:flex-row md:items-start md:justify-between"><div><div className="flex items-center gap-2"><span className="material-symbols-outlined text-primary">admin_panel_settings</span><h4 className="text-xl font-bold text-primary">{isGovernance ? "Gobernanza del CDE" : "Administración operativa"}</h4></div><p className="mt-1 max-w-2xl text-sm text-secondary">{isGovernance ? "Directorio de usuarios, roles funcionales y accesos a expedientes. Las mutaciones quedan auditadas por Supabase." : "Revisión operativa de usuarios, roles funcionales y accesos a expedientes."}</p></div><button type="button" onClick={() => void load()} className="inline-flex items-center justify-center gap-2 rounded-full border border-outline-variant/40 px-4 py-2 text-xs font-semibold text-primary hover:bg-primary/5"><span className={`material-symbols-outlined text-[17px] ${loading ? "animate-spin" : ""}`}>refresh</span>Actualizar</button></div>
     <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4"><div className="rounded-2xl border border-outline-variant/20 bg-surface-variant p-4"><p className="text-[10px] font-bold uppercase tracking-wider text-secondary">Usuarios</p><p className="mt-1 text-2xl font-bold text-on-surface">{totals.total}</p></div><div className="rounded-2xl border border-success/20 bg-success/10 p-4"><p className="text-[10px] font-bold uppercase tracking-wider text-success">Activos</p><p className="mt-1 text-2xl font-bold text-success">{totals.active}</p></div><div className="rounded-2xl border border-warning/20 bg-warning/10 p-4"><p className="text-[10px] font-bold uppercase tracking-wider text-warning">Pendientes</p><p className="mt-1 text-2xl font-bold text-warning">{totals.pending}</p></div><div className="rounded-2xl border border-primary/20 bg-primary/5 p-4"><p className="text-[10px] font-bold uppercase tracking-wider text-primary">Accesos por aprobar</p><p className="mt-1 text-2xl font-bold text-primary">{totals.access}</p></div></div>
     <div className="mt-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between"><label className="flex w-full items-center gap-2 rounded-full border border-outline-variant/30 bg-surface-container-low px-4 py-2 md:max-w-sm"><span className="material-symbols-outlined text-[18px] text-secondary">search</span><input value={query} onChange={(event) => setQuery(event.target.value)} className="w-full border-none bg-transparent text-sm outline-none placeholder:text-secondary focus:ring-0" placeholder="Buscar usuario, rol o proyecto..." /></label><p className="text-xs text-secondary">{visibleUsers.length} de {users.length} usuarios visibles</p></div>
     {notice && <div className="mt-4 flex items-center gap-2 rounded-xl border border-success/20 bg-success/10 px-4 py-3 text-sm text-success"><span className="material-symbols-outlined text-[18px]">check_circle</span>{notice}</div>}{error && <div className="mt-4 flex items-center gap-2 rounded-xl border border-error/20 bg-error/10 px-4 py-3 text-sm text-error"><span className="material-symbols-outlined text-[18px]">error</span>{error}</div>}

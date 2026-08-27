@@ -27,6 +27,13 @@ export function Sidebar({
   let links: { to: string; icon: string; label: string }[] = [];
 
   switch (role) {
+    case 'gobernanza':
+      links = [
+        { to: "/gobernanza", icon: "admin_panel_settings", label: "Gobernanza" },
+        { to: "/gobernanza/solicitudes", icon: "approval", label: "Solicitudes" },
+        { to: "/gobernanza/calendario", icon: "calendar_month", label: "Calendario" },
+      ];
+      break;
     case 'propietario':
       links = [
         { to: "/propietario/mis-propiedades", icon: "domain", label: "Mis Propiedades" },

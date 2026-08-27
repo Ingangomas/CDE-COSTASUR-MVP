@@ -21,6 +21,7 @@ import { AdminDepartamentos } from "./pages/AdminDepartamentos";
 import { DepartmentProyectos } from "./pages/DepartmentProyectos";
 import { DepartmentProjectDetails } from "./pages/DepartmentProjectDetails";
 import { CalendarPage } from "./pages/CalendarPage";
+import { GovernancePortal } from "./pages/GovernancePortal";
 
 export default function App() {
   return (
@@ -29,6 +30,12 @@ export default function App() {
         <Route path="/" element={<Login />} />
         
         <Route element={<RequireAuth />}>
+        <Route path="/gobernanza" element={<Layout role="gobernanza" />}>
+          <Route index element={<GovernancePortal />} />
+          <Route path="solicitudes" element={<GovernancePortal />} />
+          <Route path="calendario" element={<CalendarPage />} />
+        </Route>
+
         <Route path="/propietario" element={<Layout role="propietario" />}>
           <Route index element={<OwnerDashboard />} />
           <Route path="mis-propiedades" element={<OwnerDashboard />} />

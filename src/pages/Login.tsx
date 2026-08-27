@@ -16,6 +16,7 @@ const DEMO_PROFILES = [
   ["mensura", "Mensura"],
   ["seguridad", "Seguridad"],
   ["admin", "Administración General"],
+  ["gobernanza", "Gobernanza"],
 ] as const;
 
 export function Login() {
@@ -30,7 +31,7 @@ export function Login() {
   useEffect(() => {
     if (!isAuthenticated || !primaryRole) return;
     const destinations: Record<string, string> = {
-      admin_general: "/admin", propietario: "/propietario/mis-propiedades",
+      admin_general: "/admin", gobernanza: "/gobernanza", propietario: "/propietario/mis-propiedades",
       arquitecto: "/arquitecto/mis-proyectos", contratista: "/contratista/obras-activas",
       revision_tecnica: "/revision-tecnica", control_obras: "/control-obras",
       legal: "/legal", electrica: "/electrica", hidrosanitaria: "/hidrosanitaria",

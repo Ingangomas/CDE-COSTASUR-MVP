@@ -17,10 +17,12 @@ const DEMO_PROFILES = [
   ["mensura", "Mensura", "/mensura"],
   ["seguridad", "Seguridad", "/seguridad"],
   ["admin", "Administración General", "/admin"],
+  ["gobernanza", "Gobernanza", "/gobernanza"],
 ] as const;
 
 const ROLE_TO_PROFILE: Record<string, string> = {
   admin: "admin",
+  gobernanza: "gobernanza",
   propietario: "propietario",
   arquitecto: "arquitecto",
   contratista: "contratista",
@@ -66,6 +68,7 @@ export function TopBar({ role, onToggleMobileMenu }: { role: string; onToggleMob
       case 'hidrosanitaria': return { title: 'Ing. Hidrosanitaria', displayRole: 'Ing. Hidrosanitario', img: '' };
       case 'paisajismo': return { title: 'Paisajismo', displayRole: 'Paisajista', img: '' };
       case 'admin': return { title: 'Administración', displayRole: 'Administrador General', img: '' };
+      case 'gobernanza': return { title: 'Gobernanza', displayRole: 'Gobernanza del CDE', img: '' };
       default: return { title: 'Costasur CDE', displayRole: 'Usuario', img: '' };
     }
   };

@@ -13,6 +13,7 @@ const DEMO_ACCOUNTS: Record<string, string> = {
   mensura: "mensura.demo@costasur.com",
   seguridad: "seguridad.demo@costasur.com",
   admin: "admin.demo@costasur.com",
+  gobernanza: "gobernanza@costasur.com",
 };
 
 type DemoRequest = {
