@@ -1,5 +1,6 @@
 ﻿import { Link } from "react-router-dom";
 import { ControlRequestsPanel } from "../components/ControlRequestsPanel";
+import { ContractorProjectRequestsPanel } from "../components/ContractorProjectRequestsPanel";
 import { AdminLiveMetrics } from "../components/AdminLiveMetrics";
 import { CasaDeCampoMap } from "../components/CasaDeCampoMap";
 import { SupervisorPropertyInventory } from "../components/SupervisorPropertyInventory";
@@ -31,6 +32,7 @@ export function ControlDeObras() {
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
         <ControlRequestsPanel />
+        <ContractorProjectRequestsPanel department="control_obras" />
         <section className="lg:col-span-4 rounded-3xl border border-outline-variant/30 bg-surface-container-lowest p-6">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Operación física</p>
           <h3 className="mt-2 text-xl font-bold text-primary">Siguiente acción</h3>

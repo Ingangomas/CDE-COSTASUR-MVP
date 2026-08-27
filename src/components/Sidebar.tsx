@@ -193,6 +193,17 @@ export function Sidebar({
             {!isCollapsed || isMobile ? "Nuevo Proyecto" : null}
           </button>
         )}
+        {role === 'contratista' && (
+          <Link
+            to="/contratista/obras-activas?nuevo=1"
+            onClick={isMobile ? onCloseMobileMenu : undefined}
+            className="w-full bg-primary-container text-white rounded-full py-3 px-3 flex items-center justify-center gap-2 font-medium hover:bg-primary-container/90 transition-colors shadow-md text-sm"
+            title={isCollapsed && !isMobile ? "Nuevo proyecto" : undefined}
+          >
+            <span className="material-symbols-outlined text-[20px]">add</span>
+            {!isCollapsed || isMobile ? "Nuevo proyecto" : null}
+          </Link>
+        )}
       </div>
 
       <div className="mt-6 border-t border-outline-variant/20 pt-4">

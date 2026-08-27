@@ -5,6 +5,7 @@ import type { ProjectRecord } from "../lib/cde-types";
 import { useSession } from "../context/SessionContext";
 import { CasaDeCampoMap } from "../components/CasaDeCampoMap";
 import { SupervisorPropertyInventory } from "../components/SupervisorPropertyInventory";
+import { ContractorProjectRequestsPanel } from "../components/ContractorProjectRequestsPanel";
 
 export function DepartmentDashboard({ department, icon, type, deptKey }: { department: string; icon: string; type: string; deptKey?: string }) {
   const { session } = useSession();
@@ -39,6 +40,7 @@ export function DepartmentDashboard({ department, icon, type, deptKey }: { depar
 
       {hasPropertyOverview && <CasaDeCampoMap title={`Mapa GIS de ${department}`} subtitle="Casa de Campo · La Romana · ubicación general del proyecto" heightClassName="h-[300px] md:h-[380px]" />}
       {hasPropertyOverview && <SupervisorPropertyInventory contextLabel={`${department} · inventario general`} />}
+      {targetPrefix === "legal" && <ContractorProjectRequestsPanel department="legal" />}
 
       {loading && <div className="rounded-3xl border border-outline-variant/30 bg-surface-container-lowest p-8 text-sm text-secondary">Cargando expedientes persistidos...</div>}
       {error && <div className="rounded-3xl border border-error/30 bg-error/10 p-8 text-sm text-error">{error}</div>}
