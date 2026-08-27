@@ -1,5 +1,4 @@
 ﻿import { Link } from "react-router-dom";
-import { AdminLiveMapSummary } from "../components/AdminLiveMapSummary";
 import { AdminLiveMetrics } from "../components/AdminLiveMetrics";
 import { AdminLiveOperations } from "../components/AdminLiveOperations";
 import { CasaDeCampoMap } from "../components/CasaDeCampoMap";
@@ -43,25 +42,6 @@ export function AdminMapaGeneral() {
       </section>
 
       <AdminLiveMetrics />
-
-      <section className="rounded-3xl border border-outline-variant/30 bg-surface-container-lowest p-6 md:p-8">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Mapa GIS Costasur</p>
-            <h3 className="mt-2 text-xl font-bold text-primary">Ubicación de expedientes y propiedades</h3>
-            <p className="mt-2 max-w-3xl text-sm leading-6 text-secondary">
-              Inventario georreferenciado persistente desde el día cero, con villas, lotes vacíos y expedientes vinculados.
-            </p>
-          </div>
-          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-warning/10 px-3 py-1.5 text-xs font-semibold text-warning">
-            <span className="material-symbols-outlined text-[16px]">map</span>
-            Datos geográficos persistentes
-          </span>
-        </div>
-        <div className="mt-6">
-          <AdminLiveMapSummary />
-        </div>
-      </section>
 
       <SupervisorPropertyInventory contextLabel="Administración · inventario general" />
 
