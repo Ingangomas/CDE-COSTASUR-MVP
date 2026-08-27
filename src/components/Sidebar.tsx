@@ -40,7 +40,7 @@ export function Sidebar({
       break;
     case 'contratista':
       links = [
-        { to: "/contratista/obras-activas", icon: "construction", label: "Obras Activas" },
+        { to: "/contratista/obras-activas", icon: "construction", label: "Mis Proyectos" },
         { to: "/contratista", icon: "dashboard", label: "Dashboard" },
       ];
       break;
