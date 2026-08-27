@@ -4,9 +4,9 @@ import { createContractorRequest, getProjectWorkspace, type ProjectWorkspace } f
 import { requireSupabase } from "../lib/supabase";
 import { PlanSetViewer } from "./PlanSetViewer";
 
-interface ContractorWorkflowsProps { projectId: string; }
+interface ContractorWorkflowsProps { projectId: string; onRequestSubmitted?: (requestType: string) => void; }
 
-export function ContractorWorkflows({ projectId }: ContractorWorkflowsProps) {
+export function ContractorWorkflows({ projectId, onRequestSubmitted }: ContractorWorkflowsProps) {
   const { profile } = useSession();
   const [workspace, setWorkspace] = useState<ProjectWorkspace | null>(null);
   const [active, setActive] = useState<"inicio_obra" | "inspeccion" | "bitacora" | null>(null);
@@ -41,7 +41,9 @@ export function ContractorWorkflows({ projectId }: ContractorWorkflowsProps) {
         if (insertError) throw insertError;
         setFeedback("Entrada de bitácora guardada en el expediente.");
       } else {
-        await createContractorRequest({ projectId, requestType: active === "inicio_obra" ? "inicio_obra" : inspectionType, requestedDate, description });
+        const requestType = active === "inicio_obra" ? "inicio_obra" : inspectionType;
+        await createContractorRequest({ projectId, requestType, requestedDate, description });
+        onRequestSubmitted?.(requestType);
         setFeedback(active === "inicio_obra" ? "Solicitud de inicio de obra enviada a Control de Obras." : "Solicitud de inspección enviada a Control de Obras.");
       }
       setDescription(""); setTitle(""); setRequestedDate("");

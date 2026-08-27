@@ -295,6 +295,14 @@ export async function createContractorRequest(input: { projectId: string; reques
   return data;
 }
 
+export async function getContractorStartRequestProjects(projectIds: string[]) {
+  if (!projectIds.length) return [] as { project_id: string; status: string; created_at: string }[];
+  const client = requireSupabase();
+  const { data, error } = await client.from("contractor_requests").select("project_id,status,created_at").in("project_id", projectIds).eq("request_type", "inicio_obra").in("status", ["submitted", "in_review"]).order("created_at", { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as { project_id: string; status: string; created_at: string }[];
+}
+
 export async function getProjectDocuments(projectId: string) {
   const client = requireSupabase();
   const { data, error } = await client.from("documents").select("*").eq("project_id", projectId).order("created_at", { ascending: true });
