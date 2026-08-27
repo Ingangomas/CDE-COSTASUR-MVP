@@ -3,6 +3,7 @@ import { AdminLiveMapSummary } from "../components/AdminLiveMapSummary";
 import { AdminLiveMetrics } from "../components/AdminLiveMetrics";
 import { AdminLiveOperations } from "../components/AdminLiveOperations";
 import { CasaDeCampoMap } from "../components/CasaDeCampoMap";
+import { SupervisorPropertyInventory } from "../components/SupervisorPropertyInventory";
 
 export function AdminMapaGeneral() {
   return (
@@ -61,6 +62,8 @@ export function AdminMapaGeneral() {
           <AdminLiveMapSummary />
         </div>
       </section>
+
+      <SupervisorPropertyInventory contextLabel="Administración · inventario general" />
 
       <AdminLiveOperations />
     </div>
