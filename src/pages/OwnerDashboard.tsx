@@ -30,7 +30,7 @@ const DEMO_OWNER_EMAIL = "owner.demo@costasur.com";
 function getDemoProperties(ownerId: string): PortfolioRow[] {
   return [
     { id: "demo-property-tamarindo-13", property_code: "TAMARINDO-13", property_type: "villa", name: "Tamarindo #13", address: "Casa de Campo · La Romana", owner_user_id: ownerId, area_m2: 420, latitude: null, longitude: null, status: "active", projects: [] },
-    { id: "demo-property-caleton-57", property_code: "CALETON-57", property_type: "villa", name: "Caleton #57", address: "Casa de Campo · La Romana", owner_user_id: ownerId, area_m2: 510, latitude: null, longitude: null, status: "active", projects: [] },
+    { id: "demo-property-caleton-57", property_code: "CALETON-57", property_type: "terreno", name: "Solar Caleton #57", address: "Casa de Campo · La Romana", owner_user_id: ownerId, area_m2: 510, latitude: null, longitude: null, status: "active", projects: [] },
     { id: "demo-property-las-canas-24", property_code: "LAS-CAÑAS-I-24", property_type: "villa", name: "Las Cañas I #24", address: "Casa de Campo · La Romana", owner_user_id: ownerId, area_m2: 385, latitude: null, longitude: null, status: "active", projects: [] },
   ];
 }

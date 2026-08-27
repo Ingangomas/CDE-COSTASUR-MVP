@@ -43,9 +43,9 @@ export const DEMO_EXTRA_PROJECTS: ProjectRecord[] = [
   {
     id: "demo-project-palma-09",
     property_id: "demo-property-palma-09",
-    project_code: "PALMA-09-PROY-01",
-    title: "Villa Palma Real #09",
-    project_type: "obra_nueva",
+    project_code: "PALMA-09-LOT-PROY-01",
+    title: "Lote Palma Real #09",
+    project_type: "lote",
     phase: "inicio_obra",
     cde_status: "published",
     operational_status: "obra_autorizada",
