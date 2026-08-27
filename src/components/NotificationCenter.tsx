@@ -7,6 +7,8 @@ function formatDate(value: string) {
 }
 
 function iconFor(type: string) {
+  if (type.includes("calendar")) return "calendar_month";
+  if (type.includes("supervisor_assignment")) return "engineering";
   if (type.includes("incident")) return "error";
   if (type.includes("review")) return "rate_review";
   if (type.includes("license")) return "verified";

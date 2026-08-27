@@ -49,6 +49,7 @@ export function Sidebar({
         { to: "/revision-tecnica/revision", icon: "fact_check", label: "Revisión General" },
         { to: "/revision-tecnica/proyectos", icon: "folder_open", label: "Proyectos" },
         { to: "/revision-tecnica", icon: "dashboard", label: "Dashboard" },
+        { to: "/revision-tecnica/calendario", icon: "calendar_month", label: "Calendario" },
       ];
       break;
     case 'control-obras':
@@ -56,6 +57,7 @@ export function Sidebar({
         { to: "/control-obras/control", icon: "construction", label: "Control de Obras General" },
         { to: "/control-obras/proyectos", icon: "folder_open", label: "Proyectos" },
         { to: "/control-obras", icon: "dashboard", label: "Dashboard" },
+        { to: "/control-obras/calendario", icon: "calendar_month", label: "Calendario" },
       ];
       break;
     case 'legal':
@@ -63,6 +65,7 @@ export function Sidebar({
         { to: "/legal/validaciones", icon: "gavel", label: "Validaciones Legales" },
         { to: "/legal/proyectos", icon: "folder_open", label: "Proyectos" },
         { to: "/legal", icon: "dashboard", label: "Dashboard" },
+        { to: "/legal/calendario", icon: "calendar_month", label: "Calendario" },
       ];
       break;
     case 'electrica':
@@ -70,6 +73,7 @@ export function Sidebar({
         { to: "/electrica/revision", icon: "electrical_services", label: "Revisión Eléctrica" },
         { to: "/electrica/proyectos", icon: "folder_open", label: "Proyectos" },
         { to: "/electrica", icon: "dashboard", label: "Dashboard" },
+        { to: "/electrica/calendario", icon: "calendar_month", label: "Calendario" },
       ];
       break;
     case 'hidrosanitaria':
@@ -77,6 +81,7 @@ export function Sidebar({
         { to: "/hidrosanitaria/revision", icon: "plumbing", label: "Revisión Hidrosanitaria" },
         { to: "/hidrosanitaria/proyectos", icon: "folder_open", label: "Proyectos" },
         { to: "/hidrosanitaria", icon: "dashboard", label: "Dashboard" },
+        { to: "/hidrosanitaria/calendario", icon: "calendar_month", label: "Calendario" },
       ];
       break;
     case 'paisajismo':
@@ -84,6 +89,23 @@ export function Sidebar({
         { to: "/paisajismo/revision", icon: "park", label: "Revisión Paisajismo" },
         { to: "/paisajismo/proyectos", icon: "folder_open", label: "Proyectos" },
         { to: "/paisajismo", icon: "dashboard", label: "Dashboard" },
+        { to: "/paisajismo/calendario", icon: "calendar_month", label: "Calendario" },
+      ];
+      break;
+    case 'mensura':
+      links = [
+        { to: "/mensura/revision", icon: "straighten", label: "Revisión Mensura" },
+        { to: "/mensura/proyectos", icon: "folder_open", label: "Proyectos" },
+        { to: "/mensura", icon: "dashboard", label: "Dashboard" },
+        { to: "/mensura/calendario", icon: "calendar_month", label: "Calendario" },
+      ];
+      break;
+    case 'seguridad':
+      links = [
+        { to: "/seguridad/revision", icon: "security", label: "Revisión Seguridad" },
+        { to: "/seguridad/proyectos", icon: "folder_open", label: "Proyectos" },
+        { to: "/seguridad", icon: "dashboard", label: "Dashboard" },
+        { to: "/seguridad/calendario", icon: "calendar_month", label: "Calendario" },
       ];
       break;
     case 'admin':
@@ -92,6 +114,7 @@ export function Sidebar({
         { to: "/admin/proyectos", icon: "folder_open", label: "Proyectos Generales" },
         { to: "/admin/departamentos", icon: "corporate_fare", label: "Control Departamentos" },
         { to: "/admin/dashboard", icon: "dashboard", label: "Dashboard General" },
+        { to: "/admin/calendario", icon: "calendar_month", label: "Calendario" },
       ];
       break;
   }

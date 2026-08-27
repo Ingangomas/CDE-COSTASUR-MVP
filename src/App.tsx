@@ -20,6 +20,7 @@ import { AdminProyectos } from "./pages/AdminProyectos";
 import { AdminDepartamentos } from "./pages/AdminDepartamentos";
 import { DepartmentProyectos } from "./pages/DepartmentProyectos";
 import { DepartmentProjectDetails } from "./pages/DepartmentProjectDetails";
+import { CalendarPage } from "./pages/CalendarPage";
 
 export default function App() {
   return (
@@ -50,6 +51,7 @@ export default function App() {
           <Route path="revision" element={<TechnicalReview />} />
           <Route path="proyectos" element={<RevisionTecnicaProyectos />} />
           <Route path="proyectos/:id" element={<RevisionTecnicaProjectDetails />} />
+          <Route path="calendario" element={<CalendarPage />} />
         </Route>
         
         <Route path="/control-obras" element={<Layout role="control-obras" />}>
@@ -57,6 +59,7 @@ export default function App() {
           <Route path="control" element={<ControlDeObras />} />
           <Route path="proyectos" element={<ControlDeObrasProyectos />} />
           <Route path="proyectos/:id" element={<ControlDeObrasProjectDetails />} />
+          <Route path="calendario" element={<CalendarPage />} />
         </Route>
 
         <Route path="/legal" element={<Layout role="legal" />}>
@@ -64,6 +67,7 @@ export default function App() {
           <Route path="validaciones" element={<DepartmentDashboard department="Legal" icon="gavel" type="validaciones legales y verificación de propietarios" deptKey="legal" />} />
           <Route path="proyectos" element={<DepartmentProyectos department="Legal" deptKey="legal" />} />
           <Route path="proyectos/:id" element={<DepartmentProjectDetails department="Legal" deptKey="legal" />} />
+          <Route path="calendario" element={<CalendarPage />} />
         </Route>
 
         <Route path="/electrica" element={<Layout role="electrica" />}>
@@ -71,6 +75,7 @@ export default function App() {
           <Route path="revision" element={<DepartmentDashboard department="Ingeniería Eléctrica" icon="electrical_services" type="revisión de planos eléctricos" deptKey="electrica" />} />
           <Route path="proyectos" element={<DepartmentProyectos department="Eléctrica" deptKey="electrica" />} />
           <Route path="proyectos/:id" element={<DepartmentProjectDetails department="Eléctrica" deptKey="electrica" />} />
+          <Route path="calendario" element={<CalendarPage />} />
         </Route>
 
         <Route path="/hidrosanitaria" element={<Layout role="hidrosanitaria" />}>
@@ -78,6 +83,7 @@ export default function App() {
           <Route path="revision" element={<DepartmentDashboard department="Ing. Hidrosanitaria" icon="plumbing" type="revisión de planos hidrosanitarios" deptKey="hidrosanitaria" />} />
           <Route path="proyectos" element={<DepartmentProyectos department="Hidrosanitaria" deptKey="hidrosanitaria" />} />
           <Route path="proyectos/:id" element={<DepartmentProjectDetails department="Hidrosanitaria" deptKey="hidrosanitaria" />} />
+          <Route path="calendario" element={<CalendarPage />} />
         </Route>
 
         <Route path="/paisajismo" element={<Layout role="paisajismo" />}>
@@ -85,6 +91,7 @@ export default function App() {
           <Route path="revision" element={<DepartmentDashboard department="Paisajismo" icon="park" type="revisión de planos de jardinería" deptKey="paisajismo" />} />
           <Route path="proyectos" element={<DepartmentProyectos department="Paisajismo" deptKey="paisajismo" />} />
           <Route path="proyectos/:id" element={<DepartmentProjectDetails department="Paisajismo" deptKey="paisajismo" />} />
+          <Route path="calendario" element={<CalendarPage />} />
         </Route>
 
         <Route path="/mensura" element={<Layout role="mensura" />}>
@@ -92,6 +99,7 @@ export default function App() {
           <Route path="revision" element={<DepartmentDashboard department="Mensura" icon="straighten" type="revisión topográfica y deslindes" deptKey="mensura" />} />
           <Route path="proyectos" element={<DepartmentProyectos department="Mensura" deptKey="mensura" />} />
           <Route path="proyectos/:id" element={<DepartmentProjectDetails department="Mensura" deptKey="mensura" />} />
+          <Route path="calendario" element={<CalendarPage />} />
         </Route>
 
         <Route path="/seguridad" element={<Layout role="seguridad" />}>
@@ -99,6 +107,7 @@ export default function App() {
           <Route path="revision" element={<DepartmentDashboard department="Seguridad y Guardianes" icon="security" type="control de accesos y seguridad de obra" deptKey="seguridad" />} />
           <Route path="proyectos" element={<DepartmentProyectos department="Seguridad" deptKey="seguridad" />} />
           <Route path="proyectos/:id" element={<DepartmentProjectDetails department="Seguridad" deptKey="seguridad" />} />
+          <Route path="calendario" element={<CalendarPage />} />
         </Route>
         <Route path="/admin" element={<Layout role="admin" />}>
           <Route index element={<AdminMapaGeneral />} />
@@ -106,7 +115,8 @@ export default function App() {
           <Route path="dashboard" element={<DashboardAnalytics role="admin" />} />
           <Route path="proyectos" element={<AdminProyectos />} />
           <Route path="departamentos" element={<AdminDepartamentos />} />
-          <Route path="proyectos/:id" element={<ControlDeObrasProjectDetails />} /> 
+          <Route path="proyectos/:id" element={<ControlDeObrasProjectDetails />} />
+          <Route path="calendario" element={<CalendarPage />} />
         </Route>
         </Route>
       </Routes>
