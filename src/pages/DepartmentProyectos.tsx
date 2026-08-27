@@ -65,7 +65,7 @@ export function DepartmentProyectos({ department, deptKey }: DepartmentProyectos
       {error && <div className="rounded-3xl border border-error/30 bg-error/10 p-8 text-sm text-error">{error}</div>}
       {!loading && !error && (
         filtered.length ? (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-7 lg:grid-cols-2">
             {filtered.map((project) => <ProjectOverviewCard key={project.id} project={project} demoOnly={project.id.startsWith("demo-project-")} href={`/${deptKey}/proyectos/${project.id}`} statusLabel={statusLabel(project.operational_status)} statusTone={projectStatusTone(project.operational_status)} contextLabel={`Bandeja de ${department}`} />)}
           </div>
         ) : (

@@ -33,7 +33,7 @@ export function AdminProyectos() {
       {loading && <div className="glass-panel p-10 text-center text-secondary">Cargando expedientes…</div>}
       {error && <div className="glass-panel p-6 border border-error/30 text-error">{error}</div>}
       {!loading && !error && !filtered.length && <div className="glass-panel p-10 text-center text-secondary">No hay proyectos que coincidan con el filtro actual.</div>}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{filtered.map((project) => <div key={project.id}><ProjectCard project={project} /></div>)}</div>
+      <div className="grid grid-cols-1 gap-7 lg:grid-cols-2">{filtered.map((project) => <div key={project.id}><ProjectCard project={project} /></div>)}</div>
     </div>
   );
 }
