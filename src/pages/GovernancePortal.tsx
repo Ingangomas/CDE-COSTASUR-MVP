@@ -1,4 +1,5 @@
 import { AdminGovernancePanel } from "../components/AdminGovernancePanel";
+import { GovernanceRequestsPanel } from "../components/GovernanceRequestsPanel";
 
 export function GovernancePortal() {
   return (
@@ -11,6 +12,7 @@ export function GovernancePortal() {
         </p>
       </header>
       <AdminGovernancePanel />
+      <GovernanceRequestsPanel />
     </div>
   );
 }
