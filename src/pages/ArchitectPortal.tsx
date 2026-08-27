@@ -6,6 +6,7 @@ import { getProjectsForUser, getProjectWorkspace, type ProjectWorkspace } from "
 import type { ProjectRecord } from "../lib/cde-types";
 import { useSession } from "../context/SessionContext";
 import { ProjectOverviewCard, projectStatusTone } from "../components/ProjectOverviewCard";
+import { getDemoExtraProjects } from "../lib/demo-projects";
 
 const technicalCategories = [
   { value: "arquitectonico", label: "Arquitectónico" },
@@ -70,9 +71,10 @@ export function ArchitectPortal() {
   if (loading) return <div className="flex-1 overflow-y-auto p-10 bg-surface-container-low"><div className="glass-panel p-10 text-center text-secondary">Cargando expediente arquitectónico…</div></div>;
   if (error) return <div className="flex-1 overflow-y-auto p-10 bg-surface-container-low"><div className="glass-panel p-8 border border-error/30 text-error">{error}</div></div>;
   if (!projectId) {
-    const activationProjects = projects.filter((project) => ["autorizacion_inicial", "anteproyecto", "revision_tecnica", "planos_tecnicos"].includes(project.phase));
-    const activeProjects = projects.filter((project) => ["inicio_obra", "obra_activa", "cierre"].includes(project.phase));
-    const projectCard = (project: ProjectRecord) => <ProjectOverviewCard key={project.id} project={project} href={`/arquitecto/mis-proyectos?proyecto=${project.id}`} statusLabel={phaseLabels[project.phase] ?? project.phase.replaceAll("_", " ")} statusTone={projectStatusTone(project.operational_status)} contextLabel="Proyecto asignado a Arquitectura" />;
+    const overviewProjects = profile?.is_demo ? [...projects, ...getDemoExtraProjects()] : projects;
+    const activationProjects = overviewProjects.filter((project) => ["autorizacion_inicial", "anteproyecto", "revision_tecnica", "planos_tecnicos"].includes(project.phase));
+    const activeProjects = overviewProjects.filter((project) => ["inicio_obra", "obra_activa", "cierre"].includes(project.phase));
+    const projectCard = (project: ProjectRecord) => <ProjectOverviewCard key={project.id} project={project} demoOnly={project.id.startsWith("demo-project-")} onClick={project.id.startsWith("demo-project-") ? undefined : () => void loadWorkspace(project.id)} statusLabel={phaseLabels[project.phase] ?? project.phase.replaceAll("_", " ")} statusTone={projectStatusTone(project.operational_status)} contextLabel="Proyecto asignado a Arquitectura" />;
     return <div className="flex-1 overflow-y-auto bg-surface-container-low p-4 pt-8 md:p-10"><div className="mx-auto max-w-[1200px] space-y-8"><header><p className="text-xs uppercase tracking-[0.2em] text-secondary">Portal arquitectónico</p><h1 className="mt-2 text-4xl font-bold tracking-tight text-on-surface md:text-5xl">Mis Proyectos</h1><p className="mt-3 text-base text-secondary">Selecciona un expediente para entrar a su visor y continuar el proceso.</p></header>{!projects.length && <div className="glass-panel p-10 text-center"><span className="material-symbols-outlined text-4xl text-warning">folder_off</span><h2 className="mt-4 text-2xl font-bold text-on-surface">No hay proyectos asignados</h2><p className="mt-2 text-secondary">El propietario o el Administrador General debe crear y asignar un proyecto antes de iniciar el sometimiento.</p></div>}{Boolean(activationProjects.length) && <section className="space-y-4"><div><p className="text-xs uppercase tracking-[0.18em] text-secondary">Procesos en activación</p><h2 className="mt-2 text-2xl font-bold text-primary">Proyectos por habilitar</h2></div>{activationProjects.map(projectCard)}</section>}{Boolean(activeProjects.length) && <section className="space-y-4"><div><p className="text-xs uppercase tracking-[0.18em] text-secondary">Expedientes activos</p><h2 className="mt-2 text-2xl font-bold text-primary">Proyectos en curso</h2></div>{activeProjects.map(projectCard)}</section>}</div></div>;
   }
 

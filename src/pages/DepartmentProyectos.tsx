@@ -3,6 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { getProjectsForUser } from "../lib/cde-data";
 import type { ProjectRecord } from "../lib/cde-types";
 import { ProjectOverviewCard, projectStatusTone } from "../components/ProjectOverviewCard";
+import { getDemoExtraProjects } from "../lib/demo-projects";
 import { useSession } from "../context/SessionContext";
 
 interface DepartmentProyectosProps {
@@ -28,7 +29,7 @@ function statusTone(status: string) {
 }
 
 export function DepartmentProyectos({ department, deptKey }: DepartmentProyectosProps) {
-  const { session } = useSession();
+  const { session, profile } = useSession();
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("search")?.trim().toLowerCase() ?? "";
   const [projects, setProjects] = useState<ProjectRecord[]>([]);
@@ -46,10 +47,11 @@ export function DepartmentProyectos({ department, deptKey }: DepartmentProyectos
     return () => { active = false; };
   }, [session?.user.id]);
 
-  const filtered = useMemo(() => projects.filter((project) => {
+  const overviewProjects = profile?.is_demo ? [...projects, ...getDemoExtraProjects()] : projects;
+  const filtered = useMemo(() => overviewProjects.filter((project) => {
     if (!searchQuery) return true;
     return project.title.toLowerCase().includes(searchQuery) || project.project_code.toLowerCase().includes(searchQuery);
-  }), [projects, searchQuery]);
+  }), [overviewProjects, searchQuery]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 md:px-10 md:py-12">
@@ -64,7 +66,7 @@ export function DepartmentProyectos({ department, deptKey }: DepartmentProyectos
       {!loading && !error && (
         filtered.length ? (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {filtered.map((project) => <ProjectOverviewCard key={project.id} project={project} href={`/${deptKey}/proyectos/${project.id}`} statusLabel={statusLabel(project.operational_status)} statusTone={projectStatusTone(project.operational_status)} contextLabel={`Bandeja de ${department}`} />)}
+            {filtered.map((project) => <ProjectOverviewCard key={project.id} project={project} demoOnly={project.id.startsWith("demo-project-")} href={`/${deptKey}/proyectos/${project.id}`} statusLabel={statusLabel(project.operational_status)} statusTone={projectStatusTone(project.operational_status)} contextLabel={`Bandeja de ${department}`} />)}
           </div>
         ) : (
           <div className="rounded-3xl border border-outline-variant/30 bg-surface-container-lowest p-12 text-center"><span className="material-symbols-outlined text-[48px] text-secondary/50">inbox</span><h3 className="mt-4 text-xl font-bold text-on-surface">No hay expedientes asignados</h3><p className="mt-2 text-secondary">Este departamento no tiene todavía una membresía activa para mostrar.</p></div>

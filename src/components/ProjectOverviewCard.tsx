@@ -6,16 +6,20 @@ const DEFAULT_PROJECT_IMAGE = "https://images.unsplash.com/photo-1600607687939-c
 interface ProjectOverviewCardProps {
   key?: string;
   project: ProjectRecord;
-  href: string;
+  href?: string;
+  onClick?: () => void;
+  demoOnly?: boolean;
   statusLabel: string;
   statusTone?: string;
   contextLabel?: string;
   imageUrl?: string;
 }
 
-export function ProjectOverviewCard({ project, href, statusLabel, statusTone = "bg-primary/10 text-primary", contextLabel = "Expediente de proyecto", imageUrl = DEFAULT_PROJECT_IMAGE }: ProjectOverviewCardProps) {
-  return (
-    <Link to={href} className="group block overflow-hidden rounded-[2rem] border border-outline-variant/30 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md">
+const cardClassName = "group block overflow-hidden rounded-[2rem] border border-outline-variant/30 bg-white text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md";
+
+export function ProjectOverviewCard({ project, href, onClick, demoOnly = false, statusLabel, statusTone = "bg-primary/10 text-primary", contextLabel = "Expediente de proyecto", imageUrl = DEFAULT_PROJECT_IMAGE }: ProjectOverviewCardProps) {
+  const content = (
+    <>
       <div className="relative h-44 overflow-hidden bg-surface-container-low">
         <img src={imageUrl} alt={project.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent" />
@@ -37,13 +41,17 @@ export function ProjectOverviewCard({ project, href, statusLabel, statusTone = "
           <span className="material-symbols-outlined text-2xl text-primary transition-transform group-hover:translate-x-1">arrow_forward</span>
         </div>
       </div>
-    </Link>
+    </>
   );
+
+  if (demoOnly) return <div className={`${cardClassName} cursor-default`}>{content}</div>;
+  if (onClick) return <button type="button" onClick={onClick} className={`${cardClassName} w-full`}>{content}</button>;
+  return <Link to={href ?? "#"} className={cardClassName}>{content}</Link>;
 }
 
 export function projectStatusTone(status: string) {
   if (["critica", "paralizada"].includes(status)) return "bg-error/10 text-error";
-  if (["finalizada", "cerrada"].includes(status)) return "bg-success/10 text-success";
+  if (["finalizada", "cerrada", "archivada"].includes(status)) return "bg-success/10 text-success";
   if (["en_revision", "pendiente_inspeccion"].includes(status)) return "bg-warning/10 text-warning";
   return "bg-primary/10 text-primary";
 }

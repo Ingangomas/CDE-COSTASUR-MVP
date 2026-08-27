@@ -3,11 +3,14 @@ import { Link, useSearchParams } from "react-router-dom";
 import { formatDate, getAdminProjects } from "../lib/cde-data";
 import type { ProjectRecord } from "../lib/cde-types";
 import { ProjectOverviewCard, projectStatusTone } from "../components/ProjectOverviewCard";
+import { getDemoExtraProjects } from "../lib/demo-projects";
+import { useSession } from "../context/SessionContext";
 
 const statuses = ["Todos", "En revisión", "Obra activa", "Pendiente inspección", "Finalizada"];
 const statusLabel = (value: string) => ({ en_revision: "En revisión", obra_activa: "Obra activa", pendiente_inspeccion: "Pendiente inspección", finalizada: "Finalizada", aprobado: "Aprobada", paralizada: "Paralizada", critica: "Crítica" }[value] ?? value.replaceAll("_", " "));
 
 export function AdminProyectos() {
+  const { profile } = useSession();
   const [filtroEstado, setFiltroEstado] = useState("Todos");
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("search") || "";
@@ -16,15 +19,16 @@ export function AdminProyectos() {
   const [error, setError] = useState("");
 
   useEffect(() => { getAdminProjects().then(setProjects).catch((reason) => setError(reason instanceof Error ? reason.message : "No fue posible cargar los proyectos.")).finally(() => setLoading(false)); }, []);
-  const filtered = useMemo(() => projects.filter((project) => {
+  const overviewProjects = profile?.is_demo ? [...projects, ...getDemoExtraProjects()] : projects;
+  const filtered = useMemo(() => overviewProjects.filter((project) => {
     const matchesSearch = !searchQuery || `${project.title} ${project.project_code}`.toLowerCase().includes(searchQuery.toLowerCase());
     const label = statusLabel(project.operational_status);
     return matchesSearch && (filtroEstado === "Todos" || label.toLowerCase() === filtroEstado.toLowerCase());
-  }), [filtroEstado, projects, searchQuery]);
+  }), [filtroEstado, overviewProjects, searchQuery]);
 
   return (
     <div className="p-4 md:p-8 lg:px-10 max-w-7xl mx-auto space-y-8">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-5"><div><p className="text-xs uppercase tracking-[0.22em] text-secondary">Administración general</p><h1 className="text-4xl md:text-5xl font-bold text-on-surface tracking-tight mt-2">Control de Obras</h1><p className="text-base text-secondary mt-3">Expedientes, estados operativos y trazabilidad de todos los proyectos autorizados.</p></div><span className="rounded-full bg-primary/10 text-primary px-4 py-2 text-sm font-semibold">{projects.length} proyectos registrados</span></div>
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-5"><div><p className="text-xs uppercase tracking-[0.22em] text-secondary">Administración general</p><h1 className="text-4xl md:text-5xl font-bold text-on-surface tracking-tight mt-2">Control de Obras</h1><p className="text-base text-secondary mt-3">Expedientes, estados operativos y trazabilidad de todos los proyectos autorizados.</p></div><span className="rounded-full bg-primary/10 text-primary px-4 py-2 text-sm font-semibold">{overviewProjects.length} proyectos registrados</span></div>
       <div className="flex gap-2 overflow-x-auto pb-2">{statuses.map((status) => <button type="button" key={status} onClick={() => setFiltroEstado(status)} className={`whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${filtroEstado === status ? "bg-primary text-white" : "bg-white text-secondary border border-outline-variant/30 hover:text-primary"}`}>{status}</button>)}</div>
       {loading && <div className="glass-panel p-10 text-center text-secondary">Cargando expedientes…</div>}
       {error && <div className="glass-panel p-6 border border-error/30 text-error">{error}</div>}
@@ -35,7 +39,7 @@ export function AdminProyectos() {
 }
 
 function ProjectCard({ project }: { project: ProjectRecord }) {
-  return <ProjectOverviewCard project={project} href={`/admin/proyectos/${project.id}`} statusLabel={statusLabel(project.operational_status)} statusTone={projectStatusTone(project.operational_status)} contextLabel={`Entrega: ${formatDate(project.target_end_date)}`} />;
+  return <ProjectOverviewCard project={project} demoOnly={project.id.startsWith("demo-project-")} href={`/admin/proyectos/${project.id}`} statusLabel={statusLabel(project.operational_status)} statusTone={projectStatusTone(project.operational_status)} contextLabel={`Entrega: ${formatDate(project.target_end_date)}`} />;
 }
 
 function Progress({ label, value, color }: { label: string; value: number; color: string }) {
