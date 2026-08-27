@@ -21,7 +21,7 @@ interface SessionContextValue {
 const SessionContext = createContext<SessionContextValue | undefined>(undefined);
 
 const rolePriority: RoleKey[] = [
-  "admin_general", "control_obras", "revision_tecnica", "arquitecto",
+  "gobernanza", "admin_general", "control_obras", "revision_tecnica", "arquitecto",
   "contratista", "propietario", "legal", "electrica", "hidrosanitaria",
   "paisajismo", "mensura", "seguridad",
 ];

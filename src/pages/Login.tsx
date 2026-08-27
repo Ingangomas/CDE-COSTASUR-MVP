@@ -1,21 +1,37 @@
 ﻿import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSession } from "../context/SessionContext";
+import { supabase } from "../lib/supabase";
+
+const DEMO_PROFILES = [
+  ["propietario", "Propietario"],
+  ["legal", "Departamento Legal"],
+  ["arquitectura", "Departamento de Arquitectura"],
+  ["arquitecto", "Arquitecto"],
+  ["contratista", "Contratista"],
+  ["obras", "Control de Obras"],
+  ["electrica", "Electricidad"],
+  ["hidrosanitaria", "Hidrosanitaria"],
+  ["paisajismo", "Paisajismo"],
+  ["mensura", "Mensura"],
+  ["seguridad", "Seguridad"],
+  ["admin", "Administración General"],
+  ["gobernanza", "Gobernanza"],
+] as const;
 
 export function Login() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [selectedProfile, setSelectedProfile] = useState("propietario");
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { signIn, isConfigured, isAuthenticated, primaryRole } = useSession();
+  const { isConfigured, isAuthenticated, primaryRole } = useSession();
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (!isAuthenticated || !primaryRole) return;
     const destinations: Record<string, string> = {
-      admin_general: "/admin", propietario: "/propietario/mis-propiedades",
+      admin_general: "/admin", gobernanza: "/gobernanza", propietario: "/propietario/mis-propiedades",
       arquitecto: "/arquitecto/mis-proyectos", contratista: "/contratista/obras-activas",
       revision_tecnica: "/revision-tecnica", control_obras: "/control-obras",
       legal: "/legal", electrica: "/electrica", hidrosanitaria: "/hidrosanitaria",
@@ -32,9 +48,23 @@ export function Login() {
       return;
     }
     setIsSubmitting(true);
-    const { error } = await signIn(email.trim(), password);
-    setIsSubmitting(false);
-    if (error) setErrorMessage(error.message || "No fue posible iniciar sesión.");
+    try {
+      const response = await fetch("/api/demo-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ profile: selectedProfile }),
+      });
+      const result = await response.json() as { error?: string; session?: Parameters<NonNullable<typeof supabase>["auth"]["setSession"]>[0] };
+      if (!response.ok || !result.session || !supabase) {
+        throw new Error(result.error || "No fue posible iniciar sesión.");
+      }
+      const { error } = await supabase.auth.setSession(result.session);
+      if (error) throw new Error(error.message);
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "No fue posible iniciar sesión.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -90,28 +120,44 @@ export function Login() {
                 <div className="rounded-2xl border border-error/30 bg-error/10 px-4 py-3 text-sm text-error">{errorMessage}</div>
               )}
               <div>
-                <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">
+                <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2" htmlFor="demo-profile">
+                  Perfil de Demostración
+                </label>
+                <select
+                  id="demo-profile"
+                  value={selectedProfile}
+                  onChange={(e) => setSelectedProfile(e.target.value)}
+                  className="w-full bg-white border-2 border-[#003B70] rounded-xl py-3 px-4 text-on-surface font-semibold focus:ring-2 focus:ring-[#003B70] focus:border-[#003B70] transition-all outline-none"
+                >
+                  {DEMO_PROFILES.map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2" htmlFor="demo-email">
                   Usuario / Correo Electrónico
                 </label>
-                <input 
-                  type="text" 
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                <input
+                  id="demo-email"
+                  type="text"
+                  readOnly
+                  aria-disabled="true"
                   className="w-full bg-white border border-outline-variant/50 rounded-xl py-3 px-4 text-on-surface focus:ring-2 focus:ring-[#003B70] focus:border-[#003B70] transition-all outline-none"
-                  placeholder="ej. arquitecto@demo.com"
+                  placeholder="usuario@costasur.com"
                 />
               </div>
-              
+
               <div>
-                <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">
+                <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2" htmlFor="demo-password">
                   Contraseña
                 </label>
-                <input 
-                  type="password" 
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                <input
+                  id="demo-password"
+                  type="password"
+                  readOnly
+                  aria-disabled="true"
                   className="w-full bg-white border border-outline-variant/50 rounded-xl py-3 px-4 text-on-surface focus:ring-2 focus:ring-[#003B70] focus:border-[#003B70] transition-all outline-none"
                   placeholder="••••••••"
                 />
@@ -121,7 +167,7 @@ export function Login() {
                 type="submit"
                 disabled={isSubmitting} className="w-full py-4 px-6 rounded-full bg-[#4A5056] text-white font-bold hover:bg-[#4A5056] transition-all shadow-md mt-4 flex items-center justify-center gap-2"
               >
-                Iniciar Sesión
+                {isSubmitting ? "Accediendo..." : "Iniciar Sesión"}
                 <span className="material-symbols-outlined text-[20px]">login</span>
               </button>
             </form>
@@ -129,8 +175,7 @@ export function Login() {
             {/* Helper Note for Prototype Navigation */}
             <div className="mt-10 pt-6 border-t border-outline-variant/20">
               <p className="text-xs text-[#4A5056] text-center leading-relaxed">
-                *Info Demo: Para probar los distintos perfiles, ingrese como usuario uno de los siguientes: <br/>
-                <span className="font-semibold text-[#4A5056]">admin, propietario, arquitecto, contratista, legal, arquitectura, obras, electrica, hidrosanitaria, paisajismo</span>
+                *Info Demo: Seleccione un perfil para explorar el entorno de demostración del CDE Costasur.
               </p>
             </div>
           </div>

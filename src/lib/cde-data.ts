@@ -295,6 +295,145 @@ export async function createContractorRequest(input: { projectId: string; reques
   return data;
 }
 
+export async function getContractorStartRequestProjects(projectIds: string[]) {
+  if (!projectIds.length) return [] as { project_id: string; status: string; created_at: string }[];
+  const client = requireSupabase();
+  const { data, error } = await client.from("contractor_requests").select("project_id,status,created_at").in("project_id", projectIds).eq("request_type", "inicio_obra").in("status", ["submitted", "in_review"]).order("created_at", { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as { project_id: string; status: string; created_at: string }[];
+}
+
+export type ContractorProjectRequestStatus = "submitted" | "in_review" | "approved" | "rejected";
+export type ContractorProjectReviewStatus = "in_review" | "approved" | "rejected";
+
+export interface ContractorProjectRequestRecord {
+  id: string;
+  requested_by: string | null;
+  project_id: string | null;
+  property_reference: string;
+  project_title: string;
+  project_type: "obra_mayor" | "remodelacion" | "reparacion" | "mantenimiento";
+  owner_name: string;
+  owner_email: string;
+  contractor_name: string;
+  contractor_email: string;
+  company_name: string;
+  company_phone: string | null;
+  work_items: string;
+  estimated_duration: string;
+  start_form_path: string | null;
+  start_form_filename: string | null;
+  work_items_path: string | null;
+  work_items_filename: string | null;
+  legal_status: ContractorProjectRequestStatus;
+  control_status: ContractorProjectRequestStatus;
+  status: ContractorProjectRequestStatus;
+  legal_note: string | null;
+  control_note: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export async function createContractorProjectRequest(input: {
+  propertyReference: string;
+  projectTitle: string;
+  projectType: ContractorProjectRequestRecord["project_type"];
+  ownerName: string;
+  ownerEmail: string;
+  contractorName: string;
+  contractorEmail: string;
+  companyName: string;
+  companyPhone: string;
+  workItems: string;
+  estimatedDuration: string;
+}) {
+  const client = requireSupabase();
+  const { data, error } = await client.rpc("create_contractor_project_request", {
+    p_property_reference: input.propertyReference,
+    p_project_title: input.projectTitle,
+    p_project_type: input.projectType,
+    p_owner_name: input.ownerName,
+    p_owner_email: input.ownerEmail,
+    p_contractor_name: input.contractorName,
+    p_contractor_email: input.contractorEmail,
+    p_company_name: input.companyName,
+    p_company_phone: input.companyPhone || null,
+    p_work_items: input.workItems,
+    p_estimated_duration: input.estimatedDuration,
+  });
+  if (error) throw error;
+  return data as ContractorProjectRequestRecord;
+}
+
+function safeStorageName(name: string) {
+  return name.replace(/[^a-zA-Z0-9._-]/g, "_");
+}
+
+export async function attachContractorProjectRequestDocuments(input: {
+  requestId: string;
+  startFormFile: File;
+  workItemsFile: File;
+}) {
+  const client = requireSupabase();
+  const startFormPath = `${input.requestId}/inicio_obra_${safeStorageName(input.startFormFile.name)}`;
+  const workItemsPath = `${input.requestId}/partidas_${safeStorageName(input.workItemsFile.name)}`;
+  const uploads = [
+    { path: startFormPath, file: input.startFormFile },
+    { path: workItemsPath, file: input.workItemsFile },
+  ];
+  for (const upload of uploads) {
+    const { error } = await client.storage.from("cde-documents").upload(upload.path, upload.file, { contentType: upload.file.type || "application/octet-stream", upsert: false });
+    if (error) throw error;
+  }
+  const { data, error } = await client.rpc("attach_contractor_project_request_documents", {
+    p_request_id: input.requestId,
+    p_start_form_path: startFormPath,
+    p_start_form_filename: input.startFormFile.name,
+    p_work_items_path: workItemsPath,
+    p_work_items_filename: input.workItemsFile.name,
+  });
+  if (error) throw error;
+  return data as ContractorProjectRequestRecord;
+}
+
+export async function submitContractorProjectRequest(input: {
+  propertyReference: string;
+  projectTitle: string;
+  projectType: ContractorProjectRequestRecord["project_type"];
+  ownerName: string;
+  ownerEmail: string;
+  contractorName: string;
+  contractorEmail: string;
+  companyName: string;
+  companyPhone: string;
+  workItems: string;
+  estimatedDuration: string;
+  startFormFile: File;
+  workItemsFile: File;
+}) {
+  const request = await createContractorProjectRequest(input);
+  return attachContractorProjectRequestDocuments({ requestId: request.id, startFormFile: input.startFormFile, workItemsFile: input.workItemsFile });
+}
+
+export async function getContractorProjectRequests() {
+  const client = requireSupabase();
+  const { data, error } = await client.from("contractor_project_requests").select("*").order("created_at", { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as ContractorProjectRequestRecord[];
+}
+
+export async function reviewContractorProjectRequest(input: { requestId: string; department: "legal" | "control_obras"; status: ContractorProjectReviewStatus; note?: string }) {
+  const client = requireSupabase();
+  const { data, error } = await client.rpc("review_contractor_project_request", {
+    p_request_id: input.requestId,
+    p_department: input.department,
+    p_status: input.status,
+    p_note: input.note || null,
+  });
+  if (error) throw error;
+  return data as ContractorProjectRequestRecord;
+}
+
 export async function getProjectDocuments(projectId: string) {
   const client = requireSupabase();
   const { data, error } = await client.from("documents").select("*").eq("project_id", projectId).order("created_at", { ascending: true });

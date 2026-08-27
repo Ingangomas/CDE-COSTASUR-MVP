@@ -10,11 +10,12 @@ import { CadViewer } from "./CadViewer";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 interface DocumentViewerProps {
-  documentId: string;
+  documentId: string | null;
 }
 
 export function DocumentViewer({ documentId }: DocumentViewerProps) {
-  const { profile } = useSession();
+  const { profile, primaryRole } = useSession();
+  const canAnnotate = primaryRole === "revision_tecnica";
   const [signedUrl, setSignedUrl] = useState<string | null>(null);
   const [version, setVersion] = useState<DocumentVersion | null>(null);
   const [annotations, setAnnotations] = useState<DocumentAnnotation[]>([]);
@@ -29,6 +30,15 @@ export function DocumentViewer({ documentId }: DocumentViewerProps) {
 
   useEffect(() => {
     setLoading(true);
+    setError("");
+    if (!documentId) {
+      setTitle("Sin plano seleccionado");
+      setSignedUrl(null);
+      setVersion(null);
+      setAnnotations([]);
+      setLoading(false);
+      return;
+    }
     getDocumentViewerData(documentId)
       .then((data) => { setTitle(data.document.title); setSignedUrl(data.signedUrl); setVersion(data.version); setAnnotations(data.annotations); })
       .catch((reason) => setError(reason instanceof Error ? reason.message : "No fue posible abrir el documento."))
@@ -36,13 +46,13 @@ export function DocumentViewer({ documentId }: DocumentViewerProps) {
   }, [documentId]);
 
   const handlePageClick = (event: MouseEvent<HTMLDivElement>) => {
-    if (!annotationMode) return;
+    if (!annotationMode || !canAnnotate || !signedUrl || !version) return;
     const rect = event.currentTarget.getBoundingClientRect();
     setDraft({ x: ((event.clientX - rect.left) / rect.width) * 100, y: ((event.clientY - rect.top) / rect.height) * 100, content: "" });
   };
 
   const saveAnnotation = async () => {
-    if (!draft || !version || !profile?.id || !draft.content.trim()) return;
+    if (!canAnnotate || !draft || !version || !profile?.id || !draft.content.trim()) return;
     setSaving(true);
     try {
       const saved = await createPdfAnnotation({ documentVersionId: version.id, authorId: profile.id, pageNumber, x: draft.x, y: draft.y, content: draft.content.trim() });
@@ -55,7 +65,7 @@ export function DocumentViewer({ documentId }: DocumentViewerProps) {
 
   if (loading) return <div className="glass-panel p-8 text-center text-secondary">Preparando visor documental…</div>;
   if (error) return <div className="glass-panel p-8 border border-error/30 text-error">{error}</div>;
-  if (!signedUrl || !version) return <div className="glass-panel p-8 text-center"><span className="material-symbols-outlined text-4xl text-secondary">upload_file</span><h2 className="text-xl font-semibold text-on-surface mt-4">{title}</h2><p className="text-secondary mt-2">Este registro todavía no tiene una versión de archivo cargada.</p></div>;
+  if (!signedUrl || !version) return <section className="glass-panel overflow-hidden border border-outline-variant/30 bg-white"><div className="flex items-center justify-between border-b border-outline-variant/30 px-5 py-4"><div><p className="text-xs uppercase tracking-[0.18em] text-secondary">Visor de planos</p><h2 className="text-xl font-bold text-on-surface mt-1">{title}</h2></div><span className="rounded-full bg-surface-container-low px-3 py-1.5 text-xs font-semibold text-secondary">Sin archivo seleccionado</span></div><div className="grid min-h-[520px] place-items-center bg-[#eef0f2] p-8 text-center"><div><span className="material-symbols-outlined text-6xl text-secondary">architecture</span><h3 className="mt-4 text-xl font-semibold text-on-surface">Visor listo para recibir planos</h3><p className="mx-auto mt-2 max-w-md text-sm text-secondary">Selecciona una hoja del panel lateral. Cuando el archivo sea cargado y versionado, aparecerá aquí sin cambiar esta estructura.</p></div></div><p className="border-t border-outline-variant/30 px-5 py-3 text-xs text-secondary">{canAnnotate ? "Las herramientas de revisión estarán disponibles al abrir un plano." : "Vista de solo lectura para este perfil."}</p></section>;
   const isCad = /\.(dwg|dxf)$/i.test(version?.original_filename ?? "");
   if (isCad && signedUrl && version) return <section className="glass-panel p-5 md:p-7 border border-outline-variant/30"><div className="mb-6"><p className="text-xs uppercase tracking-[0.18em] text-secondary">Visor documental</p><h2 className="text-2xl font-bold text-on-surface mt-2">{title}</h2><p className="text-sm text-secondary mt-1">{version.original_filename} · solo lectura</p></div><CadViewer url={signedUrl} filename={version.original_filename} /></section>;
 
@@ -63,7 +73,7 @@ export function DocumentViewer({ documentId }: DocumentViewerProps) {
     <section className="glass-panel p-5 md:p-7 border border-outline-variant/30">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div><p className="text-xs uppercase tracking-[0.18em] text-secondary">Visor documental</p><h2 className="text-2xl font-bold text-on-surface mt-2">{title}</h2><p className="text-sm text-secondary mt-1">Versión {version.version_number} · {version.original_filename}</p></div>
-        <div className="flex items-center gap-2"><button type="button" onClick={() => { setAnnotationMode((value) => !value); setDraft(null); }} className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${annotationMode ? "bg-primary text-white border-primary" : "border-outline-variant/50 text-primary hover:bg-primary/5"}`}><span className="material-symbols-outlined text-base">edit_note</span>{annotationMode ? "Modo anotación activo" : "Añadir anotación"}</button></div>
+        <div className="flex items-center gap-2">{canAnnotate && <button type="button" onClick={() => { setAnnotationMode((value) => !value); setDraft(null); }} className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${annotationMode ? "bg-primary text-white border-primary" : "border-outline-variant/50 text-primary hover:bg-primary/5"}`}><span className="material-symbols-outlined text-base">edit_note</span>{annotationMode ? "Modo anotación activo" : "Añadir anotación"}</button>}</div>
       </div>
       <div className="flex items-center justify-between mb-4 text-sm text-secondary"><span>Página {pageNumber} de {numPages || "…"}</span><div className="flex items-center gap-2"><button type="button" disabled={pageNumber <= 1} onClick={() => setPageNumber((value) => Math.max(1, value - 1))} className="p-2 rounded-full hover:bg-surface-container-low disabled:opacity-40"><span className="material-symbols-outlined">chevron_left</span></button><button type="button" disabled={pageNumber >= numPages} onClick={() => setPageNumber((value) => Math.min(numPages, value + 1))} className="p-2 rounded-full hover:bg-surface-container-low disabled:opacity-40"><span className="material-symbols-outlined">chevron_right</span></button></div></div>
       <div className="overflow-auto rounded-2xl bg-surface-container-low p-4">

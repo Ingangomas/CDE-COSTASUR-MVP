@@ -1,27 +1,60 @@
 ﻿import { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { ContractorNewProjectModal } from "../components/ContractorNewProjectModal";
 import { ContractorWorkflows } from "../components/ContractorWorkflows";
+import { ProjectOverviewCard, projectStatusTone } from "../components/ProjectOverviewCard";
 import { useSession } from "../context/SessionContext";
-import { getProjectsForUser } from "../lib/cde-data";
+import { getContractorStartRequestProjects, getProjectsForUser } from "../lib/cde-data";
+import { getDemoExtraProjects } from "../lib/demo-projects";
 import type { ProjectRecord } from "../lib/cde-types";
 
-const statusLabels: Record<string, string> = { obra_activa: "Obra activa", pendiente_inspeccion: "Pendiente de inspección", en_revision: "En revisión", paralizada: "Paralizada", critica: "Crítica", finalizada: "Finalizada", aprobado: "Aprobada" };
-const filterLabels = ["Todas", "Obra activa", "Pendiente de inspección", "En revisión", "Finalizada"];
+const statusLabels: Record<string, string> = { obra_activa: "Obra activa", pendiente_inspeccion: "Pendiente de inspección", en_revision: "En revisión", paralizada: "Paralizada", critica: "Crítica", finalizada: "Finalizada", aprobado: "Aprobada", obra_autorizada: "Obra autorizada" };
+const filterLabels = ["Todas", "En revisión", "Obra activa", "Finalizada"];
+const getCardStatus = (project: ProjectRecord, inReviewProjectIds: Set<string>) => inReviewProjectIds.has(project.id) || ["en_revision", "pendiente_inspeccion"].includes(project.operational_status) ? "En revisión" : (statusLabels[project.operational_status] ?? project.operational_status);
+const getCardPriority = (project: ProjectRecord, inReviewProjectIds: Set<string>) => inReviewProjectIds.has(project.id) || ["en_revision", "pendiente_inspeccion"].includes(project.operational_status) ? 0 : project.operational_status === "obra_activa" ? 1 : project.operational_status === "finalizada" ? 2 : 3;
 
 export function ContractorPortal() {
   const { profile } = useSession();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [projects, setProjects] = useState<ProjectRecord[]>([]);
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+  const [inReviewProjectIds, setInReviewProjectIds] = useState<Set<string>>(new Set());
   const [filter, setFilter] = useState("Todas");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const search = searchParams.get("search")?.toLowerCase() ?? "";
+  const newProjectOpen = searchParams.get("nuevo") === "1";
+  const overviewProjects = profile?.is_demo ? [...projects, ...getDemoExtraProjects()] : projects;
 
-  useEffect(() => { if (!profile?.id) return; getProjectsForUser(profile.id).then((rows) => { setProjects(rows); setSelectedProjectId((current) => current ?? rows[0]?.id ?? null); }).catch((reason) => setError(reason instanceof Error ? reason.message : "No fue posible cargar tus obras asignadas.")).finally(() => setLoading(false)); }, [profile?.id]);
+  useEffect(() => {
+    if (!profile?.id) return;
+    getProjectsForUser(profile.id)
+      .then(setProjects)
+      .catch((reason) => setError(reason instanceof Error ? reason.message : "No fue posible cargar tus proyectos asignados."))
+      .finally(() => setLoading(false));
+  }, [profile?.id]);
 
-  const filtered = useMemo(() => projects.filter((project) => { const label = statusLabels[project.operational_status] ?? project.operational_status; return (filter === "Todas" || label === filter) && (!search || `${project.title} ${project.project_code}`.toLowerCase().includes(search)); }), [filter, projects, search]);
-  const selected = projects.find((project) => project.id === selectedProjectId) ?? filtered[0] ?? null;
+  useEffect(() => {
+    if (!projects.length) { setInReviewProjectIds(new Set()); return; }
+    getContractorStartRequestProjects(projects.map((project) => project.id))
+      .then((requests) => setInReviewProjectIds(new Set(requests.map((request) => request.project_id))))
+      .catch(() => setInReviewProjectIds(new Set()));
+  }, [projects]);
 
-  return <div className="flex-1 overflow-y-auto p-4 md:p-10 pt-6 md:pt-8 bg-surface-container-low min-h-full"><div className="max-w-[1400px] mx-auto space-y-8"><div className="flex flex-col md:flex-row md:items-end justify-between gap-5"><div><p className="text-xs uppercase tracking-[0.22em] text-secondary">Portal del contratista</p><h1 className="text-4xl md:text-5xl font-bold text-on-surface tracking-tight mt-2">Obras asignadas</h1><p className="text-base text-secondary mt-3">Solicitudes, inspecciones y bitácora física sobre expedientes reales.</p></div><span className="rounded-full bg-primary/10 text-primary px-4 py-2 text-sm font-semibold">{projects.length} expedientes asignados</span></div>{loading && <div className="glass-panel p-10 text-center text-secondary">Cargando expedientes persistentes…</div>}{error && <div className="glass-panel p-6 border border-error/30 text-error">{error}</div>}{!loading && !error && !projects.length && <div className="glass-panel p-10 text-center"><span className="material-symbols-outlined text-4xl text-warning">assignment_late</span><h2 className="text-2xl font-bold text-on-surface mt-4">No tienes obras autorizadas</h2><p className="text-secondary mt-2">El propietario debe autorizarte después de la aprobación de los planos técnicos.</p></div>}{selected && <ContractorWorkflows projectId={selected.id} />}<div className="flex gap-2 overflow-x-auto pb-2">{filterLabels.map((item) => <button type="button" key={item} onClick={() => setFilter(item)} className={`rounded-full px-5 py-2.5 text-sm font-medium whitespace-nowrap ${filter === item ? "bg-primary text-white" : "bg-white text-secondary border border-outline-variant/30"}`}>{item}</button>)}</div>{!loading && !error && !filtered.length && projects.length > 0 && <div className="glass-panel p-8 text-center text-secondary">No hay expedientes con el filtro actual.</div>}<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">{filtered.map((project) => <button type="button" key={project.id} onClick={() => setSelectedProjectId(project.id)} className={`text-left bg-white border rounded-3xl p-6 soft-shadow hover:border-primary/40 transition-colors ${selected?.id === project.id ? "border-primary ring-1 ring-primary/20" : "border-outline-variant/30"}`}><div className="flex items-start justify-between gap-3"><span className="text-xs uppercase tracking-[0.16em] text-secondary">{project.project_code}</span><span className={`rounded-full px-3 py-1 text-[11px] font-semibold ${project.operational_status === "obra_activa" ? "bg-primary/10 text-primary" : project.operational_status === "finalizada" ? "bg-success/10 text-success" : project.operational_status === "critica" || project.operational_status === "paralizada" ? "bg-error/10 text-error" : "bg-warning/10 text-warning"}`}>{statusLabels[project.operational_status] ?? project.operational_status}</span></div><h2 className="text-xl font-bold text-on-surface mt-4">{project.title}</h2><p className="text-sm text-secondary mt-2">Fase: {project.phase.replaceAll("_", " ")}</p><div className="mt-6"><div className="flex justify-between text-xs mb-2"><span className="text-secondary">Avance físico</span><span className="font-semibold text-on-surface">{Number(project.progress_percent).toFixed(0)}%</span></div><div className="h-2 rounded-full bg-surface-container-low overflow-hidden"><div className="h-full rounded-full bg-primary" style={{ width: `${Math.min(100, Math.max(0, Number(project.progress_percent)))}%` }} /></div></div></button>)}</div></div></div>;
+  const orderedProjects = useMemo(() => [...overviewProjects].sort((a, b) => {
+    const priorityDifference = getCardPriority(a, inReviewProjectIds) - getCardPriority(b, inReviewProjectIds);
+    return priorityDifference || a.title.localeCompare(b.title, "es");
+  }), [overviewProjects, inReviewProjectIds]);
+  const filtered = useMemo(() => orderedProjects.filter((project) => {
+    const label = getCardStatus(project, inReviewProjectIds);
+    return (filter === "Todas" || label === filter) && (!search || `${project.title} ${project.project_code}`.toLowerCase().includes(search));
+  }), [filter, orderedProjects, inReviewProjectIds, search]);
+  const selected = projects.find((project) => project.id === selectedProjectId) ?? null;
+
+  return <>
+    <div className="flex min-h-full flex-1 overflow-y-auto bg-surface-container-low p-4 pt-6 md:p-10 md:pt-8"><div className="mx-auto w-full max-w-[1400px] space-y-8">
+    {selected ? <><div><button type="button" onClick={() => setSelectedProjectId(null)} className="mb-5 inline-flex items-center gap-2 text-sm font-medium text-secondary transition-colors hover:text-primary"><span className="material-symbols-outlined text-[20px]">arrow_back</span>Volver a Mis Proyectos</button><p className="text-xs uppercase tracking-[0.22em] text-secondary">Portal del contratista</p><h1 className="mt-2 text-4xl font-bold tracking-tight text-on-surface md:text-5xl">{selected.title}</h1><p className="mt-3 text-base text-secondary">{selected.project_code} · {getCardStatus(selected, inReviewProjectIds)}</p></div><ContractorWorkflows projectId={selected.id} onRequestSubmitted={(requestType) => { if (requestType === "inicio_obra") setInReviewProjectIds((current) => new Set(current).add(selected.id)); }} /></> : <><div className="flex flex-col justify-between gap-5 md:flex-row md:items-end"><div><p className="text-xs uppercase tracking-[0.22em] text-secondary">Portal del contratista</p><h1 className="mt-2 text-4xl font-bold tracking-tight text-on-surface md:text-5xl">Mis Proyectos</h1><p className="mt-3 text-base text-secondary">Solicitudes, inspecciones y bitácora física sobre tus expedientes asignados.</p></div><span className="rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">{overviewProjects.length} proyectos</span></div>{loading && <div className="glass-panel p-10 text-center text-secondary">Cargando proyectos persistentes…</div>}{error && <div className="glass-panel border border-error/30 p-6 text-error">{error}</div>}{!loading && !error && !overviewProjects.length && <div className="glass-panel p-10 text-center"><span className="material-symbols-outlined mt-4 text-4xl text-warning">assignment_late</span><h2 className="mt-4 text-2xl font-bold text-on-surface">No tienes proyectos asignados</h2><p className="mt-2 text-secondary">El propietario debe autorizarte después de la aprobación de los planos técnicos.</p></div>}{!loading && !error && Boolean(overviewProjects.length) && <><div className="flex gap-2 overflow-x-auto pb-2">{filterLabels.map((item) => <button type="button" key={item} onClick={() => setFilter(item)} className={`whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium ${filter === item ? "bg-primary text-white" : "border border-outline-variant/30 bg-white text-secondary"}`}>{item}</button>)}</div>{!filtered.length && <div className="glass-panel p-8 text-center text-secondary">No hay proyectos con el filtro actual.</div>}<div className="grid grid-cols-1 gap-7 lg:grid-cols-2">{filtered.map((project) => <ProjectOverviewCard key={project.id} project={project} demoOnly={project.id.startsWith("demo-project-")} onClick={project.id.startsWith("demo-project-") ? undefined : () => setSelectedProjectId(project.id)} statusLabel={getCardStatus(project, inReviewProjectIds)} statusTone={projectStatusTone(project.operational_status)} contextLabel="Expediente asignado al contratista" />)}</div></>}</>}  </div></div>
+    <ContractorNewProjectModal open={newProjectOpen} onClose={() => navigate("/contratista/obras-activas")} />
+  </>;
 }

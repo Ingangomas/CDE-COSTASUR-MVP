@@ -1,5 +1,6 @@
 ﻿export const ROLE_KEYS = [
   "admin_general",
+  "gobernanza",
   "propietario",
   "arquitecto",
   "contratista",
@@ -16,7 +17,8 @@
 export type RoleKey = (typeof ROLE_KEYS)[number];
 
 export const ROLE_LABELS: Record<RoleKey, string> = {
-  admin_general: "Administrador General",
+    admin_general: "Administrador General",
+  gobernanza: "Gobernanza",
   propietario: "Propietario",
   arquitecto: "Arquitecto / Tramitador",
   contratista: "Contratista / Constructor",

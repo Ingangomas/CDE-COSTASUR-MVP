@@ -3,6 +3,7 @@ import { useSession } from "../context/SessionContext";
 import type { RoleKey } from "../lib/cde-types";
 
 const routeRoles: Array<[string, RoleKey[]]> = [
+  ["/gobernanza", ["gobernanza"]],
   ["/admin", ["admin_general"]],
   ["/propietario", ["propietario", "admin_general"]],
   ["/arquitecto", ["arquitecto", "admin_general"]],

@@ -52,7 +52,7 @@ export function ArchitectAnteprojectUploadPanel({ projectId, onUploaded }: { pro
           <button type="button" onClick={() => setSelectedCategory(ANNEX_CATEGORY.value)} className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold ${selectedCategory === ANNEX_CATEGORY.value ? "bg-primary text-white" : "bg-primary/10 text-primary"}`}><span className="material-symbols-outlined text-base align-middle mr-1">attachment</span>Cargar anexos</button>
         </div>
         {selectedCategory === ANNEX_CATEGORY.value && <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 mb-5 text-sm text-secondary"><strong className="text-primary">Anexos seleccionados:</strong> {ANNEX_CATEGORY.formats}.</div>}
-        <DocumentUpload projectId={projectId} defaultCategory={selectedCategory} categories={allCategories.map(({ value, label }) => ({ value, label }))} titleLabel={`Título · ${selected.label}`} accept={selectedCategory === ANNEX_CATEGORY.value ? ".pdf,.dwg,.dxf,.doc,.docx,.jpg,.jpeg,.png,.ifc,.rvt,.obj,.fbx,.glb,.gltf,.zip" : ".pdf,.dwg,.dxf,.doc,.docx"} onUploaded={onUploaded} />
+        <DocumentUpload projectId={projectId} defaultCategory={selectedCategory} categories={allCategories.map(({ value, label }) => ({ value, label }))} titleLabel={`Título · ${selected.label}`} accept={selectedCategory === ANNEX_CATEGORY.value ? ".pdf,.dwg,.dxf,.doc,.docx,.jpg,.jpeg,.png,.ifc,.rvt,.obj,.fbx,.glb,.gltf,.zip" : ".pdf,.dwg,.dxf,.doc,.docx"} visibleToOwner={selectedCategory !== ANNEX_CATEGORY.value} onUploaded={onUploaded} />
       </div>
     </section>
   );

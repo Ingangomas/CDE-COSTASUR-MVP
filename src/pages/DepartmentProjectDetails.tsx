@@ -1,6 +1,6 @@
 ﻿import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { DocumentViewer } from "../components/DocumentViewer";
+import { PlanSetViewer } from "../components/PlanSetViewer";
 import { ReviewDecisionPanel } from "../components/ReviewDecisionPanel";
 import { formatDate, getProjectWorkspace, type ProjectWorkspace } from "../lib/cde-data";
 
@@ -51,11 +51,7 @@ export function DepartmentProjectDetails({ department, deptKey }: DepartmentProj
 
       <ReviewDecisionPanel projectId={id} departmentSlug={deptKey} departmentName={department} />
 
-      <section className="rounded-3xl border border-outline-variant/30 bg-surface-container-lowest p-6 md:p-8">
-        <div className="flex items-center justify-between gap-4"><div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Repositorio documental</p><h2 className="mt-2 text-2xl font-bold text-primary">Documentos del expediente</h2></div><span className="rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary">{documents.length} documentos</span></div>
-        {!documents.length && <p className="mt-6 rounded-2xl bg-surface-container-low p-5 text-sm text-secondary">No hay documentos versionados disponibles para este expediente.</p>}
-        {documents.length > 0 && <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(220px,0.8fr)_minmax(0,1.7fr)]"><div className="space-y-2">{documents.map((document) => <button key={document.id} type="button" onClick={() => setSelectedDocumentId(document.id)} className={`w-full rounded-xl border p-4 text-left transition-colors ${selectedDocumentId === document.id ? "border-primary bg-primary/5" : "border-outline-variant/30 hover:border-primary/40"}`}><p className="truncate text-sm font-semibold text-on-surface">{document.title}</p><p className="mt-1 text-xs text-secondary">{document.category.replaceAll("_", " ")} · {formatDate(document.created_at)}</p></button>)}</div><div className="min-h-[520px] overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-low">{selectedDocumentId ? <DocumentViewer documentId={selectedDocumentId} /> : <p className="p-8 text-sm text-secondary">Selecciona un documento.</p>}</div></div>}
-      </section>
+      <PlanSetViewer projectId={id} documents={documents} />
     </div>
   );
 }

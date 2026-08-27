@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { getAdminProjects, getProjectsForUser } from "../lib/cde-data";
 import type { ProjectRecord } from "../lib/cde-types";
 import { useSession } from "../context/SessionContext";
-import { CasaDeCampoMap } from "../components/CasaDeCampoMap";
 
 const COLORS = ["#001e40", "#d18b00", "#0f766e", "#b42318", "#667085"];
 
@@ -75,6 +74,17 @@ export function DashboardAnalytics({ role, showMap = false }: { role: string; sh
 
   const pieData = useMemo(() => projectStatusData(projects), [projects]);
   const barData = useMemo(() => projects.slice(0, 8).map((project) => ({ name: shortTitle(project.title), avance: Number(project.progress_percent || 0) })), [projects]);
+  const sCurveData = useMemo(() => {
+    const average = summary.average;
+    return [
+      { periodo: "Inicio", planificado: 0, ejecutado: 0 },
+      { periodo: "Anteproyecto", planificado: 18, ejecutado: Math.min(100, average * 0.22) },
+      { periodo: "Planos", planificado: 42, ejecutado: Math.min(100, average * 0.52) },
+      { periodo: "Permisos", planificado: 62, ejecutado: Math.min(100, average * 0.72) },
+      { periodo: "Obra", planificado: 84, ejecutado: Math.min(100, average * 0.9) },
+      { periodo: "Cierre", planificado: 100, ejecutado: average },
+    ];
+  }, [summary.average]);
   const title = roleLabels[role] ?? role.replaceAll("-", " ");
   const description = role === "admin" ? "Visión global de expedientes y operaciones persistidas en Costasur." : "Estado real de los expedientes asignados a este usuario o departamento.";
 
@@ -82,8 +92,6 @@ export function DashboardAnalytics({ role, showMap = false }: { role: string; sh
     <div className="min-h-full flex-1 overflow-y-auto bg-surface-container-low p-4 pt-8 md:p-10">
       <div className="mx-auto max-w-[1300px] space-y-8">
         <header><p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">CDE Costasur</p><h2 className="mt-2 text-4xl font-bold tracking-tight text-on-surface md:text-5xl">Dashboard {title}</h2><p className="mt-2 text-lg text-secondary">{description}</p></header>
-        {showMap && role === "revision-tecnica" && <CasaDeCampoMap title="Mapa GIS de Arquitectura" subtitle="Casa de Campo · La Romana · expedientes de revisión" heightClassName="h-[300px] md:h-[380px]" />}
-        {showMap && role === "control-obras" && <CasaDeCampoMap title="Mapa GIS de Control de Obras" subtitle="Casa de Campo · La Romana · ubicación de expedientes" heightClassName="h-[300px] md:h-[380px]" />}
         {loading && <div className="rounded-3xl border border-outline-variant/30 bg-surface-container-lowest p-8 text-sm text-secondary">Cargando expedientes persistidos...</div>}
         {error && <div className="rounded-3xl border border-error/30 bg-error/10 p-8 text-sm text-error">{error}</div>}
         {!loading && !error && <>
@@ -92,6 +100,7 @@ export function DashboardAnalytics({ role, showMap = false }: { role: string; sh
             <div className="glass-panel rounded-3xl border border-outline-variant/30 bg-white p-6 md:p-8"><div className="flex items-start justify-between gap-4"><div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Datos persistentes</p><h3 className="mt-2 text-xl font-bold text-primary">Estado general</h3></div><span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">{projects.length} expedientes</span></div><div className="mt-5 h-[300px]">{pieData.length ? <ResponsiveContainer width="100%" height="100%"><PieChart><Pie data={pieData} cx="50%" cy="45%" innerRadius={62} outerRadius={100} paddingAngle={4} dataKey="value" label={({ name, percent }) => `${name} ${Math.round((percent ?? 0) * 100)}%`}>{pieData.map((entry, index) => <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />)}</Pie><Tooltip contentStyle={{ borderRadius: "12px", border: "1px solid #d9dee7" }} /><Legend verticalAlign="bottom" height={32} /></PieChart></ResponsiveContainer> : <div className="flex h-full items-center justify-center rounded-2xl bg-surface-container-low text-sm text-secondary">Aún no hay expedientes activos para graficar.</div>}</div></div>
             <div className="glass-panel rounded-3xl border border-outline-variant/30 bg-white p-6 md:p-8"><div className="flex items-start justify-between gap-4"><div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Avance físico</p><h3 className="mt-2 text-xl font-bold text-primary">Avance por expediente</h3></div><span className="rounded-full bg-success/10 px-3 py-1 text-xs font-semibold text-success">Sin balance financiero</span></div><div className="mt-5 h-[300px]">{barData.length ? <ResponsiveContainer width="100%" height="100%"><BarChart data={barData} margin={{ top: 12, right: 12, left: -12, bottom: 12 }}><CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e6ec" /><XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: "#667085", fontSize: 11 }} /><YAxis domain={[0, 100]} axisLine={false} tickLine={false} tick={{ fill: "#667085", fontSize: 11 }} /><Tooltip formatter={(value) => [`${value}%`, "Avance físico"]} contentStyle={{ borderRadius: "12px", border: "1px solid #d9dee7" }} /><Bar dataKey="avance" name="Avance físico" fill="#001e40" radius={[6, 6, 0, 0]} maxBarSize={48} /></BarChart></ResponsiveContainer> : <div className="flex h-full items-center justify-center rounded-2xl bg-surface-container-low text-sm text-secondary">Aún no hay avances físicos registrados.</div>}</div></div>
           </section>
+          <section className="glass-panel rounded-3xl border border-outline-variant/30 bg-white p-6 md:p-8"><div className="flex items-start justify-between gap-4"><div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Control de avance</p><h3 className="mt-2 text-xl font-bold text-primary">Curva S del proyecto</h3></div><span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Simulado</span></div><div className="mt-5 h-[300px]">{projects.length ? <ResponsiveContainer width="100%" height="100%"><LineChart data={sCurveData} margin={{ top: 12, right: 12, left: -12, bottom: 12 }}><CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e6ec" /><XAxis dataKey="periodo" axisLine={false} tickLine={false} tick={{ fill: "#667085", fontSize: 11 }} /><YAxis domain={[0, 100]} axisLine={false} tickLine={false} tick={{ fill: "#667085", fontSize: 11 }} /><Tooltip formatter={(value, name) => [`${Number(value).toFixed(0)}%`, name === "planificado" ? "Planificado" : "Ejecutado"]} contentStyle={{ borderRadius: "12px", border: "1px solid #d9dee7" }} /><Legend /><Line type="monotone" dataKey="planificado" name="Planificado" stroke="#98a2b3" strokeDasharray="5 5" strokeWidth={2} dot={false} /><Line type="monotone" dataKey="ejecutado" name="Ejecutado" stroke="#001e40" strokeWidth={3} dot={{ r: 3 }} /></LineChart></ResponsiveContainer> : <div className="flex h-full items-center justify-center rounded-2xl bg-surface-container-low text-sm text-secondary">Aún no hay expedientes para construir la curva S.</div>}</div></section>
         </>}
       </div>
     </div>

@@ -5,23 +5,35 @@ export function Sidebar({
   isMobileOpen, 
   onCloseMobileMenu,
   onSignOut,
+  collapsed = false,
+  onToggleCollapsed,
 }: { 
   role: string; 
   isMobileOpen?: boolean; 
   onCloseMobileMenu?: () => void;
   onSignOut?: () => Promise<void>;
+  collapsed?: boolean;
+  onToggleCollapsed?: () => void;
 }) {
   const location = useLocation();
   const path = location.pathname;
+  const isCollapsed = collapsed;
 
-  const getNavClass = (isActive: boolean) => 
+  const getNavClass = (isActive: boolean, compact = isCollapsed) =>
     isActive
-      ? "bg-white text-primary border-l-4 border-primary px-6 py-3 flex items-center gap-4 transition-all duration-200"
-      : "text-secondary hover:text-primary px-6 py-3 flex items-center gap-4 hover:bg-secondary-container/30 transition-all duration-200";
+      ? `bg-white text-primary border-l-4 border-primary py-3 flex items-center gap-4 transition-all duration-200 ${compact ? "justify-center px-3" : "px-6"}`
+      : `text-secondary hover:text-primary py-3 flex items-center gap-4 hover:bg-secondary-container/30 transition-all duration-200 ${compact ? "justify-center px-3" : "px-6"}`;
 
   let links: { to: string; icon: string; label: string }[] = [];
 
   switch (role) {
+    case 'gobernanza':
+      links = [
+        { to: "/gobernanza", icon: "admin_panel_settings", label: "Gobernanza" },
+        { to: "/gobernanza/solicitudes", icon: "approval", label: "Solicitudes" },
+        { to: "/gobernanza/calendario", icon: "calendar_month", label: "Calendario" },
+      ];
+      break;
     case 'propietario':
       links = [
         { to: "/propietario/mis-propiedades", icon: "domain", label: "Mis Propiedades" },
@@ -35,7 +47,7 @@ export function Sidebar({
       break;
     case 'contratista':
       links = [
-        { to: "/contratista/obras-activas", icon: "construction", label: "Obras Activas" },
+        { to: "/contratista/obras-activas", icon: "construction", label: "Mis Proyectos" },
         { to: "/contratista", icon: "dashboard", label: "Dashboard" },
       ];
       break;
@@ -44,6 +56,7 @@ export function Sidebar({
         { to: "/revision-tecnica/revision", icon: "fact_check", label: "Revisión General" },
         { to: "/revision-tecnica/proyectos", icon: "folder_open", label: "Proyectos" },
         { to: "/revision-tecnica", icon: "dashboard", label: "Dashboard" },
+        { to: "/revision-tecnica/calendario", icon: "calendar_month", label: "Calendario" },
       ];
       break;
     case 'control-obras':
@@ -51,6 +64,7 @@ export function Sidebar({
         { to: "/control-obras/control", icon: "construction", label: "Control de Obras General" },
         { to: "/control-obras/proyectos", icon: "folder_open", label: "Proyectos" },
         { to: "/control-obras", icon: "dashboard", label: "Dashboard" },
+        { to: "/control-obras/calendario", icon: "calendar_month", label: "Calendario" },
       ];
       break;
     case 'legal':
@@ -58,6 +72,7 @@ export function Sidebar({
         { to: "/legal/validaciones", icon: "gavel", label: "Validaciones Legales" },
         { to: "/legal/proyectos", icon: "folder_open", label: "Proyectos" },
         { to: "/legal", icon: "dashboard", label: "Dashboard" },
+        { to: "/legal/calendario", icon: "calendar_month", label: "Calendario" },
       ];
       break;
     case 'electrica':
@@ -65,6 +80,7 @@ export function Sidebar({
         { to: "/electrica/revision", icon: "electrical_services", label: "Revisión Eléctrica" },
         { to: "/electrica/proyectos", icon: "folder_open", label: "Proyectos" },
         { to: "/electrica", icon: "dashboard", label: "Dashboard" },
+        { to: "/electrica/calendario", icon: "calendar_month", label: "Calendario" },
       ];
       break;
     case 'hidrosanitaria':
@@ -72,6 +88,7 @@ export function Sidebar({
         { to: "/hidrosanitaria/revision", icon: "plumbing", label: "Revisión Hidrosanitaria" },
         { to: "/hidrosanitaria/proyectos", icon: "folder_open", label: "Proyectos" },
         { to: "/hidrosanitaria", icon: "dashboard", label: "Dashboard" },
+        { to: "/hidrosanitaria/calendario", icon: "calendar_month", label: "Calendario" },
       ];
       break;
     case 'paisajismo':
@@ -79,6 +96,23 @@ export function Sidebar({
         { to: "/paisajismo/revision", icon: "park", label: "Revisión Paisajismo" },
         { to: "/paisajismo/proyectos", icon: "folder_open", label: "Proyectos" },
         { to: "/paisajismo", icon: "dashboard", label: "Dashboard" },
+        { to: "/paisajismo/calendario", icon: "calendar_month", label: "Calendario" },
+      ];
+      break;
+    case 'mensura':
+      links = [
+        { to: "/mensura/revision", icon: "straighten", label: "Revisión Mensura" },
+        { to: "/mensura/proyectos", icon: "folder_open", label: "Proyectos" },
+        { to: "/mensura", icon: "dashboard", label: "Dashboard" },
+        { to: "/mensura/calendario", icon: "calendar_month", label: "Calendario" },
+      ];
+      break;
+    case 'seguridad':
+      links = [
+        { to: "/seguridad/revision", icon: "security", label: "Revisión Seguridad" },
+        { to: "/seguridad/proyectos", icon: "folder_open", label: "Proyectos" },
+        { to: "/seguridad", icon: "dashboard", label: "Dashboard" },
+        { to: "/seguridad/calendario", icon: "calendar_month", label: "Calendario" },
       ];
       break;
     case 'admin':
@@ -87,34 +121,38 @@ export function Sidebar({
         { to: "/admin/proyectos", icon: "folder_open", label: "Proyectos Generales" },
         { to: "/admin/departamentos", icon: "corporate_fare", label: "Control Departamentos" },
         { to: "/admin/dashboard", icon: "dashboard", label: "Dashboard General" },
+        { to: "/admin/calendario", icon: "calendar_month", label: "Calendario" },
       ];
       break;
   }
 
   const renderNavContent = (isMobile: boolean = false) => (
     <>
-      <div className="px-6 mb-8 flex items-center justify-between">
-        <div>
+      <div className={`${isCollapsed && !isMobile ? "px-3 justify-center" : "px-6"} mb-8 flex items-start justify-between gap-2`}>
+        <div className={isCollapsed && !isMobile ? "flex justify-center w-full" : ""}>
           <div className="bg-[#333333] p-3 rounded-xl inline-block mb-2 shadow-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 60" className="h-7 w-auto">
-              <g fill="#ffffff">
-                <path d="M 30 10 C 18.95 10 10 18.95 10 30 C 10 32.5 10.46 34.89 11.3 37.1 C 13.5 35.2 16.5 34 20 34 C 25 34 29 36.5 32 39 C 34.5 37 38.5 35 43 35 C 46.5 35 49.2 36.2 51 37.5 C 49.8 22 39.5 10 30 10 Z" opacity="0.95"/>
-                <path d="M 12.5 41 C 15 39 18 38 21 38 C 26 38 30 40.5 33 43 C 35.5 41 39.5 39 44 39 C 47.5 39 50 40.5 51.5 42 C 49 48 40 50 30 50 C 21 50 14.5 46 12.5 41 Z"/>
-                <text x="65" y="32" fontFamily="'Helvetica Neue', Arial, sans-serif" fontWeight="800" fontSize="22" letterSpacing="2">COSTASUR</text>
-                <text x="65" y="46" fontFamily="'Helvetica Neue', Arial, sans-serif" fontWeight="400" fontSize="11" letterSpacing="3">CASA de CAMPO®</text>
-              </g>
-            </svg>
+            <img src="/costasur-logo.svg" alt="Costasur Casa de Campo" className={`block h-auto ${isCollapsed && !isMobile ? "w-[48px]" : "w-[120px]"}`} />
           </div>
-          <p className="text-xs text-secondary font-medium">Oficina de Control de Obras</p>
+          {!isCollapsed || isMobile ? <p className="text-xs text-secondary font-medium">Oficina de Control de Obras</p> : null}
         </div>
 
-        {isMobile && (
+        {isMobile ? (
           <button 
             onClick={onCloseMobileMenu}
             className="p-2 rounded-full hover:bg-surface-variant text-secondary"
             aria-label="Cerrar menú"
           >
             <span className="material-symbols-outlined">close</span>
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={onToggleCollapsed}
+            className="absolute right-[-14px] top-7 z-10 grid h-7 w-7 place-items-center rounded-full border border-outline-variant/30 bg-white text-secondary shadow-md transition-colors hover:text-primary"
+            aria-label={isCollapsed ? "Ampliar menú lateral" : "Plegar menú lateral"}
+            title={isCollapsed ? "Ampliar menú lateral" : "Plegar menú lateral"}
+          >
+            <span className="material-symbols-outlined text-base">{isCollapsed ? "chevron_right" : "chevron_left"}</span>
           </button>
         )}
       </div>
@@ -126,32 +164,45 @@ export function Sidebar({
               <Link 
                 to={link.to} 
                 onClick={isMobile ? onCloseMobileMenu : undefined}
-                className={getNavClass(path === link.to)}
+                className={getNavClass(path === link.to, isCollapsed && !isMobile)}
+                title={isCollapsed && !isMobile ? link.label : undefined}
               >
                 <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>{link.icon}</span>
-                <span className="font-medium text-sm md:text-base">{link.label}</span>
+                {(!isCollapsed || isMobile) && <span className="font-medium text-sm md:text-base">{link.label}</span>}
               </Link>
             </li>
           ))}
         </ul>
       </div>
 
-      <div className="px-6 mt-6">
+      <div className={`${isCollapsed && !isMobile ? "px-3" : "px-6"} mt-6`}>
         {role === 'propietario' && (
           <Link
             to="/propietario/mis-propiedades?nuevo=1"
             onClick={isMobile ? onCloseMobileMenu : undefined}
-            className="w-full bg-primary-container text-white rounded-full py-3 px-6 flex items-center justify-center gap-2 font-medium hover:bg-primary-container/90 transition-colors shadow-md text-sm"
+            className="w-full bg-primary-container text-white rounded-full py-3 px-3 flex items-center justify-center gap-2 font-medium hover:bg-primary-container/90 transition-colors shadow-md text-sm"
+            title={isCollapsed && !isMobile ? "Nuevo Proyecto" : undefined}
           >
             <span className="material-symbols-outlined text-[20px]">add</span>
-            Nuevo Proyecto
+            {!isCollapsed || isMobile ? "Nuevo Proyecto" : null}
           </Link>
         )}
         {role === 'arquitecto' && (
-          <button type="button" className="w-full bg-primary-container text-white rounded-full py-3 px-6 flex items-center justify-center gap-2 font-medium hover:bg-primary-container/90 transition-colors shadow-md text-sm">
+          <button type="button" className="w-full bg-primary-container text-white rounded-full py-3 px-3 flex items-center justify-center gap-2 font-medium hover:bg-primary-container/90 transition-colors shadow-md text-sm" title={isCollapsed && !isMobile ? "Nuevo Proyecto" : undefined}>
             <span className="material-symbols-outlined text-[20px]">add</span>
-            Nuevo Proyecto
+            {!isCollapsed || isMobile ? "Nuevo Proyecto" : null}
           </button>
+        )}
+        {role === 'contratista' && (
+          <Link
+            to="/contratista/obras-activas?nuevo=1"
+            onClick={isMobile ? onCloseMobileMenu : undefined}
+            className="w-full bg-primary-container text-white rounded-full py-3 px-3 flex items-center justify-center gap-2 font-medium hover:bg-primary-container/90 transition-colors shadow-md text-sm"
+            title={isCollapsed && !isMobile ? "Nuevo proyecto" : undefined}
+          >
+            <span className="material-symbols-outlined text-[20px]">add</span>
+            {!isCollapsed || isMobile ? "Nuevo proyecto" : null}
+          </Link>
         )}
       </div>
 
@@ -161,10 +212,11 @@ export function Sidebar({
             <button
               type="button"
               onClick={() => { void onSignOut?.(); }}
-              className={`${getNavClass(false)} w-full text-left`}
+              className={`${getNavClass(false, isCollapsed && !isMobile)} w-full text-left`}
+              title={isCollapsed && !isMobile ? "Cerrar Sesión" : undefined}
             >
               <span className="material-symbols-outlined">logout</span>
-              <span className="font-medium text-sm md:text-base">Cerrar Sesión</span>
+              {(!isCollapsed || isMobile) && <span className="font-medium text-sm md:text-base">Cerrar Sesión</span>}
             </button>
           </li>
         </ul>
@@ -175,7 +227,7 @@ export function Sidebar({
   return (
     <>
       {/* Desktop Sidebar */}
-      <nav className="hidden md:flex flex-col h-full py-8 fixed left-0 top-0 w-[280px] backdrop-blur-2xl border-r border-outline-variant/20 shadow-xl bg-surface/70 z-40">
+      <nav className={`hidden md:flex flex-col h-full py-8 fixed left-0 top-0 backdrop-blur-2xl border-r border-outline-variant/20 shadow-xl bg-surface/70 z-40 transition-[width] duration-200 ${isCollapsed ? "w-[88px]" : "w-[280px]"}`}>
         {renderNavContent(false)}
       </nav>
 

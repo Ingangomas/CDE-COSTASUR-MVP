@@ -2,9 +2,33 @@
 import { Link, useParams } from "react-router-dom";
 import { formatDate, getProjectWorkspace, type ProjectWorkspace } from "../lib/cde-data";
 import { ContractorAuthorizationPanel } from "../components/ContractorAuthorizationPanel";
+import { PlanSetViewer } from "../components/PlanSetViewer";
 
 const phaseLabels: Record<string, string> = { anteproyecto: "Anteproyecto", revision_tecnica: "Revisión técnica", planos_tecnicos: "Planos técnicos", inicio_obra: "Inicio de obra", obra_activa: "Obra activa", cierre: "Cierre", archivo: "Archivo", autorizacion_inicial: "Autorización inicial", directorio: "Directorio" };
 const cdeLabels: Record<string, string> = { wip: "En trabajo", shared: "Compartido", published: "Publicado", archive: "Archivado" };
+
+const OWNER_PLAN_CATEGORIES = new Set([
+  "anteproyecto", "planta_conjunto", "planta_nivel", "elevaciones", "secciones", "curvas_nivel",
+  "arquitectonico", "estructural", "electrico", "hidrosanitario", "climatizacion", "cad", "planos_tecnicos",
+]);
+
+const OWNER_WORKFLOW_STEPS = [
+  { key: "autorizacion", label: "Validación legal", shortLabel: "Autorización" },
+  { key: "anteproyecto", label: "Anteproyecto", shortLabel: "Anteproyecto" },
+  { key: "planos", label: "Planos técnicos", shortLabel: "Planos técnicos" },
+  { key: "contratista", label: "Validar contratista", shortLabel: "Contratista" },
+  { key: "inicio", label: "Inicio de obra", shortLabel: "Inicio de obra" },
+  { key: "finalizado", label: "Finalizado", shortLabel: "Finalizado" },
+] as const;
+
+function getOwnerWorkflowIndex(phase: string, operationalStatus: string) {
+  if (["cierre", "archivo"].includes(phase) || ["finalizada", "archivada"].includes(operationalStatus)) return 5;
+  if (["obra_activa"].includes(phase) || ["obra_activa"].includes(operationalStatus)) return 4;
+  if (["inicio_obra"].includes(phase)) return 3;
+  if (["revision_tecnica", "planos_tecnicos"].includes(phase)) return 2;
+  if (["anteproyecto"].includes(phase)) return 1;
+  return 0;
+}
 
 export function ProjectDetails() {
   const { id } = useParams();
@@ -24,6 +48,7 @@ export function ProjectDetails() {
   if (error || !workspace) return <div className="p-10 max-w-3xl mx-auto"><Link to="/propietario/mis-propiedades" className="text-primary hover:underline">← Volver a Mis Propiedades</Link><div className="glass-panel mt-6 p-8 border border-error/30 text-error">{error || "Expediente no disponible."}</div></div>;
 
   const { project, property, documents, events } = workspace;
+  const technicalEnabled = ["planos_tecnicos", "inicio_obra", "obra_activa", "cierre"].includes(project.phase);
   return (
     <div className="px-4 md:px-10 py-8 md:py-12 max-w-7xl mx-auto space-y-8">
       <div>
@@ -37,6 +62,8 @@ export function ProjectDetails() {
           <span className="inline-flex items-center gap-2 bg-primary-container text-white px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider"><span className="w-2 h-2 rounded-full bg-white" />{project.operational_status.replaceAll("_", " ")}</span>
         </div>
       </div>
+
+      <OwnerWorkflowTracker phase={project.phase} operationalStatus={project.operational_status} />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-8 space-y-8">
@@ -77,8 +104,52 @@ export function ProjectDetails() {
             <p className="text-sm text-white/75 mt-3 leading-relaxed">El expediente está preparado para la futura revisión automática de normativas. Esta señal no ejecuta todavía análisis de IA.</p>
           </section>
         </aside>
-      </div>
+            </div>
+
+      <OwnerPlansSection projectId={project.id} documents={documents} technicalEnabled={technicalEnabled} />
     </div>
+  );
+}
+
+function OwnerPlansSection({ projectId, documents, technicalEnabled }: { projectId: string; documents: ProjectWorkspace["documents"]; technicalEnabled: boolean }) {
+  const visiblePlans = documents.filter((document) => document.visible_to_owner && OWNER_PLAN_CATEGORIES.has(document.category));
+  return <PlanSetViewer projectId={projectId} documents={visiblePlans} technicalEnabled={technicalEnabled} />;
+}
+
+function OwnerWorkflowTracker({ phase, operationalStatus }: { phase: string; operationalStatus: string }) {
+  const activeIndex = getOwnerWorkflowIndex(phase, operationalStatus);
+  const isFinished = activeIndex === OWNER_WORKFLOW_STEPS.length - 1;
+  const completedWidth = activeIndex === 0 ? "0%" : `calc(${(activeIndex / (OWNER_WORKFLOW_STEPS.length - 1)) * 100}% - 1rem)`;
+
+  return (
+    <section className="bg-white rounded-3xl p-6 md:p-7 border border-outline-variant/30 soft-shadow" aria-label="Progreso del expediente">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+        <div>
+          <p className="text-[11px] uppercase tracking-[0.2em] text-secondary">Ruta del expediente</p>
+          <h2 className="text-xl md:text-2xl font-bold text-on-surface mt-2">Progreso del trabajo</h2>
+        </div>
+        <span className="self-start rounded-full bg-surface-container-low px-3 py-1.5 text-xs font-semibold text-secondary">{isFinished ? "Proceso completado" : `Fase ${Math.min(activeIndex + 1, 5)} de 5`}</span>
+      </div>
+      <div className="mt-7 overflow-x-auto pb-2">
+        <div className="relative min-w-[700px] px-4">
+          <div className="absolute left-8 right-8 top-4 h-px bg-outline-variant/40" />
+          <div className="absolute left-8 top-4 h-px bg-primary transition-all" style={{ width: completedWidth }} />
+          <div className="relative flex justify-between gap-4">
+            {OWNER_WORKFLOW_STEPS.map((step, index) => {
+              const completed = index < activeIndex;
+              const active = index === activeIndex;
+              return <div key={step.key} className="flex w-28 shrink-0 flex-col items-center text-center">
+                <span className={`z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 bg-white transition-colors ${completed || active ? "border-primary" : "border-outline-variant/60"} ${active ? "ring-4 ring-primary/10" : ""}`}>
+                  <span className={`h-2.5 w-2.5 rounded-full ${completed ? "bg-primary" : active ? "bg-primary" : "bg-white"}`} />
+                </span>
+                <p className={`mt-3 text-[11px] font-semibold leading-tight ${active ? "text-primary" : completed ? "text-on-surface" : "text-secondary"}`}>{step.label}</p>
+                <p className="mt-1 text-[10px] uppercase tracking-wider text-secondary">{index === activeIndex ? "Etapa actual" : index < activeIndex ? "Completada" : "Pendiente"}</p>
+              </div>;
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
