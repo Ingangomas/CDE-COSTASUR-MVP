@@ -4,6 +4,7 @@ import { formatDate, getProjectWorkspace, type ProjectWorkspace } from "../lib/c
 import { ContractorAuthorizationPanel } from "../components/ContractorAuthorizationPanel";
 import { PlanSetViewer } from "../components/PlanSetViewer";
 
+
 const phaseLabels: Record<string, string> = { anteproyecto: "Anteproyecto", revision_tecnica: "Revisión técnica", planos_tecnicos: "Planos técnicos", inicio_obra: "Inicio de obra", obra_activa: "Obra activa", cierre: "Cierre", archivo: "Archivo", autorizacion_inicial: "Autorización inicial", directorio: "Directorio" };
 const cdeLabels: Record<string, string> = { wip: "En trabajo", shared: "Compartido", published: "Publicado", archive: "Archivado" };
 
@@ -15,6 +16,7 @@ const OWNER_PLAN_CATEGORIES = new Set([
 const OWNER_WORKFLOW_STEPS = [
   { key: "autorizacion", label: "Validación legal", shortLabel: "Autorización" },
   { key: "anteproyecto", label: "Anteproyecto", shortLabel: "Anteproyecto" },
+  { key: "directorio", label: "Revisión del Directorio", shortLabel: "Directorio" },
   { key: "planos", label: "Planos técnicos", shortLabel: "Planos técnicos" },
   { key: "contratista", label: "Validar contratista", shortLabel: "Contratista" },
   { key: "inicio", label: "Inicio de obra", shortLabel: "Inicio de obra" },
@@ -22,10 +24,11 @@ const OWNER_WORKFLOW_STEPS = [
 ] as const;
 
 function getOwnerWorkflowIndex(phase: string, operationalStatus: string) {
-  if (["cierre", "archivo"].includes(phase) || ["finalizada", "archivada"].includes(operationalStatus)) return 5;
-  if (["obra_activa"].includes(phase) || ["obra_activa"].includes(operationalStatus)) return 4;
-  if (["inicio_obra"].includes(phase)) return 3;
-  if (["revision_tecnica", "planos_tecnicos"].includes(phase)) return 2;
+  if (["cierre", "archivo"].includes(phase) || ["finalizada", "archivada"].includes(operationalStatus)) return 6;
+  if (["obra_activa"].includes(phase) || ["obra_activa"].includes(operationalStatus)) return 5;
+  if (["inicio_obra"].includes(phase)) return 4;
+  if (["revision_tecnica", "planos_tecnicos"].includes(phase)) return 3;
+  if (["directorio"].includes(phase)) return 2;
   if (["anteproyecto"].includes(phase)) return 1;
   return 0;
 }
@@ -116,6 +119,7 @@ function OwnerPlansSection({ projectId, documents, technicalEnabled }: { project
   return <PlanSetViewer projectId={projectId} documents={visiblePlans} technicalEnabled={technicalEnabled} />;
 }
 
+
 function OwnerWorkflowTracker({ phase, operationalStatus }: { phase: string; operationalStatus: string }) {
   const activeIndex = getOwnerWorkflowIndex(phase, operationalStatus);
   const isFinished = activeIndex === OWNER_WORKFLOW_STEPS.length - 1;
@@ -128,10 +132,10 @@ function OwnerWorkflowTracker({ phase, operationalStatus }: { phase: string; ope
           <p className="text-[11px] uppercase tracking-[0.2em] text-secondary">Ruta del expediente</p>
           <h2 className="text-xl md:text-2xl font-bold text-on-surface mt-2">Progreso del trabajo</h2>
         </div>
-        <span className="self-start rounded-full bg-surface-container-low px-3 py-1.5 text-xs font-semibold text-secondary">{isFinished ? "Proceso completado" : `Fase ${Math.min(activeIndex + 1, 5)} de 5`}</span>
+        <span className="self-start rounded-full bg-surface-container-low px-3 py-1.5 text-xs font-semibold text-secondary">{isFinished ? "Proceso completado" : `Fase ${activeIndex + 1} de ${OWNER_WORKFLOW_STEPS.length}`}</span>
       </div>
       <div className="mt-7 overflow-x-auto pb-2">
-        <div className="relative min-w-[700px] px-4">
+        <div className="relative min-w-[860px] px-4">
           <div className="absolute left-8 right-8 top-4 h-px bg-outline-variant/40" />
           <div className="absolute left-8 top-4 h-px bg-primary transition-all" style={{ width: completedWidth }} />
           <div className="relative flex justify-between gap-4">

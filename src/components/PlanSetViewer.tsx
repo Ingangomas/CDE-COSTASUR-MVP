@@ -67,14 +67,15 @@ function findPresetDocument(documents: DocumentRecord[], preset: PlanPreset) {
   return candidates.find((document) => preset.aliases?.some((alias) => document.title.toLowerCase().includes(alias))) ?? null;
 }
 
-export function PlanSetViewer({ projectId, documents, technicalEnabled = true, onUploaded }: { projectId: string; documents: DocumentRecord[]; technicalEnabled?: boolean; onUploaded?: (document?: DocumentRecord) => void }) {
+export function PlanSetViewer({ projectId, documents, technicalEnabled = true, directoryReviewEnabled = false, onUploaded }: { projectId: string; documents: DocumentRecord[]; technicalEnabled?: boolean; directoryReviewEnabled?: boolean; onUploaded?: (document?: DocumentRecord) => void }) {
   const { primaryRole } = useSession();
   const canAnnotate = primaryRole === "revision_tecnica";
-  const [activeView, setActiveView] = useState<"anteproyecto" | "planos_tecnicos">("anteproyecto");
+  const [activeView, setActiveView] = useState<"anteproyecto" | "directorio" | "planos_tecnicos">("anteproyecto");
   const canUpload = primaryRole === "arquitecto" && (activeView === "anteproyecto" || technicalEnabled);
-  const visibleCategories = activeView === "anteproyecto" ? ANTEPROJECT_CATEGORIES : TECHNICAL_CATEGORIES;
+  const visibleCategories = activeView === "planos_tecnicos" ? TECHNICAL_CATEGORIES : ANTEPROJECT_CATEGORIES;
   const plans = useMemo(() => sortPlans(documents.filter((document) => visibleCategories.includes(document.category))), [documents, activeView]);
-  const visiblePresets = PLAN_PRESETS[activeView];
+  const presetView: "anteproyecto" | "planos_tecnicos" = activeView === "planos_tecnicos" ? "planos_tecnicos" : "anteproyecto";
+  const visiblePresets = PLAN_PRESETS[presetView];
   const presetRows = useMemo(() => visiblePresets.map((preset) => ({ preset, document: findPresetDocument(plans, preset) })), [plans, visiblePresets]);
   const presetDocumentIds = useMemo(() => new Set(presetRows.flatMap(({ document }) => document ? [document.id] : [])), [presetRows]);
   const additionalPlans = plans.filter((document) => !presetDocumentIds.has(document.id));
@@ -96,7 +97,7 @@ export function PlanSetViewer({ projectId, documents, technicalEnabled = true, o
         <span className="self-start rounded-full bg-success/10 px-3 py-1.5 text-xs font-semibold text-success">{plans.length} {plans.length === 1 ? "hoja" : "hojas"}</span>
       </header>
 
-      <div className="flex gap-2 border-b border-outline-variant/30 bg-white p-2"><button type="button" onClick={() => setActiveView("anteproyecto")} className={`flex-1 rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${activeView === "anteproyecto" ? "bg-surface-container-low text-primary shadow-sm" : "text-secondary hover:bg-surface-container-low"}`}>Anteproyecto</button><button type="button" disabled={!technicalEnabled} onClick={() => setActiveView("planos_tecnicos")} className={`flex-1 rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${activeView === "planos_tecnicos" ? "bg-surface-container-low text-primary shadow-sm" : "text-secondary hover:bg-surface-container-low"} disabled:cursor-not-allowed disabled:opacity-50`}>Planos técnicos {!technicalEnabled && <span className="material-symbols-outlined ml-1 align-middle text-base">lock</span>}</button></div>
+      <div className="flex gap-2 border-b border-outline-variant/30 bg-white p-2"><button type="button" onClick={() => setActiveView("anteproyecto")} className={`flex-1 rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${activeView === "anteproyecto" ? "bg-surface-container-low text-primary shadow-sm" : "text-secondary hover:bg-surface-container-low"}`}>{directoryReviewEnabled ? "Revisión de Anteproyecto" : "Anteproyecto"}</button>{directoryReviewEnabled && <button type="button" onClick={() => setActiveView("directorio")} className={`flex-1 rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${activeView === "directorio" ? "bg-surface-container-low text-primary shadow-sm" : "text-secondary hover:bg-surface-container-low"}`}>Revisión del Directorio</button>}<button type="button" disabled={!technicalEnabled} onClick={() => setActiveView("planos_tecnicos")} className={`flex-1 rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${activeView === "planos_tecnicos" ? "bg-surface-container-low text-primary shadow-sm" : "text-secondary hover:bg-surface-container-low"} disabled:cursor-not-allowed disabled:opacity-50`}>Planos técnicos {!technicalEnabled && <span className="material-symbols-outlined ml-1 align-middle text-base">lock</span>}</button></div>
 
       <div className="grid min-h-[680px] grid-cols-1 lg:grid-cols-[270px_minmax(0,1fr)_250px]">
         <aside className="border-b border-outline-variant/30 bg-[#f8f9fa] lg:border-b-0 lg:border-r">

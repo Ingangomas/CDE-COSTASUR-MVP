@@ -257,7 +257,7 @@ export async function createOwnerProjectWorkflow(input: {
 export async function submitWorkflowReview(input: {
   projectId: string;
   documentVersionId: string;
-  workflowStage: "autorizacion" | "anteproyecto" | "planos_tecnicos" | "legal" | "inicio_obra";
+  workflowStage: "autorizacion" | "anteproyecto" | "directorio" | "planos_tecnicos" | "legal" | "inicio_obra";
   decision: "comentado" | "devuelto" | "aprobado" | "rechazado";
   comment: string;
 }) {

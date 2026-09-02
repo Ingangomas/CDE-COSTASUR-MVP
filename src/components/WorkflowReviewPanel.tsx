@@ -6,6 +6,7 @@ import type { DocumentRecord } from "../lib/cde-types";
 const stageLabels: Record<string, string> = {
   autorizacion: "Carta de autorización",
   anteproyecto: "Anteproyecto y documentación arquitectónica",
+  directorio: "Revisión del Directorio",
   planos_tecnicos: "Planos técnicos",
 };
 
@@ -77,12 +78,13 @@ export function WorkflowReviewPanel({ projectId }: { projectId: string }) {
   const stage = useMemo(() => {
     if (!workspace || workspace.project.phase === "autorizacion_inicial") return "autorizacion";
     if (workspace.project.phase === "anteproyecto") return "anteproyecto";
+    if (workspace.project.phase === "directorio") return "directorio";
     return "planos_tecnicos";
   }, [workspace]);
 
   const relevantDocuments = useMemo(() => {
     if (!workspace) return [];
-    const categories = stage === "autorizacion" ? ["autorizacion"] : stage === "anteproyecto" ? anteprojectCategories : technicalCategories;
+    const categories = stage === "autorizacion" ? ["autorizacion"] : ["anteproyecto", "directorio"].includes(stage) ? anteprojectCategories : technicalCategories;
     return workspace.documents.filter((document) => categories.includes(document.category) && document.current_version_id);
   }, [stage, workspace]);
 
@@ -103,7 +105,7 @@ export function WorkflowReviewPanel({ projectId }: { projectId: string }) {
     setError("");
     setFeedback("");
     try {
-      await submitWorkflowReview({ projectId, documentVersionId: selectedDocument.current_version_id, workflowStage: stage as "autorizacion" | "anteproyecto" | "planos_tecnicos", decision, comment });
+      await submitWorkflowReview({ projectId, documentVersionId: selectedDocument.current_version_id, workflowStage: stage as "autorizacion" | "anteproyecto" | "directorio" | "planos_tecnicos", decision, comment });
       setFeedback(decision === "aprobado" ? "Aprobación guardada. El expediente avanzó según el workflow." : "Dictamen guardado en el expediente.");
       setComment("");
       await load();

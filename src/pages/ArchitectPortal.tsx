@@ -7,6 +7,7 @@ import type { ProjectRecord } from "../lib/cde-types";
 import { useSession } from "../context/SessionContext";
 import { ProjectOverviewCard, projectStatusTone } from "../components/ProjectOverviewCard";
 import { getDemoExtraProjects } from "../lib/demo-projects";
+import { ProjectWorkflowTracker } from "../components/ProjectWorkflowTracker";
 
 const technicalCategories = [
   { value: "arquitectonico", label: "Arquitectónico" },
@@ -19,6 +20,7 @@ const technicalCategories = [
 const phaseLabels: Record<string, string> = {
   autorizacion_inicial: "Esperando aprobación de carta",
   anteproyecto: "Anteproyecto habilitado",
+  directorio: "Anteproyecto en Revisión del Directorio",
   planos_tecnicos: "Planos técnicos habilitados",
   inicio_obra: "Planos aprobados · esperando inicio de obra",
   obra_activa: "Obra activa",
@@ -80,8 +82,9 @@ export function ArchitectPortal() {
 
   return <div className="flex-1 overflow-y-auto p-4 md:p-10 pt-8 bg-surface-container-low min-h-full"><div className="max-w-[1200px] mx-auto space-y-8">
     <div className="flex flex-col md:flex-row md:items-end justify-between gap-4"><div><button type="button" onClick={() => { setProjectId(null); setWorkspace(null); }} className="mb-5 inline-flex items-center gap-2 text-sm font-medium text-secondary transition-colors hover:text-primary"><span className="material-symbols-outlined text-[20px]">arrow_back</span>Volver a Mis Proyectos</button><p className="text-xs uppercase tracking-[0.2em] text-secondary">Expediente arquitectónico persistente</p><h1 className="mt-2 text-4xl font-bold text-on-surface">{workspace.project.title}</h1><p className="mt-3 text-sm text-secondary">{workspace.project.project_code} · {workspace.property?.name ?? "Propiedad CDE"}</p></div><div className="flex flex-col items-stretch gap-3 md:items-end"><span className="rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">{phaseLabels[phase] ?? phase}</span>{projects.length > 1 && <select value={projectId ?? ""} onChange={(event) => void loadWorkspace(event.target.value)} className="rounded-xl border border-outline-variant/30 bg-white px-3 py-2 text-sm text-on-surface"><option value="">Seleccionar expediente</option>{projects.map((project) => <option key={project.id} value={project.id}>{project.project_code} · {project.title}</option>)}</select>}</div></div>
-    <section className="glass-panel bg-white p-6 md:p-7 border border-outline-variant/30"><div className="flex items-start gap-4"><span className="material-symbols-outlined text-3xl text-primary">account_tree</span><div><p className="text-xs uppercase tracking-[0.18em] text-secondary">Gate del workflow</p><h2 className="text-xl font-bold text-on-surface mt-2">{phase === "autorizacion_inicial" ? "La carta aún debe ser aprobada por Arquitectura" : phase === "anteproyecto" ? "Puede someter el anteproyecto" : phase === "planos_tecnicos" ? "Puede someter los planos técnicos" : "El expediente avanzó a la etapa de inicio de obra"}</h2><p className="text-sm text-secondary mt-2">Los documentos y revisiones se guardan en Supabase. La revisión asistida por IA continúa señalizada como futura y no ejecuta análisis.</p></div></div></section>
-    <PlanSetViewer projectId={projectId} documents={workspace.documents} technicalEnabled={technicalEnabled} onUploaded={() => { void loadWorkspace(projectId ?? undefined); }} />
+    <section className="glass-panel bg-white p-6 md:p-7 border border-outline-variant/30"><div className="flex items-start gap-4"><span className="material-symbols-outlined text-3xl text-primary">account_tree</span><div><p className="text-xs uppercase tracking-[0.18em] text-secondary">Gate del workflow</p><h2 className="text-xl font-bold text-on-surface mt-2">{phase === "autorizacion_inicial" ? "La carta aún debe ser aprobada por Arquitectura" : phase === "anteproyecto" ? "Puede someter el anteproyecto" : phase === "directorio" ? "El anteproyecto está en Revisión del Directorio" : phase === "planos_tecnicos" ? "Puede someter los planos técnicos" : "El expediente avanzó a la etapa de inicio de obra"}</h2><p className="text-sm text-secondary mt-2">Los documentos y revisiones se guardan en Supabase. La revisión asistida por IA continúa señalizada como futura y no ejecuta análisis.</p></div></div></section>
+    <ProjectWorkflowTracker phase={workspace.project.phase} operationalStatus={workspace.project.operational_status} />
+    <PlanSetViewer projectId={projectId} documents={workspace.documents} technicalEnabled={technicalEnabled} directoryReviewEnabled={["directorio", "planos_tecnicos", "inicio_obra", "obra_activa", "cierre"].includes(phase)} onUploaded={() => { void loadWorkspace(projectId ?? undefined); }} />
   </div></div>;
 }
 
